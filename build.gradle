@@ -1,13 +1,17 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
+
+    ext.kotlin_version = '1.2.61'
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0-alpha08'
-        
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -42,27 +46,37 @@ ext {
             constraintLayout: "1.1.3",
             junit: "4.12",
             espresso: "3.1.0-alpha4",
-            androidxtest: "1.1.0-alpha4"
+            androidxtest: "1.1.0-alpha4",
+            dagger2: "2.17"
     ]
 
     androidx = [
-            appcompat: "androidx.appcompat:appcompat:$versions.androidx",
+            appcompat: "androidx.appcompat:appcompat:${versions.androidx}",
     ]
 
     constraintlayout = [
-            constraintlayout: "androidx.constraintlayout:constraintlayout:$versions.constraintLayout"
+            constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     ]
 
     junit = [
-            junit: "junit:junit:$versions.junit"
+            junit: "junit:junit:${versions.junit}"
     ]
 
     espresso = [
-            core: "androidx.test.espresso:espresso-core:$versions.espresso"
+            core: "androidx.test.espresso:espresso-core:${versions.espresso}"
     ]
 
     androidxtest = [
-            runner: "androidx.test:runner:$versions.androidxtest"
+            runner: "androidx.test:runner:${versions.androidxtest}"
+    ]
+
+    dagger = [
+            dagger: "com.google.dagger:dagger:${versions.dagger2}",
+            daggercompiler: "com.google.dagger:dagger-compiler:${versions.dagger2}"
+    ]
+
+    kotlinn = [
+            stdlibjdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
     ]
 
 }
