@@ -1,13 +1,16 @@
-package ru.startandroid.organizer
+package ru.startandroid.organizer.home
 
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 
 import android.os.Bundle
+import dagger.android.AndroidInjection
+import ru.startandroid.organizer.R
 
 class HomeActivity : AppCompatActivity() {
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         if (savedInstanceState == null) {
