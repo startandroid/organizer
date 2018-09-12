@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
 
@@ -40,8 +41,13 @@ dependencies {
     implementation constraintlayout.constraintlayout
     implementation kotlinn.stdlibjdk7
 
+    implementation dagger.dagger
+    kapt dagger.daggerCompiler
 
+    implementation dagger.daggerAndroid
+    kapt dagger.daggerAndroidProcessor
 }
+
 repositories {
     mavenCentral()
 }
