@@ -47,7 +47,7 @@ ext {
             junit: "4.12",
             espresso: "3.1.0-alpha4",
             androidxtest: "1.1.0-alpha4",
-            dagger2: "2.17"
+            dagger2: "2.16"
     ]
 
     androidx = [
@@ -72,7 +72,9 @@ ext {
 
     dagger = [
             dagger: "com.google.dagger:dagger:${versions.dagger2}",
-            daggercompiler: "com.google.dagger:dagger-compiler:${versions.dagger2}"
+            daggerCompiler: "com.google.dagger:dagger-compiler:${versions.dagger2}",
+            daggerAndroid: "com.google.dagger:dagger-android:${versions.dagger2}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger2}"
     ]
 
     kotlinn = [
