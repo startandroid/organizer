@@ -39,9 +39,12 @@ dependencies {
     implementation androidx.appcompat
     implementation constraintlayout.constraintlayout
     implementation kotlinn.stdlibjdk7
+    implementation firebase.core
 
 
 }
 repositories {
     mavenCentral()
 }
+
+apply plugin: 'com.google.gms.google-services'

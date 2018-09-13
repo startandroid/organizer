@@ -11,7 +11,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.3.0-alpha08'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-
+        classpath 'com.google.gms:google-services:4.0.1' // change version carefully. 4.1.0 doesnt work well
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -47,7 +47,8 @@ ext {
             junit: "4.12",
             espresso: "3.1.0-alpha4",
             androidxtest: "1.1.0-alpha4",
-            dagger2: "2.17"
+            dagger2: "2.17",
+            firebase: "16.0.3"
     ]
 
     androidx = [
@@ -77,6 +78,10 @@ ext {
 
     kotlinn = [
             stdlibjdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
+    ]
+
+    firebase = [
+            core: "com.google.firebase:firebase-core:${versions.firebase}"
     ]
 
 }
