@@ -8,7 +8,6 @@ import ru.startandroid.organizer.R
 
 class HomeActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
@@ -16,6 +15,7 @@ class HomeActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_cont, HomeFragment.newInstance()).commit()
         }
+
     }
 }
     
