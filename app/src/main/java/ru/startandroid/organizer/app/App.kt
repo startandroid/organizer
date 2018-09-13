@@ -6,6 +6,10 @@ import dagger.android.AndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
+import io.fabric.sdk.android.Fabric
+import com.crashlytics.android.Crashlytics
+
+
 
 class App: Application(), HasActivityInjector {
 
@@ -18,8 +22,21 @@ class App: Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
+        initApplicationCmponent()
+        initFabric()
+    }
+
+    private fun initApplicationCmponent() {
         applicationComponent = DaggerApplicationComponent.create()
         applicationComponent.injectApp(this)
+    }
+
+    private fun initFabric() {
+        val fabric = Fabric.Builder(this)
+                .kits(Crashlytics())
+                .debuggable(true)  // Enables Crashlytics debugger
+                .build()
+        Fabric.with(fabric)
     }
 
 }
