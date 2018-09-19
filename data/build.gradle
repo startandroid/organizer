@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion conf.compileSdkVersion
@@ -34,7 +35,11 @@ dependencies {
     androidTestImplementation espresso.core
 
     implementation androidx.appcompat
-    implementation kotlinn.stdlibjdk7
+    implementation kotlinn.stdlibjdk8
+
+    implementation room.roomRuntime
+    kapt room.roomCompiler
+
 }
 repositories {
     mavenCentral()
