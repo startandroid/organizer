@@ -57,7 +57,8 @@ ext {
             androidxtest: "1.1.0-alpha4",
             dagger2: "2.16",
             firebase: "16.0.3",
-            crashlytics: "2.9.5"
+            crashlytics: "2.9.5",
+            room: "2.0.0-beta01"
     ]
 
     androidx = [
@@ -88,7 +89,7 @@ ext {
     ]
 
     kotlinn = [
-            stdlibjdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
+            stdlibjdk8: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
     ]
 
     firebase = [
@@ -97,6 +98,13 @@ ext {
 
     crashlyticss = [
             crashlytics: "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
+    ]
+
+    room = [
+            roomCommon: "androidx.room:room-common:${versions.room}",
+            roomRuntime: "androidx.room:room-runtime:${versions.room}",
+            roomCompiler: "androidx.room:room-compiler:${versions.room}",
+            roomRxjava: "androidx.room:room-rxjava2:${versions.room}"
     ]
 
 }

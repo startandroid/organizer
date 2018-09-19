@@ -27,7 +27,10 @@ class App: Application(), HasActivityInjector {
     }
 
     private fun initApplicationCmponent() {
-        applicationComponent = DaggerApplicationComponent.create()
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .appModule(AppModule(this))
+                .build()
         applicationComponent.injectApp(this)
     }
 

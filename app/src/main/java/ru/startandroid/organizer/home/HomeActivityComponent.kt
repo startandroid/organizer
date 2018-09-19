@@ -1,22 +1,16 @@
 package ru.startandroid.organizer.home
 
 import dagger.Module
-import dagger.Provides
-import dagger.Subcomponent
-import dagger.android.AndroidInjector
+import dagger.android.ContributesAndroidInjector
+import javax.inject.Scope
 
-@Subcomponent(modules = [HomeActivityModule::class])
-interface HomeActivitySubcomponent: AndroidInjector<HomeActivity> {
-
-    @Subcomponent.Builder
-    abstract class Builder: AndroidInjector.Builder<HomeActivity>() {
-
-    }
-
-}
+@Scope
+annotation class ScopeHome
 
 @Module()
-class HomeActivityModule {
+abstract class HomeActivityModule {
 
+    @ContributesAndroidInjector(modules = [])
+    internal abstract fun contributeHomeFragmentInjector(): HomeFragment
 
 }

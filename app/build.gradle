@@ -40,7 +40,7 @@ dependencies {
 
     implementation androidx.appcompat
     implementation constraintlayout.constraintlayout
-    implementation kotlinn.stdlibjdk7
+    implementation kotlinn.stdlibjdk8
     implementation firebase.core
     implementation crashlyticss.crashlytics
 
@@ -49,6 +49,9 @@ dependencies {
 
     implementation dagger.daggerAndroid
     kapt dagger.daggerAndroidProcessor
+
+    implementation room.roomRuntime
+
 }
 
 repositories {
