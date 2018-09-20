@@ -10,11 +10,11 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.objects.SimpleObject
 
- class HomeFragmentRvAdapter(val objList: ArrayList<SimpleObject>) : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
+class HomeFragmentRvAdapter(private val objList: ArrayList<SimpleObject>) : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFragmentRvAdapter.ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_home_rv_item, parent, false)
-        return ViewHolder(v)
+        val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.fragment_home_rv_item, parent, false) as View
+        return ViewHolder(viewItem)
     }
 
     override fun onBindViewHolder(holder: HomeFragmentRvAdapter.ViewHolder, position: Int) {
@@ -25,11 +25,11 @@ import ru.startandroid.organizer.objects.SimpleObject
         return objList.size
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
+        var viewItemTvName: TextView = viewItem.findViewById(R.id.tv_name)
 
         fun bindItems(data: SimpleObject) {
-            val textViewName = itemView.findViewById(R.id.tv_name) as TextView
-            textViewName.text = data.name
+            viewItemTvName.text = data.name
         }
     }
 }

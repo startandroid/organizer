@@ -57,7 +57,10 @@ ext {
             androidxtest: "1.1.0-alpha4",
             dagger2: "2.16",
             firebase: "16.0.3",
-            crashlytics: "2.9.5"
+            crashlytics: "2.9.5",
+            utils: "1.0.0-beta01",
+            recyclerview: "1.0.0-beta01"
+
     ]
 
     androidx = [
@@ -89,7 +92,7 @@ ext {
 
     kotlinn = [
             stdlibjdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
-    ]
+]
 
     firebase = [
             core: "com.google.firebase:firebase-core:${versions.firebase}"
@@ -99,4 +102,8 @@ ext {
             crashlytics: "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
     ]
 
+    support = [
+            utils : "androidx.legacy:legacy-support-core-utils:${versions.utils}",
+            recyclerview :"androidx.recyclerview:recyclerview:${versions.recyclerview}"
+    ]
 }
