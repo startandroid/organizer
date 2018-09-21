@@ -31,9 +31,9 @@ dependencies {
     implementation project(':device')
     implementation project(':domain')
 
-
     testImplementation junit.junit
-
+    implementation support.recyclerview
+    implementation support.utils
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
@@ -56,3 +56,4 @@ repositories {
 }
 
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'kotlin-android-extensions'
