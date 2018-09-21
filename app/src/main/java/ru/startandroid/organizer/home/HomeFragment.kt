@@ -1,20 +1,31 @@
 package ru.startandroid.organizer.home
 
+import android.content.Context
 import android.os.Bundle
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.IntegerRes
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.fragment_home.*
+import dagger.android.AndroidInjection
+import ru.startandroid.data.AppDatabase
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.adapters.HomeFragmentRvAdapter
 import ru.startandroid.organizer.objects.SimpleObject
 import java.util.*
+import javax.inject.Inject
 
-class HomeFragment : Fragment() {
+
+class HomeFragment : android.app.Fragment() {
+
+    @Inject lateinit var database: AppDatabase
+
+    override fun onAttach(context: Context?) {
+        AndroidInjection.inject(this)
+        super.onAttach(context)
+    }
+
 
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var adapter: HomeFragmentRvAdapter

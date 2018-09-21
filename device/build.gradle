@@ -34,7 +34,7 @@ dependencies {
     androidTestImplementation espresso.core
 
     implementation androidx.appcompat
-    implementation kotlinn.stdlibjdk7
+    implementation kotlinn.stdlibjdk8
 
 }
 repositories {

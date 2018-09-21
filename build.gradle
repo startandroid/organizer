@@ -59,8 +59,8 @@ ext {
             firebase: "16.0.3",
             crashlytics: "2.9.5",
             utils: "1.0.0-beta01",
-            recyclerview: "1.0.0-beta01"
-
+            recyclerview: "1.0.0-beta01",
+            room: "2.0.0-beta01"
     ]
 
     androidx = [
@@ -70,6 +70,11 @@ ext {
     constraintlayout = [
             constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     ]
+
+    recyclerview = [
+            recyclerview: "androidx.recyclerview:recyclerview:${versions.recyclerview}"
+    ]
+
 
     junit = [
             junit: "junit:junit:${versions.junit}"
@@ -91,8 +96,8 @@ ext {
     ]
 
     kotlinn = [
-            stdlibjdk7: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlin_version}"
-]
+            stdlibjdk8: "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
+    ]
 
     firebase = [
             core: "com.google.firebase:firebase-core:${versions.firebase}"
@@ -104,6 +109,12 @@ ext {
 
     support = [
             utils : "androidx.legacy:legacy-support-core-utils:${versions.utils}",
-            recyclerview :"androidx.recyclerview:recyclerview:${versions.recyclerview}"
     ]
+
+    room = [
+            roomCommon: "androidx.room:room-common:${versions.room}",
+            roomRuntime: "androidx.room:room-runtime:${versions.room}",
+            roomCompiler: "androidx.room:room-compiler:${versions.room}",
+    ]
+
 }
