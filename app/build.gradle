@@ -32,8 +32,7 @@ dependencies {
     implementation project(':domain')
 
     testImplementation junit.junit
-    implementation support.recyclerview
-    implementation support.utils
+    implementation recyclerview.recyclerview
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
