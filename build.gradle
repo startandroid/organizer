@@ -61,7 +61,6 @@ ext {
             utils: "1.0.0-beta01",
             recyclerview: "1.0.0-beta01",
             room: "2.0.0-beta01"
-
     ]
 
     androidx = [
@@ -71,6 +70,11 @@ ext {
     constraintlayout = [
             constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintLayout}"
     ]
+
+    recyclerview = [
+            recyclerview: "androidx.recyclerview:recyclerview:${versions.recyclerview}"
+    ]
+
 
     junit = [
             junit: "junit:junit:${versions.junit}"
@@ -105,14 +109,12 @@ ext {
 
     support = [
             utils : "androidx.legacy:legacy-support-core-utils:${versions.utils}",
-            recyclerview :"androidx.recyclerview:recyclerview:${versions.recyclerview}"
     ]
 
     room = [
             roomCommon: "androidx.room:room-common:${versions.room}",
             roomRuntime: "androidx.room:room-runtime:${versions.room}",
             roomCompiler: "androidx.room:room-compiler:${versions.room}",
-            roomRxjava: "androidx.room:room-rxjava2:${versions.room}"
     ]
 
 }
