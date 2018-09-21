@@ -58,7 +58,10 @@ ext {
             dagger2: "2.16",
             firebase: "16.0.3",
             crashlytics: "2.9.5",
+            utils: "1.0.0-beta01",
+            recyclerview: "1.0.0-beta01",
             room: "2.0.0-beta01"
+
     ]
 
     androidx = [
@@ -98,6 +101,11 @@ ext {
 
     crashlyticss = [
             crashlytics: "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
+    ]
+
+    support = [
+            utils : "androidx.legacy:legacy-support-core-utils:${versions.utils}",
+            recyclerview :"androidx.recyclerview:recyclerview:${versions.recyclerview}"
     ]
 
     room = [
