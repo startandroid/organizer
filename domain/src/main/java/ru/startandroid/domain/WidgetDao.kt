@@ -7,6 +7,6 @@ import androidx.room.Query
 interface WidgetDao {
 
     @Query("SELECT * FROM widgets")
-    fun getAll(): List<WidgetEntity>
+    fun getAll(): LiveData<List<WidgetEntity>>
 
 }
