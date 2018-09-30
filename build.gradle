@@ -12,7 +12,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.0-alpha08'
+        classpath 'com.android.tools.build:gradle:3.3.0-alpha12'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
         classpath 'com.google.gms:google-services:4.0.1' // change version carefully. 4.1.0 doesnt work well
         classpath 'io.fabric.tools:gradle:1.25.4'
@@ -61,11 +61,8 @@ ext {
             utils: "1.0.0-beta01",
             recyclerview: "1.0.0-beta01",
             room: "2.0.0-beta01",
-            rxjava: "2.0.1",
             rxjava2: "2.0.0-beta01",
             rxandroid: "2.0.1",
-            roomrxjava2: "2.0.0-beta01"
-
 
     ]
 
@@ -123,11 +120,11 @@ ext {
             roomCommon: "androidx.room:room-common:${versions.room}",
             roomRuntime: "androidx.room:room-runtime:${versions.room}",
             roomCompiler: "androidx.room:room-compiler:${versions.room}",
-            roomRxjava: "androidx.room:room-rxjava2:${versions.roomrxjava2  }",
+            roomRxjava: "androidx.room:room-rxjava2:${versions.room}",
     ]
 
     rxjava = [
-            rxAndroid: "io.reactivex.rxjava2:rxandroid:${versions.rxjava}",
-            rxjava: "io.reactivex.rxjava2:rxjava:${versions.rxjava}",
+            rxAndroid: "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}",
+            rxjava: "io.reactivex.rxjava2:rxjava:${versions.rxjava2}",
     ]
 }
