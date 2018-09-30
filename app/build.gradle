@@ -51,6 +51,9 @@ dependencies {
 
     implementation room.roomRuntime
 
+    implementation rxjava.rxjava
+    implementation rxjava.rxAndroid
+    implementation room.roomRxjava2
 }
 
 repositories {

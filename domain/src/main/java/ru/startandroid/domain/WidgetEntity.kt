@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "widgets")
-data class WidgetEntity(
+data class  WidgetEntity(
         @PrimaryKey val id: Long,
         var settings: String,
         var data: String,

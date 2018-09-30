@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_home.view.*
+import ru.startandroid.domain.WidgetEntity
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.objects.SimpleObject
 
-class HomeFragmentRvAdapter(private val objList: ArrayList<SimpleObject>) : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
+class HomeFragmentRvAdapter(private val data: List<WidgetEntity>) : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFragmentRvAdapter.ViewHolder {
         val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.fragment_home_rv_item, parent, false) as View
@@ -18,18 +19,18 @@ class HomeFragmentRvAdapter(private val objList: ArrayList<SimpleObject>) : Recy
     }
 
     override fun onBindViewHolder(holder: HomeFragmentRvAdapter.ViewHolder, position: Int) {
-        holder.bindItems(objList[position])
+        holder.bindItems(data[position])
     }
 
     override fun getItemCount(): Int {
-        return objList.size
+        return data.size
     }
 
     class ViewHolder(viewItem: View) : RecyclerView.ViewHolder(viewItem) {
         var viewItemTvName: TextView = viewItem.findViewById(R.id.tv_name)
 
-        fun bindItems(data: SimpleObject) {
-            viewItemTvName.text = data.name
+        fun bindItems(data: WidgetEntity) {
+            viewItemTvName.text = data.data
         }
     }
 }
