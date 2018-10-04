@@ -61,8 +61,8 @@ ext {
             utils: "1.0.0-beta01",
             recyclerview: "1.0.0-beta01",
             room: "2.0.0-beta01",
-            rxjava2: "2.0.0-beta01",
-            rxandroid: "2.0.1",
+            rxjava2: "2.2.2",
+            rxandroid: "2.1.0",
 
     ]
 
@@ -123,7 +123,7 @@ ext {
             roomRxjava: "androidx.room:room-rxjava2:${versions.room}",
     ]
 
-    rxjava = [
+    rxjava2 = [
             rxAndroid: "io.reactivex.rxjava2:rxandroid:${versions.rxandroid}",
             rxjava: "io.reactivex.rxjava2:rxjava:${versions.rxjava2}",
     ]

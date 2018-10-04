@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
 import io.reactivex.Completable
 import io.reactivex.CompletableObserver
-import io.reactivex.Flowable
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.domain.WidgetEntity
 import ru.startandroid.organizer.R
@@ -36,9 +35,6 @@ class HomeFragment : android.app.Fragment() {
     private lateinit var adapter: HomeFragmentRvAdapter
     private lateinit var rootView: View
     lateinit var recyclerView: RecyclerView
-    lateinit var data: Flowable<List<WidgetEntity>>
-    private val fakeData = ArrayList<WidgetEntity>()
-    private val widgetList = ArrayList<WidgetEntity>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -59,16 +55,15 @@ class HomeFragment : android.app.Fragment() {
         recyclerView = rootView.findViewById(R.id.recyclerView)
         linearLayoutManager = LinearLayoutManager(activity)
         recyclerView.layoutManager = linearLayoutManager
-        adapter = HomeFragmentRvAdapter(widgetList)
+        adapter = HomeFragmentRvAdapter()
         recyclerView.adapter = adapter
-
     }
 
     private fun writeDataToDB(widgetsList: MutableList<WidgetEntity>) {
         Completable.fromAction {
             database.widgetDao().insert(widgetsList)
 
-        }.observeOn(Schedulers.newThread())
+        }.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
                     override fun onSubscribe(d: Disposable) {}
 
@@ -82,7 +77,7 @@ class HomeFragment : android.app.Fragment() {
         Completable.fromAction {
             database.widgetDao().deleteAll()
 
-        }.observeOn(Schedulers.newThread())
+        }.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io()).subscribe(object : CompletableObserver {
                     override fun onSubscribe(d: Disposable) {}
 
@@ -96,13 +91,12 @@ class HomeFragment : android.app.Fragment() {
 
     private fun subscribeForWidgets() {
         database.widgetDao().getAll().observeOn(AndroidSchedulers.mainThread()).subscribe { widgetList ->
-            this.widgetList.clear()
-            this.widgetList.addAll(widgetList)
-            adapter.notifyDataSetChanged()
+            adapter.setData(widgetList)
         }
     }
 
     private fun createFakeData(): ArrayList<WidgetEntity> {
+        val fakeData = ArrayList<WidgetEntity>()
         fakeData.add(WidgetEntity(1, "Settings1", "Data1", 1, true))
         fakeData.add(WidgetEntity(2, "Settings2", "Data2", 1, true))
         fakeData.add(WidgetEntity(3, "Settings3", "Data", 1, true))
