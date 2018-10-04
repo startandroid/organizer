@@ -26,14 +26,6 @@ dependencies {
     implementation room.roomRuntime
     kapt room.roomCompiler
 
-    implementation room.roomRxjava
-
-    implementation rxjava.rxAndroid
-    implementation rxjava.rxjava
-
-   // implementation "androidx.room:room-rxjava2:2.0.0-beta01"
-   // implementation "io.reactivex.rxjava2:rxjava:2.1.8"
-  //  implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
-
+   implementation rxjava2.rxjava
 }
 

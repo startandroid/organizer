@@ -11,7 +11,13 @@ import ru.startandroid.domain.WidgetEntity
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.objects.SimpleObject
 
-class HomeFragmentRvAdapter(private val data: List<WidgetEntity>) : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
+class HomeFragmentRvAdapter() : RecyclerView.Adapter<HomeFragmentRvAdapter.ViewHolder>() {
+
+    private lateinit var data: List<WidgetEntity>
+
+    fun  setData(data: List<WidgetEntity>) {
+        this.data = data
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFragmentRvAdapter.ViewHolder {
         val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.fragment_home_rv_item, parent, false) as View
