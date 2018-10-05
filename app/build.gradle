@@ -36,7 +36,6 @@ dependencies {
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
-
     implementation androidx.appcompat
     implementation constraintlayout.constraintlayout
     implementation kotlinn.stdlibjdk8
@@ -50,7 +49,10 @@ dependencies {
     kapt dagger.daggerAndroidProcessor
 
     implementation room.roomRuntime
+    implementation room.roomRxjava
 
+    implementation rxjava2.rxAndroid
+    implementation rxjava2.rxjava
 }
 
 repositories {

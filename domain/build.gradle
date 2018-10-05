@@ -19,11 +19,13 @@ compileTestKotlin {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation kotlinn.stdlibjdk8
 
     implementation room.roomRuntime
     kapt room.roomCompiler
 
+   implementation rxjava2.rxjava
 }
 
