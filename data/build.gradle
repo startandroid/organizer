@@ -40,6 +40,7 @@ dependencies {
     implementation room.roomRuntime
     kapt room.roomCompiler
 
+    implementation room.roomRxjava // the code don't compile without this dependency
 }
 repositories {
     mavenCentral()
