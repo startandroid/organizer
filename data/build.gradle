@@ -38,9 +38,8 @@ dependencies {
     implementation kotlinn.stdlibjdk8
 
     implementation room.roomRuntime
+    implementation room.roomRxjava2
     kapt room.roomCompiler
-
-    implementation room.roomRxjava // the code don't compile without this dependency
 }
 repositories {
     mavenCentral()
