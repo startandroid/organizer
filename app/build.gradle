@@ -14,6 +14,8 @@ android {
         versionCode conf.versionCode
         versionName conf.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
     }
     buildTypes {
         release {
@@ -32,27 +34,32 @@ dependencies {
     implementation project(':domain')
 
     testImplementation junit.junit
-    implementation recyclerview.recyclerview
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
     implementation androidx.appcompat
-    implementation constraintlayout.constraintlayout
+    implementation androidx_view.constraintlayout
+    implementation androidx_view.recyclerview
+
     implementation kotlinn.stdlibjdk8
+
     implementation firebase.core
     implementation crashlyticss.crashlytics
 
     implementation dagger.dagger
     kapt dagger.daggerCompiler
-
     implementation dagger.daggerAndroid
     kapt dagger.daggerAndroidProcessor
 
     implementation room.roomRuntime
-    implementation room.roomRxjava
+    implementation room.roomRxjava2
 
-    implementation rxjava2.rxAndroid
+    implementation gson.gson
+
     implementation rxjava2.rxjava
+
+
+
 }
 
 repositories {
