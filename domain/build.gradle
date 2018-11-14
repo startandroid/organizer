@@ -24,6 +24,7 @@ dependencies {
     implementation kotlinn.stdlibjdk8
 
     implementation room.roomRuntime
+    implementation rxjava2.rxjava
     kapt room.roomCompiler
 
    implementation rxjava2.rxjava
