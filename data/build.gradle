@@ -39,6 +39,8 @@ dependencies {
 
     implementation room.roomRuntime
     implementation room.roomRxjava2
+
+    implementation retrofit.retrofit
     kapt room.roomCompiler
 }
 repositories {

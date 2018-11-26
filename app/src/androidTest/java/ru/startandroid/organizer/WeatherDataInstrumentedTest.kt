@@ -16,7 +16,7 @@ import org.junit.Assert.*
  * @see [Testing documentation](http://d.android.com/tools/testing)
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class WeatherDataInstrumentedTest {
     @Test
     fun useAppContext() {
         // Context of the app under test.

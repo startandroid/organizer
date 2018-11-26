@@ -59,6 +59,10 @@ dependencies {
 
     implementation rxjava2.rxjava
 
+    implementation retrofit.retrofit
+    implementation retrofit.gson
+
+    implementation gson.gson
 
 
 }

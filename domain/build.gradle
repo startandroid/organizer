@@ -28,5 +28,7 @@ dependencies {
     kapt room.roomCompiler
 
    implementation rxjava2.rxjava
+
+    implementation gson.gson
 }
 
