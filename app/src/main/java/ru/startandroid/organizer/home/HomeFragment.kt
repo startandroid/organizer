@@ -11,8 +11,8 @@ import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.home.widget.widgets.WidgetAdapter
-import ru.startandroid.organizer.home.widget.widgets.WidgetEntityMapper
+import ru.startandroid.organizer.home.widget.widgets.common.adapter.WidgetAdapter
+import ru.startandroid.organizer.home.widget.widgets.common.WidgetEntityMapper
 import javax.inject.Inject
 
 
