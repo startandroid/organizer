@@ -1,12 +1,14 @@
-package ru.startandroid.organizer.home.widget.widgets
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.home.widget.common.WidgetData
+import ru.startandroid.organizer.home.widget.common.WidgetDataEntity
 import javax.inject.Inject
 
-class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvider) : RecyclerView.Adapter<WidgetHolder>() {
+class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvider) : RecyclerView.Adapter<WidgetContainerHolder>() {
 
     val widgets = mutableListOf<WidgetDataEntity<out WidgetData>>()
 
@@ -15,14 +17,14 @@ class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvid
         this.widgets.addAll(widgets)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetContainerHolder {
         val widgetContent = widgetProvider.getWidget(viewType)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_container, parent, false)
-        return WidgetHolder(view, widgetContent)
+        return WidgetContainerHolder(view, widgetContent)
     }
 
-    override fun onBindViewHolder(holder: WidgetHolder, position: Int) {
-        holder.bind(widgets[position])
+    override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
+        containerHolder.bind(widgets[position])
     }
 
     override fun getItemCount(): Int = widgets.size
