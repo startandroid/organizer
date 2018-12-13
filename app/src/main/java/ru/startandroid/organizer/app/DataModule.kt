@@ -12,6 +12,7 @@ import ru.startandroid.data.AppDatabase
 import ru.startandroid.domain.WidgetDataEntityDb
 import ru.startandroid.domain.WidgetSettingsEntityDb
 import ru.startandroid.organizer.home.widget.widgets.*
+import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS
 import java.util.concurrent.Executors
 
 @Module

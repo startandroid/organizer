@@ -1,14 +1,15 @@
-package ru.startandroid.organizer.home.widget.widgets
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.home.widget.common.*
 
-class WidgetHolder(val view: View, val widgetContent: WidgetContent?) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
+class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
 
-    var widgetHeader = WidgetHeader()
+    var widgetHeader = WidgetContainerHeader()
 
     // TODO use data binding
 
@@ -22,7 +23,7 @@ class WidgetHolder(val view: View, val widgetContent: WidgetContent?) : Recycler
 
     init {
         widgetContent?.run {
-            setWidgetContainerCallback(this@WidgetHolder)
+            setWidgetContainerCallback(this@WidgetContainerHolder)
             content.addView(getView(content))
         }
 
@@ -48,12 +49,12 @@ class WidgetHolder(val view: View, val widgetContent: WidgetContent?) : Recycler
     }
 
 
-    override fun setHeader(widgetHeader: WidgetHeader) {
+    override fun setHeader(widgetHeader: WidgetContainerHeader) {
         this.widgetHeader = widgetHeader
         updateHeader()
     }
 
-    override fun getHeader(): WidgetHeader = widgetHeader
+    override fun getHeader(): WidgetContainerHeader = widgetHeader
 
     private fun updateHeader() {
         headerTitle.text = widgetHeader.title
