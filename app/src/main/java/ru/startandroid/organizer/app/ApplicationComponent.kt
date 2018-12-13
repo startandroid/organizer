@@ -5,12 +5,14 @@ import dagger.Module
 import javax.inject.Scope
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.organizer.home.*
+import ru.startandroid.organizer.home.widget.widgets.common.registrator.WidgetRegistratorModule
+import ru.startandroid.organizer.home.widget.widgets.common.registrator.WidgetsModule
 
 
 @Scope
 annotation class ScopeApplication
 
-@Component(modules = [AppModule::class, DataModule::class, ActivitiesSubcomponentModule::class])
+@Component(modules = [AppModule::class, DataModule::class, ActivitiesSubcomponentModule::class, WidgetRegistratorModule::class, WidgetsModule::class])
 @ScopeApplication
 interface ApplicationComponent {
     fun injectApp(app: App)
