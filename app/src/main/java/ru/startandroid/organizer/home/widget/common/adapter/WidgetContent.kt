@@ -1,24 +1,11 @@
-package ru.startandroid.organizer.home.widget.widgets
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ru.startandroid.organizer.home.widget.common.WidgetData
+import ru.startandroid.organizer.home.widget.common.WidgetDataEntity
 
-
-object WIDGETS_IDS {
-    const val TEST_WIDGET_1 = 1
-    const val TEST_WIDGET_2 = 2
-}
-
-interface WidgetData
-
-interface WidgetSettings
-
-// TODO create WidgetDataEntity<out WidgetData> and use it everywhere
-data class WidgetDataEntity<D : WidgetData>(
-        val id: Int,
-        val data: D
-)
 
 interface WidgetContent {
     fun setData(widgetDataEntity: WidgetDataEntity<out WidgetData>)
@@ -38,7 +25,7 @@ abstract class BaseWidgetContent<WidgetDataType>: WidgetContent {
                   refreshButtonIsVisible: Boolean = false,
                   settingsButtonIsVisible: Boolean = false,
                   closeButtonIsVisible: Boolean = false) {
-        callback?.setHeader(WidgetHeader(title, refreshButtonIsVisible, settingsButtonIsVisible, closeButtonIsVisible))
+        callback?.setHeader(WidgetContainerHeader(title, refreshButtonIsVisible, settingsButtonIsVisible, closeButtonIsVisible))
     }
 
     abstract fun getLayoutId(): Int
@@ -61,18 +48,4 @@ abstract class BaseWidgetContent<WidgetDataType>: WidgetContent {
 
     }
 }
-
-interface WidgetContainerCallback {
-    fun getHeader(): WidgetHeader
-    fun setHeader(widgetHeader: WidgetHeader)
-}
-
-data class WidgetHeader(
-        val title: String = "",
-        val refreshButtonIsVisible: Boolean = false,
-        val settingsButtonIsVisible: Boolean = false,
-        val closeButtonIsVisible: Boolean = false
-)
-
-
 
