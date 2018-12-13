@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget.widgets.common
+package ru.startandroid.organizer.home.widget.common
 
 import com.google.gson.Gson
 import ru.startandroid.domain.WidgetDataEntityDb

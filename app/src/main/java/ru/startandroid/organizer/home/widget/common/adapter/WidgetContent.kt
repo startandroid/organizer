@@ -1,10 +1,10 @@
-package ru.startandroid.organizer.home.widget.widgets.common.adapter
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetData
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetDataEntity
+import ru.startandroid.organizer.home.widget.common.WidgetData
+import ru.startandroid.organizer.home.widget.common.WidgetDataEntity
 
 
 interface WidgetContent {

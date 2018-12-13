@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget.widgets.common.adapter
+package ru.startandroid.organizer.home.widget.common.adapter
 
 interface WidgetContainerCallback {
     fun getHeader(): WidgetContainerHeader

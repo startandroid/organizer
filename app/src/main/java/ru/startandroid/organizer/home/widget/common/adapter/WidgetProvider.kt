@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget.widgets.common.adapter
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import javax.inject.Inject
 import javax.inject.Provider

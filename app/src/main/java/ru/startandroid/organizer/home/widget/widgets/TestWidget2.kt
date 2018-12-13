@@ -3,12 +3,12 @@ package ru.startandroid.organizer.home.widget.widgets
 import android.view.View
 import android.widget.TextView
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.home.widget.widgets.common.WIDGETS_IDS.TEST_WIDGET_2
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetData
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetSettings
-import ru.startandroid.organizer.home.widget.widgets.common.adapter.BaseWidgetContent
-import ru.startandroid.organizer.home.widget.widgets.common.adapter.WidgetContent
-import ru.startandroid.organizer.home.widget.widgets.common.registrator.WidgetRegistratorImpl
+import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS.TEST_WIDGET_2
+import ru.startandroid.organizer.home.widget.common.WidgetData
+import ru.startandroid.organizer.home.widget.common.WidgetSettings
+import ru.startandroid.organizer.home.widget.common.adapter.BaseWidgetContent
+import ru.startandroid.organizer.home.widget.common.adapter.WidgetContent
+import ru.startandroid.organizer.home.widget.common.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
 import javax.inject.Provider
 
