@@ -5,8 +5,8 @@ import dagger.Module
 import javax.inject.Scope
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.organizer.home.*
-import ru.startandroid.organizer.home.widget.widgets.common.registrator.WidgetRegistratorModule
-import ru.startandroid.organizer.home.widget.widgets.common.registrator.WidgetsModule
+import ru.startandroid.organizer.home.widget.common.registrator.WidgetRegistratorModule
+import ru.startandroid.organizer.home.widget.common.registrator.WidgetsModule
 
 
 @Scope

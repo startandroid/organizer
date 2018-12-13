@@ -1,11 +1,11 @@
-package ru.startandroid.organizer.home.widget.widgets.common.registrator
+package ru.startandroid.organizer.home.widget.common.registrator
 
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.startandroid.organizer.home.widget.widgets.*
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetEntityMapper
-import ru.startandroid.organizer.home.widget.widgets.common.adapter.WidgetProvider
+import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
+import ru.startandroid.organizer.home.widget.common.adapter.WidgetProvider
 
 @Module
 abstract class WidgetRegistratorModule {

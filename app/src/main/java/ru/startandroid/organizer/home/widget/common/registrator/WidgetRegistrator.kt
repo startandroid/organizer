@@ -1,10 +1,10 @@
-package ru.startandroid.organizer.home.widget.widgets.common.registrator
+package ru.startandroid.organizer.home.widget.common.registrator
 
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetData
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetEntityMapper
-import ru.startandroid.organizer.home.widget.widgets.common.WidgetSettings
-import ru.startandroid.organizer.home.widget.widgets.common.adapter.WidgetContent
-import ru.startandroid.organizer.home.widget.widgets.common.adapter.WidgetProvider
+import ru.startandroid.organizer.home.widget.common.WidgetData
+import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
+import ru.startandroid.organizer.home.widget.common.WidgetSettings
+import ru.startandroid.organizer.home.widget.common.adapter.WidgetContent
+import ru.startandroid.organizer.home.widget.common.adapter.WidgetProvider
 import javax.inject.Provider
 
 interface WidgetRegistrator : WidgetEntityMapper.ToMapperRegistrator, WidgetProvider.ToProviderRegistrator

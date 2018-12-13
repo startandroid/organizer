@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget.widgets.common
+package ru.startandroid.organizer.home.widget.common
 
 object WIDGETS_IDS {
     const val TEST_WIDGET_1 = 1

@@ -1,11 +1,11 @@
-package ru.startandroid.organizer.home.widget.widgets.common.adapter
+package ru.startandroid.organizer.home.widget.common.adapter
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.home.widget.widgets.common.*
+import ru.startandroid.organizer.home.widget.common.*
 
 class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
 
