@@ -23,7 +23,7 @@ interface ApplicationComponent {
 abstract class ActivitiesSubcomponentModule {
 
     @ScopeHome
-    @ContributesAndroidInjector(modules = [HomeActivityModule::class])
+    @ContributesAndroidInjector(modules = [HomeActivityInjectorModule::class, HomeActivityModule::class])
     internal abstract fun contributeHomeActivityInjector(): HomeActivity
 
 }
