@@ -1,5 +1,6 @@
 package ru.startandroid.organizer.home.widget.common.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,11 +22,12 @@ abstract class BaseWidgetContent<WidgetDataType>: WidgetContent {
         this.callback = callback
     }
 
-    fun setHeader(title: String = "",
-                  refreshButtonIsVisible: Boolean = false,
-                  settingsButtonIsVisible: Boolean = false,
-                  closeButtonIsVisible: Boolean = false) {
-        callback?.setHeader(WidgetContainerHeader(title, refreshButtonIsVisible, settingsButtonIsVisible, closeButtonIsVisible))
+    fun setContainerData(title: String = "",
+                         uri: Uri? = null,
+                         refreshButtonIsVisible: Boolean = false,
+                         settingsButtonIsVisible: Boolean = false,
+                         closeButtonIsVisible: Boolean = false) {
+        callback?.setWidgetContainerData(WidgetContainerData(title, uri, refreshButtonIsVisible, settingsButtonIsVisible, closeButtonIsVisible))
     }
 
     abstract fun getLayoutId(): Int

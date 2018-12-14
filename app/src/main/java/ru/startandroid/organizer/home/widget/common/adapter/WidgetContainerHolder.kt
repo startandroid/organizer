@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.home.UINavigator
 import ru.startandroid.organizer.home.widget.common.*
 
-class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
+class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?, val uiNavigator: UINavigator) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
 
-    var widgetHeader = WidgetContainerHeader()
+    private var widgetContainerData = WidgetContainerData()
 
     // TODO use data binding
 
@@ -37,7 +38,7 @@ class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?) :
     }
 
     private fun onSettingsButtonClick() {
-        // TODO open settings screen
+        uiNavigator.openDeepLink(widgetContainerData.settingsUri)
     }
 
     private fun onRefreshButtonClick() {
@@ -49,18 +50,18 @@ class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?) :
     }
 
 
-    override fun setHeader(widgetHeader: WidgetContainerHeader) {
-        this.widgetHeader = widgetHeader
+    override fun setWidgetContainerData(widgetData: WidgetContainerData) {
+        this.widgetContainerData = widgetData
         updateHeader()
     }
 
-    override fun getHeader(): WidgetContainerHeader = widgetHeader
+    override fun getWidgetContainerData(): WidgetContainerData = widgetContainerData
 
     private fun updateHeader() {
-        headerTitle.text = widgetHeader.title
-        refreshButton.visibility = if (widgetHeader.refreshButtonIsVisible) View.VISIBLE else View.GONE
-        settingsButton.visibility = if (widgetHeader.settingsButtonIsVisible) View.VISIBLE else View.GONE
-        closeButton.visibility = if (widgetHeader.closeButtonIsVisible) View.VISIBLE else View.GONE
+        headerTitle.text = widgetContainerData.title
+        refreshButton.visibility = if (widgetContainerData.refreshButtonIsVisible) View.VISIBLE else View.GONE
+        settingsButton.visibility = if (widgetContainerData.settingsButtonIsVisible) View.VISIBLE else View.GONE
+        closeButton.visibility = if (widgetContainerData.closeButtonIsVisible) View.VISIBLE else View.GONE
     }
 
 }
