@@ -5,12 +5,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.home.UINavigator
 import ru.startandroid.organizer.home.widget.common.*
 
-class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?, val uiNavigator: UINavigator) : RecyclerView.ViewHolder(view), WidgetContainerCallback {
+class WidgetContainerHolder(private val view: View,
+                            private val widgetContent: WidgetContent?,
+                            private val widgetAdapterCallback: WidgetAdapterCallback?)
+    : RecyclerView.ViewHolder(view),
+        WidgetContainerDataCallback {
 
-    private var widgetContainerData = WidgetContainerData()
+
+    private lateinit var widgetContainerData: WidgetContainerData
 
     // TODO use data binding
 
@@ -28,21 +32,9 @@ class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?, v
             content.addView(getView(content))
         }
 
-        closeButton.setOnClickListener { onCloseButtonClick() }
-        refreshButton.setOnClickListener { onRefreshButtonClick() }
-        settingsButton.setOnClickListener { onSettingsButtonClick() }
-    }
-
-    private fun onCloseButtonClick() {
-        // TODO show close dialog. If yes, disable this widget
-    }
-
-    private fun onSettingsButtonClick() {
-        uiNavigator.openDeepLink(widgetContainerData.settingsUri)
-    }
-
-    private fun onRefreshButtonClick() {
-        widgetContent?.onRefreshClick()
+        closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
+        refreshButton.setOnClickListener {  widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
+        settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id) }
     }
 
     fun bind(widgetDataEntity: WidgetDataEntity<out WidgetData>) {
@@ -50,18 +42,20 @@ class WidgetContainerHolder(val view: View, val widgetContent: WidgetContent?, v
     }
 
 
-    override fun setWidgetContainerData(widgetData: WidgetContainerData) {
-        this.widgetContainerData = widgetData
-        updateHeader()
+    override fun setWidgetContainerData(widgetContainerData: WidgetContainerData) {
+        this.widgetContainerData = widgetContainerData
+        updateHeaderUI()
     }
 
     override fun getWidgetContainerData(): WidgetContainerData = widgetContainerData
 
-    private fun updateHeader() {
-        headerTitle.text = widgetContainerData.title
-        refreshButton.visibility = if (widgetContainerData.refreshButtonIsVisible) View.VISIBLE else View.GONE
-        settingsButton.visibility = if (widgetContainerData.settingsButtonIsVisible) View.VISIBLE else View.GONE
-        closeButton.visibility = if (widgetContainerData.closeButtonIsVisible) View.VISIBLE else View.GONE
+    private fun updateHeaderUI() {
+        widgetContainerData.run {
+            headerTitle.text = title
+            refreshButton.visibility = if (refreshButtonIsVisible) View.VISIBLE else View.GONE
+            settingsButton.visibility = if (settingsButtonIsVisible) View.VISIBLE else View.GONE
+            closeButton.visibility = if (closeButtonIsVisible) View.VISIBLE else View.GONE
+        }
     }
 
 }
