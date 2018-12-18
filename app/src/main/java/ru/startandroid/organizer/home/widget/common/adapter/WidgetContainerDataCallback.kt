@@ -1,6 +1,6 @@
 package ru.startandroid.organizer.home.widget.common.adapter
 
-interface WidgetContainerCallback {
+interface WidgetContainerDataCallback {
     fun getWidgetContainerData(): WidgetContainerData
     fun setWidgetContainerData(widgetContainerData: WidgetContainerData)
 }

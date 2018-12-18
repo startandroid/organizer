@@ -18,6 +18,7 @@ abstract class HomeActivityInjectorModule {
 @Module()
 class HomeActivityModule {
 
+    @ScopeHome
     @Provides
     fun provideUiNavigator(homeActivity: HomeActivity): UINavigator {
         return UINavigator(homeActivity)

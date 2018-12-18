@@ -36,8 +36,10 @@ class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Da
 
     override fun onDataSet(widgetData: TestWidget1Data) {
         text.text = widgetData.text
-        setContainerData(title = "Test widget 1",
-                uri = Uri.parse("app://organizer/settings/testwidget1"),
+        setContainerData(
+                id = TEST_WIDGET_1,
+                title = "Test widget 1",
+                refreshButtonIsVisible = true,
                 settingsButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
