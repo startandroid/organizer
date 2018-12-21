@@ -2,21 +2,22 @@ package ru.startandroid.organizer.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.home.widget.common.WidgetDeepLinkBuilder
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapterCallback
+import ru.startandroid.organizer.home.widget.refresh.WidgetsRefresher
 import javax.inject.Inject
-import javax.inject.Provider
 
 
 class HomeFragment : android.app.Fragment() {
@@ -32,9 +33,7 @@ class HomeFragment : android.app.Fragment() {
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
     @Inject
-    lateinit var widgetDeepLinkBuilder: Provider<WidgetDeepLinkBuilder>
-    @Inject
-    lateinit var uiNavigator: UINavigator
+    lateinit var widgetsRefresher: WidgetsRefresher
 
 
     val compositeDisposable = CompositeDisposable()
@@ -50,6 +49,8 @@ class HomeFragment : android.app.Fragment() {
 
         init(view)
 
+        Log.d("qweee", "onCreateView HomeFragment $database")
+
         return view
     }
 
@@ -58,27 +59,31 @@ class HomeFragment : android.app.Fragment() {
         // TODO move to presenter
         val disposable = database.widgetDao()
                 .getAll()
+                .doOnNext { Log.d("qweee", "refresh widget list $it") }
                 .map {
                     it.map {
                         widgetEntityMapper.map(it)
                     }.filterNotNull()
-                }.subscribe {
+
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
                     widgetAdapter.setWidgets(it)
+                    widgetAdapter.notifyDataSetChanged()
+                    // TODO use diffutils
                 }
         compositeDisposable.add(disposable)
 
         // TODO move to presenter
         widgetAdapter.widgetAdapterCallback = object: WidgetAdapterCallback {
             override fun onWidgetRefreshClick(id: Int) {
-                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.REFRESH)
+                widgetsRefresher.refresh(id)
             }
 
             override fun onWidgetSettingsClick(id: Int) {
-                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.SETTINGS)
             }
 
             override fun onWidgetCloseClick(id: Int) {
-                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.CLOSE)
             }
 
         }
@@ -88,12 +93,6 @@ class HomeFragment : android.app.Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = widgetAdapter
 
-    }
-
-    // TODO move to presenter
-    private fun openWidgetDeepLink(id: Int, action: WidgetDeepLinkBuilder.Action) {
-        val deepLink = widgetDeepLinkBuilder.get().widget(id).action(action).build()
-        uiNavigator.openDeepLink(deepLink)
     }
 
     override fun onDestroy() {
