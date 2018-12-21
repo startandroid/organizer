@@ -20,8 +20,8 @@ class HomeActivityModule {
 
     @ScopeHome
     @Provides
-    fun provideUiNavigator(homeActivity: HomeActivity): UINavigator {
-        return UINavigator(homeActivity)
+    fun provideUiNavigator(homeActivity: HomeActivity): DeepLinkNavigator {
+        return DeepLinkNavigator(homeActivity)
     }
 }
 

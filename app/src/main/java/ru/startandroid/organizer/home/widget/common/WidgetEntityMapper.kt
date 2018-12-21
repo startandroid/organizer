@@ -37,4 +37,11 @@ class WidgetEntityMapper @Inject constructor(
 
     }
 
+    fun map(widgetDataEntity: WidgetDataEntity<out WidgetData>): WidgetDataEntityDb {
+         val data = gson.toJson(widgetDataEntity.data)
+        //if (data == null) return null
+        return WidgetDataEntityDb(widgetDataEntity.id, data)
+
+    }
+
 }

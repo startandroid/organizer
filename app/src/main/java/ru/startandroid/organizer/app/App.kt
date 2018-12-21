@@ -2,13 +2,14 @@ package ru.startandroid.organizer.app
 
 import android.app.Activity
 import android.app.Application
+import android.content.BroadcastReceiver
 import dagger.android.AndroidInjector
 import dagger.android.HasActivityInjector
 import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
 import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.Crashlytics
-
+import dagger.android.HasBroadcastReceiverInjector
 
 
 class App: Application(), HasActivityInjector {
@@ -22,11 +23,11 @@ class App: Application(), HasActivityInjector {
     override fun onCreate() {
         super.onCreate()
 
-        initApplicationCmponent()
+        initApplicationComponent()
         initFabric()
     }
 
-    private fun initApplicationCmponent() {
+    private fun initApplicationComponent() {
         applicationComponent = DaggerApplicationComponent
                 .builder()
                 .appModule(AppModule(this))
