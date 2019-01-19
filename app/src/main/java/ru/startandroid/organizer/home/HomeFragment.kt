@@ -11,6 +11,7 @@ import dagger.android.AndroidInjection
 import io.reactivex.disposables.CompositeDisposable
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.app.NetworkModule
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class HomeFragment : android.app.Fragment() {
     lateinit var widgetEntityMapper: WidgetEntityMapper
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
+
 
     val compositeDisposable = CompositeDisposable()
 

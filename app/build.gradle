@@ -63,8 +63,6 @@ dependencies {
     implementation retrofit.gson
 
     implementation gson.gson
-
-
 }
 
 repositories {

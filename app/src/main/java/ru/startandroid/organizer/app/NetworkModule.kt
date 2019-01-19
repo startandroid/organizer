@@ -2,6 +2,7 @@ package ru.startandroid.organizer.app
 
 
 
+import android.content.Context
 import javax.inject.Singleton
 import dagger.Module
 import dagger.Provides
@@ -11,7 +12,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
-class NetworkModule {
+class NetworkModule(val context: Context) {
 
     @Provides
     @Singleton
@@ -30,6 +31,7 @@ class NetworkModule {
         clientBuilder.addInterceptor(headerAuthorizationInterceptor)
 
         return Retrofit.Builder().baseUrl("http://api.apixu.com/v1/forecast.json")
+                .client(clientBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
