@@ -41,7 +41,14 @@ dependencies {
     implementation room.roomRxjava2
 
     implementation retrofit.retrofit
+    implementation retrofit.gson
+
     kapt room.roomCompiler
+
+    implementation rxjava2.rxjava
+    implementation rxjava2.adapter
+
+    implementation okhttp3.logging
 }
 repositories {
     mavenCentral()

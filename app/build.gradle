@@ -58,6 +58,8 @@ dependencies {
     implementation gson.gson
 
     implementation rxjava2.rxjava
+    implementation rxjava2.adapter
+    implementation rxjava2.rxandroid
 
     implementation retrofit.retrofit
     implementation retrofit.gson

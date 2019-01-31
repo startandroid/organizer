@@ -30,7 +30,6 @@ class App: Application(), HasActivityInjector {
         applicationComponent = DaggerApplicationComponent
                 .builder()
                 .appModule(AppModule(this))
-                .networkModule(NetworkModule(this))
                 .build()
         applicationComponent.injectApp(this)
     }

@@ -2,20 +2,23 @@ package ru.startandroid.organizer.home
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import ru.startandroid.data.AppDatabase
+import ru.startandroid.data.WeatherAPI
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.app.NetworkModule
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
 import javax.inject.Inject
-
+import javax.inject.Named
 
 class HomeFragment : android.app.Fragment() {
 
@@ -29,7 +32,9 @@ class HomeFragment : android.app.Fragment() {
     lateinit var widgetEntityMapper: WidgetEntityMapper
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
-
+    @Inject
+    @field:Named("weather")
+    lateinit var weatherAPI: WeatherAPI
 
     val compositeDisposable = CompositeDisposable()
 
@@ -43,7 +48,7 @@ class HomeFragment : android.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         init(view)
-
+        getWeather()
         return view
     }
 
@@ -70,4 +75,16 @@ class HomeFragment : android.app.Fragment() {
         super.onDestroy()
         compositeDisposable.clear()
     }
+
+    private fun getWeather() {
+        weatherAPI.getCityWeather("Paris").observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    Log.d("Result", "There are ${result.forecast.toString()} Java developers in Lagos")
+                }, { error ->
+                    error.printStackTrace()
+                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
+                })
+    }
+
 }

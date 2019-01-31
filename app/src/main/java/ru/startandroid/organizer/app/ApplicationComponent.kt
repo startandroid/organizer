@@ -12,7 +12,7 @@ import ru.startandroid.organizer.home.widget.common.registrator.WidgetsModule
 @Scope
 annotation class ScopeApplication
 
-@Component(modules = [AppModule::class, DataModule::class, ActivitiesSubcomponentModule::class, WidgetRegistratorModule::class, WidgetsModule::class, NetworkModule::class])
+@Component(modules = [AppModule::class, DataModule::class, ActivitiesSubcomponentModule::class, WidgetRegistratorModule::class, WidgetsModule::class])
 @ScopeApplication
 interface ApplicationComponent {
     fun injectApp(app: App)
