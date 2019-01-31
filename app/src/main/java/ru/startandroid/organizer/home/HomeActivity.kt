@@ -4,14 +4,12 @@ import android.app.Fragment // TODO fix that
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
-import android.util.Log
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasFragmentInjector
-import ru.startandroid.data.WeatherAPI
+import retrofit2.Retrofit
 import ru.startandroid.organizer.R
-import ru.startandroid.organizer.app.NetworkModule
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HasFragmentInjector {
