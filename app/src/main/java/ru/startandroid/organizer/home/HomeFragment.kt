@@ -33,7 +33,6 @@ class HomeFragment : android.app.Fragment() {
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
     @Inject
-    @field:Named("weather")
     lateinit var weatherAPI: WeatherAPI
 
     val compositeDisposable = CompositeDisposable()
