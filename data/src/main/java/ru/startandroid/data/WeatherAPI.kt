@@ -39,7 +39,7 @@ interface WeatherAPI {
                     .addInterceptor(headerAuthorizationInterceptor)
                     .addInterceptor(loggingInterceptor)
 
-            val retrofit = Retrofit.Builder().baseUrl("http://api.apixu.com/v1/")
+            val retrofit = Retrofit.Builder().baseUrl("https://api.apixu.com/v1/")
                     .client(clientBuilder.build())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
