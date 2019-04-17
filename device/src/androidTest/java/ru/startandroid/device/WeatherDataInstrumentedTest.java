@@ -1,4 +1,4 @@
-package ru.startandroid.data;
+package ru.startandroid.device;
 
 import android.content.Context;
 
@@ -16,12 +16,12 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class WeatherDataInstrumentedTest {
     @Test
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("ru.startandroid.data.test", appContext.getPackageName());
+        assertEquals("ru.startandroid.device.test", appContext.getPackageName());
     }
 }
