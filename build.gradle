@@ -12,8 +12,10 @@ buildscript {
         jcenter()
     }
     dependencies {
+
         classpath 'com.android.tools.build:gradle:3.3.0'
         // change version carefully. 3.4.0 requires AS 3.4
+
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
         classpath 'com.google.gms:google-services:4.0.1' // change version carefully. 4.1.0 doesnt work well
         classpath 'io.fabric.tools:gradle:1.26.1'

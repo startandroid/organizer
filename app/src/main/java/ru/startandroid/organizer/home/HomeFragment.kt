@@ -15,10 +15,12 @@ import io.reactivex.schedulers.Schedulers
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.data.WeatherAPI
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.home.widget.common.WidgetDeepLinkBuilder
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
+import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapterCallback
 import javax.inject.Inject
-import javax.inject.Named
+import javax.inject.Provider
 
 class HomeFragment : android.app.Fragment() {
 
@@ -34,6 +36,11 @@ class HomeFragment : android.app.Fragment() {
     lateinit var widgetAdapter: WidgetAdapter
     @Inject
     lateinit var weatherAPI: WeatherAPI
+
+    @Inject
+    lateinit var widgetDeepLinkBuilder: Provider<WidgetDeepLinkBuilder>
+    @Inject
+    lateinit var uiNavigator: UINavigator
 
     val compositeDisposable = CompositeDisposable()
 
@@ -53,6 +60,7 @@ class HomeFragment : android.app.Fragment() {
 
     private fun init(view: View) {
 
+        // TODO move to presenter
         val disposable = database.widgetDao()
                 .getAll()
                 .map {
@@ -64,10 +72,33 @@ class HomeFragment : android.app.Fragment() {
                 }
         compositeDisposable.add(disposable)
 
+        // TODO move to presenter
+        widgetAdapter.widgetAdapterCallback = object: WidgetAdapterCallback {
+            override fun onWidgetRefreshClick(id: Int) {
+                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.REFRESH)
+            }
+
+            override fun onWidgetSettingsClick(id: Int) {
+                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.SETTINGS)
+            }
+
+            override fun onWidgetCloseClick(id: Int) {
+                openWidgetDeepLink(id, WidgetDeepLinkBuilder.Action.CLOSE)
+            }
+
+        }
+
         val linearLayoutManager = LinearLayoutManager(activity)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = widgetAdapter
+
+    }
+
+    // TODO move to presenter
+    private fun openWidgetDeepLink(id: Int, action: WidgetDeepLinkBuilder.Action) {
+        val deepLink = widgetDeepLinkBuilder.get().widget(id).action(action).build()
+        uiNavigator.openDeepLink(deepLink)
     }
 
     override fun onDestroy() {
