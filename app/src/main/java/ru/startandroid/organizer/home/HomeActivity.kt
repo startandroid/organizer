@@ -8,6 +8,7 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasFragmentInjector
+import retrofit2.Retrofit
 import ru.startandroid.organizer.R
 import javax.inject.Inject
 
@@ -23,7 +24,6 @@ class HomeActivity : AppCompatActivity(), HasFragmentInjector {
         if (savedInstanceState == null) {
             fragmentManager.beginTransaction().replace(R.id.fragment_cont, HomeFragment.newInstance()).commit()
         }
-
     }
 }
     
