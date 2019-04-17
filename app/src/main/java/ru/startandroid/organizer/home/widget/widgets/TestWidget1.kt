@@ -1,5 +1,6 @@
 package ru.startandroid.organizer.home.widget.widgets
 
+import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import ru.startandroid.organizer.R
@@ -35,7 +36,12 @@ class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Da
 
     override fun onDataSet(widgetData: TestWidget1Data) {
         text.text = widgetData.text
-        setHeader("Test widget 1", closeButtonIsVisible = true)
+        setContainerData(
+                id = TEST_WIDGET_1,
+                title = "Test widget 1",
+                refreshButtonIsVisible = true,
+                settingsButtonIsVisible = true,
+                closeButtonIsVisible = true)
     }
 }
 

@@ -1,6 +1,7 @@
 package ru.startandroid.organizer.home
 
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.organizer.app.NetworkModule
 import javax.inject.Scope
@@ -10,11 +11,20 @@ import javax.inject.Scope
 annotation class ScopeHome
 
 @Module()
-abstract class HomeActivityModule {
-
+abstract class HomeActivityInjectorModule {
     @ContributesAndroidInjector(modules = [HomeFragmentModule::class, NetworkModule::class])
     internal abstract fun contributeHomeFragmentInjector(): HomeFragment
+}
 
+
+@Module()
+class HomeActivityModule {
+
+    @ScopeHome
+    @Provides
+    fun provideUiNavigator(homeActivity: HomeActivity): UINavigator {
+        return UINavigator(homeActivity)
+    }
 }
 
 

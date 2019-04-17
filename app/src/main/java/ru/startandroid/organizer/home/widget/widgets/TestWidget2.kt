@@ -1,8 +1,10 @@
 package ru.startandroid.organizer.home.widget.widgets
 
+import android.net.Uri
 import android.view.View
 import android.widget.TextView
 import ru.startandroid.organizer.R
+import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS
 import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS.TEST_WIDGET_2
 import ru.startandroid.organizer.home.widget.common.WidgetData
 import ru.startandroid.organizer.home.widget.common.WidgetSettings
@@ -39,12 +41,14 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
     override fun onDataSet(widgetData: TestWidget2Data) {
         text1.text = widgetData.text1
         text2.text = widgetData.text2
-        setHeader("Test widget 21", true, true, true)
+        setContainerData(
+                id = WIDGETS_IDS.TEST_WIDGET_2,
+                title = "Test widget 21",
+                refreshButtonIsVisible = true,
+                settingsButtonIsVisible = true,
+                closeButtonIsVisible = true)
     }
 
-    override fun onRefreshClick() {
-
-    }
 }
 
 class TestWidget2RegisterData @Inject constructor(val widgetContentProvider: Provider<TestWidget2Content>): WidgetRegistratorImpl.RegisterData {
