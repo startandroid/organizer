@@ -13,7 +13,7 @@ class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvid
     : RecyclerView.Adapter<WidgetContainerHolder>() {
 
 
-    var widgetAdapterCallback: WidgetAdapterCallback? = null
+    var widgetAdapterCallback: WidgetAdapterCallback? = null // TODO do it as a class, there will be only one implementation probably, we dont need interface here
 
     val widgets = mutableListOf<WidgetDataEntity<out WidgetData>>()
 

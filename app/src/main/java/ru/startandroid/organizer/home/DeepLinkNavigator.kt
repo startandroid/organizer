@@ -7,7 +7,7 @@ import android.net.Uri
 import android.util.Log
 import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS.ACTION_REFRESH
 
-// TODO move to device module
+// TODO move to device module, use to open settings?
 class DeepLinkNavigator(val activity: Activity) {
 
     private val scheme: String = "app"
@@ -35,6 +35,7 @@ class DeepLinkNavigator(val activity: Activity) {
 
     }
 
+    // TODO change to settings path
     fun refreshWidget(id: Int) {
         val uri = Uri.parse("$scheme://$authority/widget/$id")
         val action = ACTION_REFRESH

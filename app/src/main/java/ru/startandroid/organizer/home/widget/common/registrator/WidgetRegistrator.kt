@@ -16,7 +16,7 @@ interface WidgetRegistrator :
 
 class WidgetRegistratorImpl(val registerDatas: List<RegisterData>): WidgetRegistrator {
 
-    // TODO do it more easier? data classes or sealed classes?
+    // TODO do it easier? data classes or sealed classes?
     interface RegisterData {
         fun id(): Int
         fun widgetDataCls(): Class<out WidgetData>
