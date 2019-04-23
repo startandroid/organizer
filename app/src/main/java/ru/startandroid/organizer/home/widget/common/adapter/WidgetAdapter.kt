@@ -1,5 +1,6 @@
 package ru.startandroid.organizer.home.widget.common.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +13,7 @@ class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvid
     : RecyclerView.Adapter<WidgetContainerHolder>() {
 
 
-    var widgetAdapterCallback: WidgetAdapterCallback? = null
+    var widgetAdapterCallback: WidgetAdapterCallback? = null // TODO do it as a class, there will be only one implementation probably, we dont need interface here
 
     val widgets = mutableListOf<WidgetDataEntity<out WidgetData>>()
 
@@ -28,6 +29,7 @@ class WidgetAdapter @Inject constructor(private val widgetProvider: WidgetProvid
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
+        Log.d("qweee", "onBindViewHolder $position")
         containerHolder.bind(widgets[position])
     }
 
