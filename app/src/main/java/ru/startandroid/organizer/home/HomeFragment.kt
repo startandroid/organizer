@@ -11,14 +11,15 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import ru.startandroid.data.AppDatabase
+import ru.startandroid.data.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapterCallback
 import ru.startandroid.organizer.home.widget.refresh.WidgetsRefresher
 import javax.inject.Inject
-
 
 class HomeFragment : android.app.Fragment() {
 
@@ -33,8 +34,10 @@ class HomeFragment : android.app.Fragment() {
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
     @Inject
-    lateinit var widgetsRefresher: WidgetsRefresher
+    lateinit var weatherAPI: WeatherAPI
 
+    @Inject
+    lateinit var widgetsRefresher: WidgetsRefresher
 
     val compositeDisposable = CompositeDisposable()
 
@@ -48,6 +51,7 @@ class HomeFragment : android.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         init(view)
+        getWeather()
 
         Log.d("qweee", "onCreateView HomeFragment $database")
 
@@ -99,4 +103,16 @@ class HomeFragment : android.app.Fragment() {
         super.onDestroy()
         compositeDisposable.clear()
     }
+
+    private fun getWeather() {
+        weatherAPI.getCityWeather("Paris").observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    Log.d("Result", "There are ${result.forecast.toString()} Java developers in Lagos")
+                }, { error ->
+                    error.printStackTrace()
+                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
+                })
+    }
+
 }
