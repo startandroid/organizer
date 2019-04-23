@@ -6,6 +6,7 @@ import dagger.Provides
 import ru.startandroid.organizer.home.widget.widgets.*
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetProvider
+import ru.startandroid.organizer.home.widget.refresh.WidgetsRefresher
 
 @Module
 abstract class WidgetRegistratorModule {
@@ -14,7 +15,10 @@ abstract class WidgetRegistratorModule {
     abstract fun provideToMapperRegistrator(widgetRegistrator: WidgetRegistratorImpl): WidgetEntityMapper.ToMapperRegistrator
 
     @Binds
-    abstract fun provideToMProviderRegistrator(widgetRegistrator: WidgetRegistratorImpl): WidgetProvider.ToProviderRegistrator
+    abstract fun provideToProviderRegistrator(widgetRegistrator: WidgetRegistratorImpl): WidgetProvider.ToProviderRegistrator
+
+    @Binds
+    abstract fun provideToRefresherRegistrator(widgetRegistrator: WidgetRegistratorImpl): WidgetsRefresher.ToRefresherRegistrator
 
 }
 
