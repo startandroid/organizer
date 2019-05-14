@@ -28,11 +28,13 @@ class WidgetsModule() {
     @Provides
     fun provideWidgetRegistrator(
             testWidget1RegisterData: TestWidget1RegisterData,
-            testWidget2RegisterData: TestWidget2RegisterData
+            testWidget2RegisterData: TestWidget2RegisterData,
+            weatherWidgetRegisterData: WeatherWidgetRegisterData
     ) = WidgetRegistratorImpl(
             listOf(
                     testWidget1RegisterData,
-                    testWidget2RegisterData
+                    testWidget2RegisterData,
+                    weatherWidgetRegisterData
             )
     )
 
