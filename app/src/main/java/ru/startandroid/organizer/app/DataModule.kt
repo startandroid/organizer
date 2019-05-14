@@ -59,11 +59,17 @@ class DataModule {
         val entitySettingsDb2 = WidgetSettingsEntityDb(WIDGETS_IDS.TEST_WIDGET_2,
                 gson.toJson(wsett2), 2, true)
 
-        appDatabase.widgetDao().insertAll(listOf(entityDb1, entityDb2))
-        appDatabase.widgetSettingsDao().insertAll(listOf(entitySettingsDb1, entitySettingsDb2))
+        val wdata3 = WeatherWidgetData("weather1", "weather2")
+        val entityDb3 = WidgetDataEntityDb(WIDGETS_IDS.TEST_WIDGET_3,
+                gson.toJson(wdata3))
+
+        val wsett3 = WeatherWidgetSettings(true, false)
+        val entitySettingsDb3 = WidgetSettingsEntityDb(WIDGETS_IDS.TEST_WIDGET_3,
+                gson.toJson(wsett3), 3, true)
 
 
-
+        appDatabase.widgetDao().insertAll(listOf(entityDb1, entityDb2, entityDb3))
+        appDatabase.widgetSettingsDao().insertAll(listOf(entitySettingsDb1, entitySettingsDb2, entitySettingsDb3))
 
     }
 
