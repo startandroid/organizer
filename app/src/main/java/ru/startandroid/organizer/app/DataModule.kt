@@ -59,7 +59,7 @@ class DataModule {
         val entitySettingsDb2 = WidgetSettingsEntityDb(WIDGETS_IDS.TEST_WIDGET_2,
                 gson.toJson(wsett2), 2, true)
 
-        val wdata3 = WeatherWidgetData("weather1", "weather2")
+        val wdata3 = WeatherWidgetData("11:23", "25", "21", "19", "17" )
         val entityDb3 = WidgetDataEntityDb(WIDGETS_IDS.TEST_WIDGET_3,
                 gson.toJson(wdata3))
 
@@ -72,6 +72,4 @@ class DataModule {
         appDatabase.widgetSettingsDao().insertAll(listOf(entitySettingsDb1, entitySettingsDb2, entitySettingsDb3))
 
     }
-
-
 }

@@ -1,5 +1,6 @@
 package ru.startandroid.organizer.home.widget.widgets
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.util.Log
 import android.view.View
@@ -55,14 +56,13 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
                 settingsButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
-
 }
 
 class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater): WidgetRefresher {
+    @SuppressLint("CheckResult")
     override fun refresh() {
         Log.d("qweee", "refresh widget 2")
         widgetDbUpdater.getAndUpdate(TEST_WIDGET_2) {entity ->
-
 
             entity?.let {
 

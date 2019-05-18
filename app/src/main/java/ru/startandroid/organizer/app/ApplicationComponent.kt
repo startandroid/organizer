@@ -8,6 +8,7 @@ import ru.startandroid.organizer.TestActivity
 import ru.startandroid.organizer.home.*
 import ru.startandroid.organizer.home.widget.common.registrator.WidgetRegistratorModule
 import ru.startandroid.organizer.home.widget.common.registrator.WidgetsModule
+import ru.startandroid.organizer.home.widget.widgets.WeatherWidgetRefresher
 
 
 @Scope
@@ -30,6 +31,7 @@ abstract class SubcomponentModule {
 
     @ContributesAndroidInjector()
     internal abstract fun contributeTestActivityInjector(): TestActivity
+
 
 }
 

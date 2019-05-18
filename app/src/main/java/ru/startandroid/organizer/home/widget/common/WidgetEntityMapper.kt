@@ -43,5 +43,4 @@ class WidgetEntityMapper @Inject constructor(
         return WidgetDataEntityDb(widgetDataEntity.id, data)
 
     }
-
 }

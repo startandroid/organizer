@@ -3,6 +3,9 @@ package ru.startandroid.organizer.home.widget.widgets
 import android.util.Log
 import android.view.View
 import android.widget.TextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import ru.startandroid.data.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS
 import ru.startandroid.organizer.home.widget.common.WidgetData
@@ -16,15 +19,18 @@ import ru.startandroid.organizer.home.widget.refresh.WidgetRefresher
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 
 
-
-
 data class WeatherWidgetData(
-        val text1: String,
-        val text2: String
+        val time: String,
+        val tempMain: String,
+        val temp1: String,
+        val temp2: String,
+        val temp3: String
 ) : WidgetData
 
 data class WeatherWidgetSettings(
@@ -35,19 +41,29 @@ data class WeatherWidgetSettings(
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidgetData>() {
 
-    lateinit var text1: TextView
-    lateinit var text2: TextView
+    lateinit var tvTime: TextView
+    lateinit var tvTempMain: TextView
+    lateinit var tvTemp1: TextView
+    lateinit var tvTemp2: TextView
+    lateinit var tvTemp3: TextView
 
-    override fun getLayoutId(): Int = R.layout.widget_test2
+    override fun getLayoutId(): Int = R.layout.widget_weather
 
     override fun onViewInflated(widgetView: View) {
-        text1 = widgetView.findViewById(R.id.text1)
-        text2 = widgetView.findViewById(R.id.text2)
+        tvTime = widgetView.findViewById(R.id.time_val)
+        tvTempMain = widgetView.findViewById(R.id.current_temp)
+        tvTemp1 = widgetView.findViewById(R.id.forecast_day1_val)
+        tvTemp2 = widgetView.findViewById(R.id.forecast_day2_val)
+        tvTemp3 = widgetView.findViewById(R.id.forecast_day3_val)
     }
 
     override fun onDataSet(widgetData: WeatherWidgetData) {
-        text1.text = widgetData.text1
-        text2.text = widgetData.text2
+        tvTime.text = widgetData.time
+        tvTempMain.text = widgetData.tempMain + "\u2103"
+        tvTemp1.text = widgetData.temp1 + "\u2103"
+        tvTemp2.text = widgetData.temp2 + "\u2103"
+        tvTemp3.text = widgetData.temp3 + "\u2103"
+
         setContainerData(
                 id = WIDGETS_IDS.TEST_WIDGET_3,
                 title = "Weather widget",
@@ -58,40 +74,31 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
 
 }
 
-class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater): WidgetRefresher {
+class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
+
+    var api: WeatherAPI = WeatherAPI.create()
+
     override fun refresh() {
-        Log.d("qweee", "refresh widget 2")
-        widgetDbUpdater.getAndUpdate(WIDGETS_IDS.TEST_WIDGET_2) { entity ->
 
+        api.getCityWeather("Moscow", "3").observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    widgetDbUpdater.getAndUpdate(WIDGETS_IDS.TEST_WIDGET_3, scheduler = AndroidSchedulers.mainThread()) { entity ->
+                        Log.d("qweee", "widget1 func")
+                        entity?.let {
+                            var data = it.data as WeatherWidgetData
+                            data = data.copy(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}", tempMain = result.current?.tempC?.toInt().toString()
+                                    , temp1 = result.forecast?.forecastday?.get(0)?.day?.avgtempC?.toInt().toString()
+                                    , temp2 = result.forecast?.forecastday?.get(1)?.day?.avgtempC?.toInt().toString()
+                                    , temp3 = result.forecast?.forecastday?.get(2)?.day?.avgtempC?.toInt().toString())
+                            WidgetDataEntity(it.id, data)
+                        }
 
-            entity?.let {
-
-                val url = URL("http://worldtimeapi.org/api/ip.txt")
-                val urlConnection = url.openConnection() as HttpURLConnection
-                try {
-                    val instream = BufferedInputStream(urlConnection.getInputStream())
-
-                    val contents = ByteArray(1024)
-
-                    var bytesRead = 0
-                    var strFileContents: String = ""
-                    bytesRead = instream.read(contents)
-                    while ((bytesRead) != -1) {
-                        strFileContents += String(contents, 0, bytesRead)
-                        bytesRead = instream.read(contents)
-                    }
-                    Log.d("qweee", "refresh widget 2 $strFileContents")
-                    var data = it.data as WeatherWidgetData
-                    data = data.copy(text2 = strFileContents)
-                    WidgetDataEntity(it.id, data)
-                } finally {
-                    urlConnection.disconnect()
-                }
-            }
-
-        }.subscribe{ Log.d("qweee", "refresh widget 2 done")}
-
-
+                    }.subscribe()
+                }, { error ->
+                    error.printStackTrace()
+                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
+                })
     }
 }
 
@@ -99,8 +106,8 @@ class WeatherWidgetRegisterData @Inject constructor(
         val widgetContentProvider: Provider<WeatherWidgetContent>,
         val widgetRefresherProvider: Provider<WeatherWidgetRefresher>
 
-): WidgetRegistratorImpl.RegisterData {
-    override fun id(): Int  = WIDGETS_IDS.TEST_WIDGET_3
+) : WidgetRegistratorImpl.RegisterData {
+    override fun id(): Int = WIDGETS_IDS.TEST_WIDGET_3
     override fun widgetDataCls(): Class<out WidgetData> = WeatherWidgetData::class.java
     override fun widgetSettingsCls(): Class<out WidgetSettings> = WeatherWidgetSettings::class.java
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
