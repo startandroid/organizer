@@ -10,21 +10,38 @@
         android:id="@+id/forecast_day1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="12.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/current_temp" />
+        app:layout_constraintTop_toBottomOf="@+id/time_val" />
+
+    <TextView
+        android:id="@+id/forecast_day2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="13.07"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forecast_day1" />
+
+    <TextView
+        android:id="@+id/forecast_day3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="14.07"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="@+id/forecast_day2"
+        app:layout_constraintTop_toBottomOf="@+id/forecast_day2" />
 
     <TextView
         android:id="@+id/city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Moscow"
-        android:textStyle="bold"
         android:textSize="@dimen/text_medium"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,22 +49,8 @@
         android:id="@+id/current_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="22"
-        android:textSize="@dimen/text_big"
-        app:layout_constraintBottom_toBottomOf="@+id/temp_unit"
-        app:layout_constraintEnd_toStartOf="@+id/temp_unit"
-        app:layout_constraintTop_toTopOf="@+id/temp_unit"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/temp_unit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:text="C"
+        android:text="22&#176;"
         android:textSize="@dimen/text_big"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,22 +66,62 @@
         app:layout_constraintTop_toTopOf="@+id/forecast_day1" />
 
     <TextView
+        android:id="@+id/hyphen2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="-"
+        app:layout_constraintBottom_toBottomOf="@+id/forecast_day2"
+        app:layout_constraintStart_toEndOf="@+id/forecast_day2"
+        app:layout_constraintTop_toTopOf="@+id/forecast_day2" />
+
+    <TextView
+        android:id="@+id/hyphen3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="-"
+        app:layout_constraintBottom_toBottomOf="@+id/forecast_day3"
+        app:layout_constraintStart_toEndOf="@+id/forecast_day3"
+        app:layout_constraintTop_toTopOf="@+id/forecast_day3" />
+
+    <TextView
         android:id="@+id/forecast_day1_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="23"
+        android:text="23&#176;"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen1"
         app:layout_constraintStart_toEndOf="@+id/hyphen1"
         app:layout_constraintTop_toTopOf="@+id/hyphen1" />
 
     <TextView
-        android:id="@+id/temp_unit1"
+        android:id="@+id/forecast_day2_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:text="C"
-        app:layout_constraintBottom_toBottomOf="@+id/forecast_day1_val"
-        app:layout_constraintStart_toEndOf="@+id/forecast_day1_val"
-        app:layout_constraintTop_toTopOf="@+id/forecast_day1_val" />
+        android:layout_marginStart="32dp"
+        android:text="20&#176;"
+        app:layout_constraintBottom_toBottomOf="@+id/hyphen2"
+        app:layout_constraintStart_toEndOf="@+id/hyphen2"
+        app:layout_constraintTop_toTopOf="@+id/hyphen2" />
+
+    <TextView
+        android:id="@+id/forecast_day3_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:text="11&#176;"
+        app:layout_constraintBottom_toBottomOf="@+id/hyphen3"
+        app:layout_constraintStart_toEndOf="@+id/hyphen3"
+        app:layout_constraintTop_toTopOf="@+id/hyphen3" />
+
+    <TextView
+        android:id="@+id/time_val"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11:00"
+        android:textSize="@dimen/text_average"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/city_name"
+        app:layout_constraintTop_toBottomOf="@+id/city_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>
