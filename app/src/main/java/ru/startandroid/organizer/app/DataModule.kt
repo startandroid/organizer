@@ -59,7 +59,7 @@ class DataModule {
         val entitySettingsDb2 = WidgetSettingsEntityDb(WIDGETS_IDS.TEST_WIDGET_2,
                 gson.toJson(wsett2), 2, true)
 
-        val wdata3 = WeatherWidgetData("11:23", "25", "21", "19", "17" )
+        val wdata3 = WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
         val entityDb3 = WidgetDataEntityDb(WIDGETS_IDS.TEST_WIDGET_3,
                 gson.toJson(wdata3))
 
