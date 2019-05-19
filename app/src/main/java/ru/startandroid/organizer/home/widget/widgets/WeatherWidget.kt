@@ -30,7 +30,10 @@ data class WeatherWidgetData(
         val tempMain: String,
         val temp1: String,
         val temp2: String,
-        val temp3: String
+        val temp3: String,
+        val day1: String,
+        val day2: String,
+        val day3: String
 ) : WidgetData
 
 data class WeatherWidgetSettings(
@@ -46,6 +49,10 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
     lateinit var tvTemp1: TextView
     lateinit var tvTemp2: TextView
     lateinit var tvTemp3: TextView
+    lateinit var tvDay1: TextView
+    lateinit var tvDay2: TextView
+    lateinit var tvDay3: TextView
+
 
     override fun getLayoutId(): Int = R.layout.widget_weather
 
@@ -55,6 +62,9 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
         tvTemp1 = widgetView.findViewById(R.id.forecast_day1_val)
         tvTemp2 = widgetView.findViewById(R.id.forecast_day2_val)
         tvTemp3 = widgetView.findViewById(R.id.forecast_day3_val)
+        tvDay1 = widgetView.findViewById(R.id.forecast_day1)
+        tvDay2 = widgetView.findViewById(R.id.forecast_day2)
+        tvDay3 = widgetView.findViewById(R.id.forecast_day3)
     }
 
     override fun onDataSet(widgetData: WeatherWidgetData) {
@@ -63,6 +73,9 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
         tvTemp1.text = widgetData.temp1 + "\u2103"
         tvTemp2.text = widgetData.temp2 + "\u2103"
         tvTemp3.text = widgetData.temp3 + "\u2103"
+        tvDay1.text = widgetData.day1
+        tvDay2.text = widgetData.day2
+        tvDay3.text = widgetData.day3
 
         setContainerData(
                 id = WIDGETS_IDS.TEST_WIDGET_3,
@@ -90,7 +103,10 @@ class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUp
                             data = data.copy(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}", tempMain = result.current?.tempC?.toInt().toString()
                                     , temp1 = result.forecast?.forecastday?.get(0)?.day?.avgtempC?.toInt().toString()
                                     , temp2 = result.forecast?.forecastday?.get(1)?.day?.avgtempC?.toInt().toString()
-                                    , temp3 = result.forecast?.forecastday?.get(2)?.day?.avgtempC?.toInt().toString())
+                                    , temp3 = result.forecast?.forecastday?.get(2)?.day?.avgtempC?.toInt().toString()
+                                    , day1 = result.forecast?.forecastday?.get(0)?.date.toString()
+                                    , day2 = result.forecast?.forecastday?.get(1)?.date.toString()
+                                    , day3 = result.forecast?.forecastday?.get(2)?.date.toString())
                             WidgetDataEntity(it.id, data)
                         }
 
