@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="12.07"
+        tools:text="12.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/time_val" />
 
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="13.07"
+        tools:text="13.07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forecast_day1" />
 
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="14.07"
+        tools:text="14.07"
         android:layout_marginBottom="16dp"
         app:layout_constraintStart_toStartOf="@+id/forecast_day2"
         app:layout_constraintTop_toBottomOf="@+id/forecast_day2" />
@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Moscow"
+        tools:text="Moscow"
         android:textSize="@dimen/text_medium"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -50,7 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="22&#176;"
+        tools:text="22&#176;"
         android:textSize="@dimen/text_big"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="-"
+        tools:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/forecast_day1"
         app:layout_constraintStart_toEndOf="@+id/forecast_day1"
         app:layout_constraintTop_toTopOf="@+id/forecast_day1" />
@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="-"
+        tools:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/forecast_day2"
         app:layout_constraintStart_toEndOf="@+id/forecast_day2"
         app:layout_constraintTop_toTopOf="@+id/forecast_day2" />
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="-"
+        tools:text="-"
         app:layout_constraintBottom_toBottomOf="@+id/forecast_day3"
         app:layout_constraintStart_toEndOf="@+id/forecast_day3"
         app:layout_constraintTop_toTopOf="@+id/forecast_day3" />
@@ -90,7 +90,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="23&#176;"
+        tools:text="23&#176;"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen1"
         app:layout_constraintStart_toEndOf="@+id/hyphen1"
         app:layout_constraintTop_toTopOf="@+id/hyphen1" />
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="20&#176;"
+        tools:text="20&#176;"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen2"
         app:layout_constraintStart_toEndOf="@+id/hyphen2"
         app:layout_constraintTop_toTopOf="@+id/hyphen2" />
@@ -110,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="11&#176;"
+        tools:text="11&#176;"
         app:layout_constraintBottom_toBottomOf="@+id/hyphen3"
         app:layout_constraintStart_toEndOf="@+id/hyphen3"
         app:layout_constraintTop_toTopOf="@+id/hyphen3" />
@@ -119,7 +119,7 @@
         android:id="@+id/time_val"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="11:00"
+        tools:text="11:00"
         android:textSize="@dimen/text_average"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/city_name"

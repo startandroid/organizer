@@ -53,7 +53,6 @@ class HomeFragment : android.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         init(view)
-        getWeather()
 
         Log.d("qweee", "onCreateView HomeFragment $database")
 
@@ -64,7 +63,6 @@ class HomeFragment : android.app.Fragment() {
 
         // TODO move to presenter
 
-        val test: Flowable<List<WidgetDataEntityDb>> = database.widgetDao().getAll()
         val disposable = database.widgetDao()
                 .getAll()
                 .doOnNext { Log.d("qweee", "refresh widget list $it") }
@@ -106,16 +104,5 @@ class HomeFragment : android.app.Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         compositeDisposable.clear()
-    }
-
-    private fun getWeather() {
-        weatherAPI.getCityWeather("Paris", "3").observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.d("Result", "There are ${result.forecast.toString()} Java developers in Lagos")
-                }, { error ->
-                    error.printStackTrace()
-                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
-                })
     }
 }

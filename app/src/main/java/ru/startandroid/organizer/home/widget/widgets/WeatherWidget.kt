@@ -100,13 +100,16 @@ class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUp
                         Log.d("qweee", "widget1 func")
                         entity?.let {
                             var data = it.data as WeatherWidgetData
-                            data = data.copy(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}", tempMain = result.current?.tempC?.toInt().toString()
-                                    , temp1 = result.forecast?.forecastday?.get(0)?.day?.avgtempC?.toInt().toString()
-                                    , temp2 = result.forecast?.forecastday?.get(1)?.day?.avgtempC?.toInt().toString()
-                                    , temp3 = result.forecast?.forecastday?.get(2)?.day?.avgtempC?.toInt().toString()
-                                    , day1 = result.forecast?.forecastday?.get(0)?.date.toString()
-                                    , day2 = result.forecast?.forecastday?.get(1)?.date.toString()
-                                    , day3 = result.forecast?.forecastday?.get(2)?.date.toString())
+                            var forecastList = result.forecast?.forecastday
+                            if (forecastList != null) {
+                                data = data.copy(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}", tempMain = result.current?.tempC?.toInt().toString()
+                                        , temp1 = forecastList[0]?.day?.avgtempC?.toInt().toString()
+                                        , temp2 = forecastList[1]?.day?.avgtempC?.toInt().toString()
+                                        , temp3 = forecastList[2]?.day?.avgtempC?.toInt().toString()
+                                        , day1 = forecastList[0]?.date.toString()
+                                        , day2 = forecastList[1]?.date.toString()
+                                        , day3 = forecastList[2]?.date.toString())
+                            }
                             WidgetDataEntity(it.id, data)
                         }
 
