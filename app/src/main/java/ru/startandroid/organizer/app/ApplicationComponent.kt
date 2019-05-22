@@ -2,12 +2,15 @@ package ru.startandroid.organizer.app
 
 import dagger.Component
 import dagger.Module
-import javax.inject.Scope
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.organizer.TestActivity
-import ru.startandroid.organizer.home.*
+import ru.startandroid.organizer.home.HomeActivity
+import ru.startandroid.organizer.home.HomeActivityInjectorModule
+import ru.startandroid.organizer.home.HomeActivityModule
+import ru.startandroid.organizer.home.ScopeHome
 import ru.startandroid.organizer.home.widget.common.registrator.WidgetRegistratorModule
 import ru.startandroid.organizer.home.widget.common.registrator.WidgetsModule
+import javax.inject.Scope
 
 
 @Scope
@@ -30,6 +33,7 @@ abstract class SubcomponentModule {
 
     @ContributesAndroidInjector()
     internal abstract fun contributeTestActivityInjector(): TestActivity
+
 
 }
 

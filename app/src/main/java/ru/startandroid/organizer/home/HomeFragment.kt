@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import ru.startandroid.data.AppDatabase
 import ru.startandroid.data.WeatherAPI
+import ru.startandroid.domain.WidgetDataEntityDb
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.common.adapter.WidgetAdapter
 import ru.startandroid.organizer.home.widget.common.WidgetEntityMapper
@@ -51,7 +53,6 @@ class HomeFragment : android.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         init(view)
-        getWeather()
 
         Log.d("qweee", "onCreateView HomeFragment $database")
 
@@ -61,6 +62,7 @@ class HomeFragment : android.app.Fragment() {
     private fun init(view: View) {
 
         // TODO move to presenter
+
         val disposable = database.widgetDao()
                 .getAll()
                 .doOnNext { Log.d("qweee", "refresh widget list $it") }
@@ -103,16 +105,4 @@ class HomeFragment : android.app.Fragment() {
         super.onDestroy()
         compositeDisposable.clear()
     }
-
-    private fun getWeather() {
-        weatherAPI.getCityWeather("Paris").observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.d("Result", "There are ${result.forecast.toString()} Java developers in Lagos")
-                }, { error ->
-                    error.printStackTrace()
-                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
-                })
-    }
-
 }

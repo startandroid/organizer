@@ -17,7 +17,7 @@ import ru.startandroid.domain.models.WeatherData
 interface WeatherAPI {
 
     @GET("forecast.json")
-    fun getCityWeather(@Query("q") q: String): Observable<WeatherData>
+    fun getCityWeather(@Query("q") q: String, @Query("days") days: String): Observable<WeatherData>
 
     companion object Factory {
         fun create(): WeatherAPI{
