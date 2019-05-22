@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import ru.startandroid.organizer.home.widget.common.WIDGETS_IDS.ACTION_REFRESH
+//import ru.startandroid.widgets.WIDGETS_IDS.ACTION_REFRESH
 
 // TODO move to device module, use to open settings?
 class DeepLinkNavigator(val activity: Activity) {
@@ -36,12 +36,12 @@ class DeepLinkNavigator(val activity: Activity) {
     }
 
     // TODO change to settings path
-    fun refreshWidget(id: Int) {
-        val uri = Uri.parse("$scheme://$authority/widget/$id")
-        val action = ACTION_REFRESH
-        Log.d("qweee", "send broadcast intent action = $action, uri = $uri")
-        Intent(action, uri).sendBroadcast(activity)
-    }
+//    fun refreshWidget(id: Int) {
+//        val uri = Uri.parse("$scheme://$authority/widget/$id")
+//        val action = ACTION_REFRESH
+//        Log.d("qweee", "send broadcast intent action = $action, uri = $uri")
+//        Intent(action, uri).sendBroadcast(activity)
+//    }
 
 
     fun Intent.sendBroadcast(context: Context) {

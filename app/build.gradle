@@ -32,6 +32,7 @@ dependencies {
     implementation project(':data')
     implementation project(':device')
     implementation project(':domain')
+    implementation project(':widgets')
 
     testImplementation junit.junit
     androidTestImplementation androidxtest.runner
@@ -55,7 +56,7 @@ dependencies {
     implementation room.roomRuntime
     implementation room.roomRxjava2
 
-    implementation gson.gson
+    //implementation gson.gson
 
     implementation rxjava2.rxjava
     implementation rxjava2.adapter
