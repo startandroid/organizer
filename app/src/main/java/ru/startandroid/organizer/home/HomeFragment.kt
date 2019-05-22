@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
+import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -42,7 +43,6 @@ class HomeFragment : android.app.Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         init(view)
-        getWeather()
 
         return view
     }
@@ -63,16 +63,4 @@ class HomeFragment : android.app.Fragment() {
         super.onDestroyView()
         widgetAdapter.destroy()
     }
-
-    private fun getWeather() {
-        weatherAPI.getCityWeather("Paris").observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    Log.d("Result", "There are ${result.forecast.toString()} Java developers in Lagos")
-                }, { error ->
-                    error.printStackTrace()
-                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
-                })
-    }
-
 }
