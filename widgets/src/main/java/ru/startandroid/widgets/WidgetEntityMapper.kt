@@ -46,5 +46,4 @@ constructor(
 
         return WidgetDataEntityDb(widgetDataEntity.id, data)
     }
-
 }
