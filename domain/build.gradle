@@ -29,6 +29,8 @@ dependencies {
 
    implementation rxjava2.rxjava
 
+    implementation dagger.dagger
+
     implementation gson.gson
 }
 
