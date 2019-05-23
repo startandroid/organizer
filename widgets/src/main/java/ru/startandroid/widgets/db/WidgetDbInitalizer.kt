@@ -20,11 +20,12 @@ class WidgetDbInitalizer @Inject constructor(val widgetRegistrator: ToDbInitiali
 
     fun createDatabase(context: Context): WidgetDatabase {
         widgetDatabase = Room.databaseBuilder(context, WidgetDatabase::class.java, "widget_database.db")
-                .addCallback(object: RoomDatabase.Callback() {
+                .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
                         Log.d("qweee", "room onCreate")
-                        Executors.newSingleThreadExecutor().execute { // TODO use DB scheduler
+                        Executors.newSingleThreadExecutor().execute {
+                            // TODO use DB scheduler
                             createInitRecords()
                         }
 

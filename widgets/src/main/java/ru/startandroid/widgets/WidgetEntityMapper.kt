@@ -14,7 +14,7 @@ constructor(
 
     interface ToMapperRegistrator {
         fun registerWidgetToMapper(registerFunc: (id: Int, widgetDataCls: Class<out WidgetData>
-                                                  //, widgetSettingsCls: Class<out WidgetSettings>?
+                //, widgetSettingsCls: Class<out WidgetSettings>?
         ) -> Unit)
     }
 
@@ -24,8 +24,7 @@ constructor(
 
     init {
         Log.d("qweee", "WidgetEntityMapper init, widgetRegistrator ${widgetRegistrator}")
-        widgetRegistrator.registerWidgetToMapper {
-            id: Int, widgetDataCls: Class<out WidgetData> ->
+        widgetRegistrator.registerWidgetToMapper { id: Int, widgetDataCls: Class<out WidgetData> ->
             dataClasses.put(id, widgetDataCls)
             //settingsClasses.put(id, widgetSettingsCls)
         }
@@ -42,7 +41,7 @@ constructor(
     }
 
     fun map(widgetDataEntity: WidgetDataEntity<out WidgetData>): WidgetDataEntityDb {
-         val data = gson.toJson(widgetDataEntity.data)
+        val data = gson.toJson(widgetDataEntity.data)
 
         return WidgetDataEntityDb(widgetDataEntity.id, data)
     }

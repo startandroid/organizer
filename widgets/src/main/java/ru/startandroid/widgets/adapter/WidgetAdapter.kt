@@ -21,8 +21,7 @@ constructor(
         private val widgetDatabase: WidgetDatabase,
         private var widgetEntityMapper: WidgetEntityMapper,
         private var widgetAdapterCallback: WidgetAdapterCallback
-)
-    : RecyclerView.Adapter<WidgetContainerHolder>() {
+) : RecyclerView.Adapter<WidgetContainerHolder>() {
 
     val widgets = mutableListOf<WidgetDataEntity<out WidgetData>>()
 
@@ -32,20 +31,20 @@ constructor(
         disposable?.dispose()
         disposable =
                 widgetDatabase.widgetDao()
-                .getAll()
-                .doOnNext { Log.d("qweee", "refresh widget list $it") }
-                .map {
-                    it.map {
-                        widgetEntityMapper.map(it)
-                    }.filterNotNull()
+                        .getAll()
+                        .doOnNext { Log.d("qweee", "refresh widget list $it") }
+                        .map {
+                            it.map {
+                                widgetEntityMapper.map(it)
+                            }.filterNotNull()
 
-                }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    setWidgets(it)
-                    notifyDataSetChanged()
-                    // TODO use diffutils
-                }
+                        }
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            setWidgets(it)
+                            notifyDataSetChanged()
+                            // TODO use diffutils
+                        }
     }
 
     private fun setWidgets(widgets: List<WidgetDataEntity<out WidgetData>>) {

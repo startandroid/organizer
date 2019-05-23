@@ -36,7 +36,7 @@ class WidgetContainerHolder(private val view: View,
         }
 
         closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
-        refreshButton.setOnClickListener {  widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
+        refreshButton.setOnClickListener { widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
         settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id) }
     }
 

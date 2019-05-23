@@ -2,24 +2,14 @@ package ru.startandroid.organizer.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-//import ru.startandroid.data.AppDatabase
-import ru.startandroid.data.WeatherAPI
 import ru.startandroid.organizer.R
-import ru.startandroid.widgets.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.WidgetAdapter
-import ru.startandroid.widgets.adapter.WidgetAdapterCallback
-import ru.startandroid.widgets.refresh.WidgetsRefresher
 import javax.inject.Inject
 
 class HomeFragment : android.app.Fragment() {
@@ -30,8 +20,6 @@ class HomeFragment : android.app.Fragment() {
 
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
-    @Inject
-    lateinit var weatherAPI: WeatherAPI
 
     override fun onAttach(context: Context?) {
         AndroidInjection.inject(this)

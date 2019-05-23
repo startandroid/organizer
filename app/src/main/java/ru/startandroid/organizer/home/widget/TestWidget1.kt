@@ -12,11 +12,11 @@ import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.WidgetSettings
 import ru.startandroid.widgets.adapter.container.BaseWidgetContent
 import ru.startandroid.widgets.adapter.container.WidgetContent
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import ru.startandroid.widgets.db.WidgetDbUpdater
+import ru.startandroid.widgets.db.WidgetInit
+import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
+import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -83,7 +83,7 @@ class TestWidget1RegisterData @Inject constructor(
         val widgetContentProvider: Provider<TestWidget1Content>,
         val widgetRefresherProvider: Provider<TestWidget1Refresher>,
         val widetInitProvider: Provider<TestWidget1Init>
-): WidgetRegistratorImpl.RegisterData {
+) : WidgetRegistratorImpl.RegisterData {
 
     override fun id(): Int = TEST_WIDGET_1
     override fun widgetDataCls(): Class<out WidgetData> = TestWidget1Data::class.java
