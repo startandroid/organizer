@@ -27,15 +27,15 @@ constructor(
                      func: (entity: WidgetDataEntity<out WidgetData>?) -> WidgetDataEntity<out WidgetData>?
 
     ): Completable {
-        return getAndUpdate(id = id, scheduler = scheduler, transform = SingleTransformer {entityObservable ->
+        return getAndUpdate(id = id, scheduler = scheduler, transform = SingleTransformer { entityObservable ->
             entityObservable.map { entity -> func(entity) }
         })
     }
 
 
     private fun getAndUpdate(id: Int,
-                     scheduler: Scheduler,
-                     transform: SingleTransformer<WidgetDataEntity<out WidgetData>?, WidgetDataEntity<out WidgetData>>?
+                             scheduler: Scheduler,
+                             transform: SingleTransformer<WidgetDataEntity<out WidgetData>?, WidgetDataEntity<out WidgetData>>?
     ): Completable {
         val dbScheduler = Schedulers.from(Executors.newSingleThreadExecutor())
 

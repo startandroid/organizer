@@ -11,14 +11,9 @@ import ru.startandroid.organizer.home.HomeActivityModule
 import ru.startandroid.organizer.home.ScopeHome
 import ru.startandroid.widgets.WidgetsModule
 
-//
-//@Scope
-//annotation class ScopeApplication
-
 @Component(modules = [AppModule::class, DataModule::class, SubcomponentModule::class
     , WidgetsModule::class
-]
-)
+])
 @ScopeApplication
 interface ApplicationComponent {
     fun injectApp(app: App)

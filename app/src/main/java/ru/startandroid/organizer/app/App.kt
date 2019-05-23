@@ -3,23 +3,25 @@ package ru.startandroid.organizer.app
 import android.app.Activity
 import android.app.Application
 import android.util.Log
-import dagger.android.AndroidInjector
-import dagger.android.HasActivityInjector
-import dagger.android.DispatchingAndroidInjector
-import javax.inject.Inject
-import io.fabric.sdk.android.Fabric
 import com.crashlytics.android.Crashlytics
-import ru.startandroid.widgets.registrator.WidgetRegistrator
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import io.fabric.sdk.android.Fabric
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import javax.inject.Inject
 
 
-class App: Application(), HasActivityInjector {
+class App : Application(), HasActivityInjector {
 
-    @Inject lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
+    @Inject
+    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
 
-    @Inject lateinit var widgetRegistratorData: WidgetRegistratorData
-    @Inject lateinit var widgetData: MutableSet<WidgetRegistratorImpl.RegisterData>
+    @Inject
+    lateinit var widgetRegistratorData: WidgetRegistratorData
+    @Inject
+    lateinit var widgetData: MutableSet<WidgetRegistratorImpl.RegisterData>
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
 

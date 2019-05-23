@@ -19,9 +19,6 @@ import ru.startandroid.widgets.db.WidgetInit
 import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
-import java.io.BufferedInputStream
-import java.net.HttpURLConnection
-import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
