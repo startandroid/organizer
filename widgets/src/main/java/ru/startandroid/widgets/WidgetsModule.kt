@@ -6,8 +6,8 @@ import dagger.Module
 import dagger.Provides
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgets.adapter.WidgetProvider
-import ru.startandroid.widgets.db.WidgetDbInitalizer
 import ru.startandroid.widgets.db.WidgetDatabase
+import ru.startandroid.widgets.db.WidgetDbInitalizer
 import ru.startandroid.widgets.refresh.WidgetsRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistrator
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
@@ -44,7 +44,6 @@ abstract class WidgetRegistratorModule {
 
     @Binds
     abstract fun provideWidgetRegistratorData(widgetRegistrator: WidgetRegistrator): WidgetRegistratorData
-
 
 
 }

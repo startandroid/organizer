@@ -1,7 +1,6 @@
 package ru.startandroid.organizer.home
 
 import dagger.Module
-import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.organizer.app.NetworkModule
 import javax.inject.Scope
@@ -18,19 +17,10 @@ abstract class HomeActivityInjectorModule {
 
 
 @Module()
-class HomeActivityModule {
-
-//    @ScopeHome
-//    @Provides
-//    fun provideUiNavigator(homeActivity: HomeActivity): DeepLinkNavigator {
-//        return DeepLinkNavigator(homeActivity)
-//    }
-}
+class HomeActivityModule
 
 
 @Module
-class HomeFragmentModule {
-
-}
+class HomeFragmentModule
 
 

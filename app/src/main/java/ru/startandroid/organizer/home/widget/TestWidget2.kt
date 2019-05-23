@@ -1,7 +1,6 @@
 package ru.startandroid.organizer.home.widget
 
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.util.Log
 import android.view.View
 import android.widget.TextView
@@ -9,20 +8,20 @@ import com.google.gson.Gson
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_2
 import ru.startandroid.widgets.WidgetData
+import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.WidgetSettings
 import ru.startandroid.widgets.adapter.container.BaseWidgetContent
 import ru.startandroid.widgets.adapter.container.WidgetContent
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import ru.startandroid.widgets.db.WidgetDbUpdater
+import ru.startandroid.widgets.db.WidgetInit
+import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
-import javax.inject.Inject
-import javax.inject.Provider
+import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import ru.startandroid.widgets.db.WidgetInit
+import javax.inject.Inject
+import javax.inject.Provider
 
 data class TestWidget2Data(
         val text1: String,
@@ -59,11 +58,11 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
     }
 }
 
-class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater): WidgetRefresher {
+class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
     @SuppressLint("CheckResult")
     override fun refresh() {
         Log.d("qweee", "refresh widget 2")
-        widgetDbUpdater.getAndUpdate(TEST_WIDGET_2) {entity ->
+        widgetDbUpdater.getAndUpdate(TEST_WIDGET_2) { entity ->
 
             entity?.let {
 
@@ -90,7 +89,7 @@ class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpda
                 }
             }
 
-        }.subscribe{Log.d("qweee", "refresh widget 2 done")}
+        }.subscribe { Log.d("qweee", "refresh widget 2 done") }
 
 
     }
@@ -108,8 +107,8 @@ class TestWidget2RegisterData @Inject constructor(
         val widgetRefresherProvider: Provider<TestWidget2Refresher>,
         val widetInitProvider: Provider<TestWidget2Init>
 
-): WidgetRegistratorImpl.RegisterData {
-    override fun id(): Int  = TEST_WIDGET_2
+) : WidgetRegistratorImpl.RegisterData {
+    override fun id(): Int = TEST_WIDGET_2
     override fun widgetDataCls(): Class<out WidgetData> = TestWidget2Data::class.java
     override fun widgetSettingsCls(): Class<out WidgetSettings> = TestWidget2Settings::class.java
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider

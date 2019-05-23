@@ -13,7 +13,7 @@ interface WidgetContent {
     fun setWidgetContainerCallback(dataCallback: WidgetContainerDataCallback)
 }
 
-abstract class BaseWidgetContent<WidgetDataType>: WidgetContent {
+abstract class BaseWidgetContent<WidgetDataType> : WidgetContent {
     private var widgetContainerDataCallback: WidgetContainerDataCallback? = null
 
     override fun setWidgetContainerCallback(callback: WidgetContainerDataCallback) {
@@ -21,7 +21,7 @@ abstract class BaseWidgetContent<WidgetDataType>: WidgetContent {
     }
 
     fun setContainerData(id: Int = 0,
-                        title: String = "",
+                         title: String = "",
                          refreshButtonIsVisible: Boolean = false,
                          settingsButtonIsVisible: Boolean = false,
                          closeButtonIsVisible: Boolean = false) {
