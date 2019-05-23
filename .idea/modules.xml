@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
       <module fileurl="file://$PROJECT_DIR$/organizer.iml" filepath="$PROJECT_DIR$/organizer.iml" />
       <module fileurl="file://$PROJECT_DIR$/widgets/widgets.iml" filepath="$PROJECT_DIR$/widgets/widgets.iml" />
-      <module fileurl="file://$PROJECT_DIR$/widgets/widgets.iml" filepath="$PROJECT_DIR$/widgets/widgets.iml" />
     </modules>
   </component>
 </project>

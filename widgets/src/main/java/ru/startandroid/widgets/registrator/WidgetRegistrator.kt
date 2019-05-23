@@ -4,8 +4,8 @@ import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.WidgetEntityMapper
 import ru.startandroid.widgets.WidgetSettings
-import ru.startandroid.widgets.adapter.container.WidgetContent
 import ru.startandroid.widgets.adapter.WidgetProvider
+import ru.startandroid.widgets.adapter.container.WidgetContent
 import ru.startandroid.widgets.db.WidgetDbInitalizer
 import ru.startandroid.widgets.db.WidgetInit
 import ru.startandroid.widgets.refresh.WidgetRefresher
@@ -25,7 +25,7 @@ interface WidgetRegistratorData {
 }
 
 @ScopeApplication
-class WidgetRegistratorImpl @Inject constructor(): WidgetRegistrator {
+class WidgetRegistratorImpl @Inject constructor() : WidgetRegistrator {
 
     interface RegisterData {
         fun id(): Int
