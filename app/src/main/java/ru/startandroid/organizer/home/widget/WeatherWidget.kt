@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.startandroid.data.WeatherAPI
+import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgets.WidgetData

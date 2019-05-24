@@ -1,9 +1,9 @@
-package ru.startandroid.organizer.app
+package ru.startandroid.data.network.di
 
 
 import dagger.Module
 import dagger.Provides
-import ru.startandroid.data.WeatherAPI
+import ru.startandroid.data.network.WeatherAPI
 
 
 @Module
