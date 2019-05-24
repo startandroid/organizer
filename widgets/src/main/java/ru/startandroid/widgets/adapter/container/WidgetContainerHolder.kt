@@ -40,7 +40,7 @@ class WidgetContainerHolder(private val view: View,
         settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id) }
     }
 
-    fun bind(widgetDataEntity: WidgetDataEntity<out WidgetData>) {
+    fun bind(widgetDataEntity: WidgetDataEntity) {
         widgetContent?.setData(widgetDataEntity)
     }
 

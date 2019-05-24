@@ -22,6 +22,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.reflect.KClass
 
 data class TestWidget2Data(
         val text1: String,
@@ -109,8 +110,8 @@ class TestWidget2RegisterData @Inject constructor(
 
 ) : WidgetRegistratorImpl.RegisterData {
     override fun id(): Int = TEST_WIDGET_2
-    override fun widgetDataCls(): Class<out WidgetData> = TestWidget2Data::class.java
-    override fun widgetSettingsCls(): Class<out WidgetSettings> = TestWidget2Settings::class.java
+    override fun widgetDataCls(): KClass<out WidgetData> = TestWidget2Data::class
+    override fun widgetSettingsCls(): KClass<out WidgetSettings> = TestWidget2Settings::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
     override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
