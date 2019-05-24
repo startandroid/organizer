@@ -1,4 +1,4 @@
-package ru.startandroid.data
+package ru.startandroid.data.network
 
 import io.reactivex.Observable
 import okhttp3.Interceptor
@@ -10,6 +10,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.startandroid.data.BuildConfig
 import ru.startandroid.domain.models.WeatherData
 
 
@@ -20,7 +21,7 @@ interface WeatherAPI {
     fun getCityWeather(@Query("q") q: String, @Query("days") days: String): Observable<WeatherData>
 
     companion object Factory {
-        fun create(): WeatherAPI{
+        fun create(): WeatherAPI {
             val clientBuilder = OkHttpClient.Builder()
 
             val headerAuthorizationInterceptor = Interceptor { chain ->
