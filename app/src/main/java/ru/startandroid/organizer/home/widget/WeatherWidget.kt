@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.reflect.KClass
 
 
 data class WeatherWidgetData(
@@ -135,8 +136,8 @@ class WeatherWidgetRegisterData @Inject constructor(
 
 ) : WidgetRegistratorImpl.RegisterData {
     override fun id(): Int = WEATHER_WIDGET
-    override fun widgetDataCls(): Class<out WidgetData> = WeatherWidgetData::class.java
-    override fun widgetSettingsCls(): Class<out WidgetSettings> = WeatherWidgetSettings::class.java
+    override fun widgetDataCls(): KClass<out WidgetData> = WeatherWidgetData::class
+    override fun widgetSettingsCls(): KClass<out WidgetSettings> = WeatherWidgetSettings::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
     override fun widgetInit(): Provider<out WidgetInit> = widgetInitProvider

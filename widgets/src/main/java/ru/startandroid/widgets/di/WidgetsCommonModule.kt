@@ -8,7 +8,7 @@ import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgets.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
-import ru.startandroid.widgets.db.WidgetDbInitalizer
+import ru.startandroid.widgets.db.WidgetDbInitializer
 import ru.startandroid.widgets.refresh.WidgetsRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistrator
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
@@ -19,8 +19,8 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideAppDatabase(context: Context, widgetDbInitalizer: WidgetDbInitalizer): WidgetDatabase {
-        return widgetDbInitalizer.createDatabase(context)
+    fun provideAppDatabase(context: Context, widgetDbInitializer: WidgetDbInitializer): WidgetDatabase {
+        return widgetDbInitializer.createDatabase(context)
     }
 
 }
@@ -41,7 +41,7 @@ abstract class WidgetRegistratorModule {
     abstract fun provideToRefresherRegistrator(widgetRegistrator: WidgetRegistrator): WidgetsRefresher.ToRefresherRegistrator
 
     @Binds
-    abstract fun provideToDbInitializer(widgetRegistrator: WidgetRegistrator): WidgetDbInitalizer.ToDbInitializerRegistrator
+    abstract fun provideToDbInitializer(widgetRegistrator: WidgetRegistrator): WidgetDbInitializer.ToDbInitializerRegistrator
 
     @Binds
     abstract fun provideWidgetRegistratorData(widgetRegistrator: WidgetRegistrator): WidgetRegistratorData

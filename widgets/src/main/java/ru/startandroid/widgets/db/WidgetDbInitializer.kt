@@ -9,8 +9,7 @@ import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Provider
 
-// TODO fix typo in name
-class WidgetDbInitalizer @Inject constructor(val widgetRegistrator: ToDbInitializerRegistrator) {
+class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitializerRegistrator) {
 
     interface ToDbInitializerRegistrator {
         fun registerWidgetToDbInitializer(registerFunc: (id: Int, widgetInitProvider: Provider<out WidgetInit>) -> Unit)

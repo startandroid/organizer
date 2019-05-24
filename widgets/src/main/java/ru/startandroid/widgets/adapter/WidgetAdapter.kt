@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import ru.startandroid.widgets.R
-import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.container.WidgetContainerHolder
@@ -23,7 +22,7 @@ constructor(
         private var widgetAdapterCallback: WidgetAdapterCallback
 ) : RecyclerView.Adapter<WidgetContainerHolder>() {
 
-    val widgets = mutableListOf<WidgetDataEntity<out WidgetData>>()
+    val widgets = mutableListOf<WidgetDataEntity>()
 
     var disposable: Disposable? = null
 
@@ -47,7 +46,7 @@ constructor(
                         }
     }
 
-    private fun setWidgets(widgets: List<WidgetDataEntity<out WidgetData>>) {
+    private fun setWidgets(widgets: List<WidgetDataEntity>) {
         Log.d("qweee", "setWidgets $widgets")
         this.widgets.clear()
         this.widgets.addAll(widgets)
