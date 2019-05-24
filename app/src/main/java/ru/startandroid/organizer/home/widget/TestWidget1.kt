@@ -19,10 +19,7 @@ import ru.startandroid.widgets.refresh.WidgetRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
 import javax.inject.Provider
-
-
-// TODO separate widget classes to files.
-// TODO create a few big widgets to check if list scroll works well and widgets are being created correctly
+import kotlin.reflect.KClass
 
 
 data class TestWidget1Data(
@@ -77,8 +74,6 @@ class TestWidget1Init @Inject constructor(val gson: Gson) : WidgetInit {
     }
 }
 
-// RegisterDataProvider
-
 class TestWidget1RegisterData @Inject constructor(
         val widgetContentProvider: Provider<TestWidget1Content>,
         val widgetRefresherProvider: Provider<TestWidget1Refresher>,
@@ -86,23 +81,10 @@ class TestWidget1RegisterData @Inject constructor(
 ) : WidgetRegistratorImpl.RegisterData {
 
     override fun id(): Int = TEST_WIDGET_1
-    override fun widgetDataCls(): Class<out WidgetData> = TestWidget1Data::class.java
-    override fun widgetSettingsCls(): Class<out WidgetSettings> = TestWidget1Settings::class.java
+    override fun widgetDataCls(): KClass<out WidgetData> = TestWidget1Data::class
+    override fun widgetSettingsCls(): KClass<out WidgetSettings> = TestWidget1Settings::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
     override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
 
 }
-//class TestWidget2RegisterData @Inject constructor(
-//        val widgetContentProvider: Provider<TestWidget2Content>,
-//        val widgetRefresherProvider: Provider<TestWidget2Refresher>,
-//        val widetInitProvider: Provider<TestWidget2Init>
-//
-//): WidgetRegistratorImpl.RegisterData {
-//    override fun id(): Int  = TEST_WIDGET_2
-//    override fun widgetDataCls(): Class<out WidgetData> = TestWidget2Data::class.java
-//    override fun widgetSettingsCls(): Class<out WidgetSettings> = TestWidget2Settings::class.java
-//    override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-//    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
-//    override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
-//}

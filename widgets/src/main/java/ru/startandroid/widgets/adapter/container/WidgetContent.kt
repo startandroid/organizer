@@ -8,7 +8,7 @@ import ru.startandroid.widgets.WidgetDataEntity
 
 
 interface WidgetContent {
-    fun setData(widgetDataEntity: WidgetDataEntity<out WidgetData>)
+    fun setData(widgetDataEntity: WidgetDataEntity)
     fun getView(parent: ViewGroup): View
     fun setWidgetContainerCallback(dataCallback: WidgetContainerDataCallback)
 }
@@ -34,7 +34,7 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent {
 
     abstract fun onDataSet(widgetData: WidgetDataType)
 
-    override fun setData(widgetDataEntity: WidgetDataEntity<out WidgetData>) {
+    override fun setData(widgetDataEntity: WidgetDataEntity) {
         onDataSet(widgetDataEntity.data as WidgetDataType)
     }
 
