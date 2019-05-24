@@ -5,10 +5,9 @@ interface WidgetData
 
 interface WidgetSettings
 
-// TODO create WidgetDataEntity<out WidgetData> and use it everywhere
-data class WidgetDataEntity<D : WidgetData>(
+data class WidgetDataEntity(
         val id: Int,
-        val data: D
+        val data: WidgetData
 )
 
 

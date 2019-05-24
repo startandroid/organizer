@@ -24,7 +24,7 @@ constructor(
     // TODO inject DB scheduler
     fun getAndUpdate(id: Int,
                      scheduler: Scheduler = Schedulers.io(),
-                     func: (entity: WidgetDataEntity<out WidgetData>?) -> WidgetDataEntity<out WidgetData>?
+                     func: (entity: WidgetDataEntity?) -> WidgetDataEntity?
 
     ): Completable {
         return getAndUpdate(id = id, scheduler = scheduler, transform = SingleTransformer { entityObservable ->
@@ -35,7 +35,7 @@ constructor(
 
     private fun getAndUpdate(id: Int,
                              scheduler: Scheduler,
-                             transform: SingleTransformer<WidgetDataEntity<out WidgetData>?, WidgetDataEntity<out WidgetData>>?
+                             transform: SingleTransformer<WidgetDataEntity?, WidgetDataEntity>?
     ): Completable {
         val dbScheduler = Schedulers.from(Executors.newSingleThreadExecutor())
 
