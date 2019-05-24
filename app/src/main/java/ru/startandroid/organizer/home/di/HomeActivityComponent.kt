@@ -1,8 +1,9 @@
-package ru.startandroid.organizer.home
+package ru.startandroid.organizer.home.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ru.startandroid.organizer.app.NetworkModule
+import ru.startandroid.data.network.di.NetworkModule
+import ru.startandroid.organizer.home.HomeFragment
 import javax.inject.Scope
 
 

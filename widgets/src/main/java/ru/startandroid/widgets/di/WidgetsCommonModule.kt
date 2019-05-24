@@ -1,10 +1,11 @@
-package ru.startandroid.widgets
+package ru.startandroid.widgets.di
 
 import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.startandroid.domain.ScopeApplication
+import ru.startandroid.widgets.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
 import ru.startandroid.widgets.db.WidgetDbInitalizer
@@ -14,7 +15,7 @@ import ru.startandroid.widgets.registrator.WidgetRegistratorData
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 
 @Module(includes = [WidgetRegistratorModule::class])
-class WidgetsModule {
+class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
