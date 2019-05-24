@@ -49,6 +49,10 @@ dependencies {
     implementation rxjava2.adapter
 
     implementation okhttp3.logging
+
+    implementation dagger.dagger
+    kapt dagger.daggerCompiler
+
 }
 repositories {
     mavenCentral()
