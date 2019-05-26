@@ -23,6 +23,7 @@ import java.net.URL
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
+import kotlinx.android.synthetic.main.widget_test2.*
 
 data class TestWidget2Data(
         val text1: String,
@@ -42,10 +43,7 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
 
     override fun getLayoutId(): Int = R.layout.widget_test2
 
-    override fun onViewInflated(widgetView: View) {
-        text1 = widgetView.findViewById(R.id.text1)
-        text2 = widgetView.findViewById(R.id.text2)
-    }
+
 
     override fun onDataSet(widgetData: TestWidget2Data) {
         text1.text = widgetData.text1
