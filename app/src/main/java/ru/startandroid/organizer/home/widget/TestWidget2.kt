@@ -38,8 +38,7 @@ data class TestWidget2Settings(
 
 class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Data>() {
 
-    lateinit var text1: TextView
-    lateinit var text2: TextView
+
 
     override fun getLayoutId(): Int = R.layout.widget_test2
 

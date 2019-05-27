@@ -45,14 +45,7 @@ data class WeatherWidgetSettings(
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidgetData>() {
 
-    lateinit var tvTime: TextView
-    lateinit var tvTempMain: TextView
-    lateinit var tvTemp1: TextView
-    lateinit var tvTemp2: TextView
-    lateinit var tvTemp3: TextView
-    lateinit var tvDay1: TextView
-    lateinit var tvDay2: TextView
-    lateinit var tvDay3: TextView
+
 
 
     override fun getLayoutId(): Int = R.layout.widget_weather
