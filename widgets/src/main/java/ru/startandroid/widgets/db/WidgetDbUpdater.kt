@@ -19,9 +19,6 @@ constructor(
         private val database: WidgetDatabase,
         private val widgetEntityMapper: WidgetEntityMapper) {
 
-    // TODO use coroutines
-    // TODO Error handling
-    // TODO inject DB scheduler
     fun getAndUpdate(id: Int,
                      scheduler: Scheduler = Schedulers.io(),
                      func: (entity: WidgetDataEntity?) -> WidgetDataEntity?

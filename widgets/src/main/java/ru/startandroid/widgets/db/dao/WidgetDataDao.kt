@@ -18,11 +18,14 @@ interface WidgetDataDao {
     fun getWidget(id: Int): Flowable<List<WidgetDataEntityDb>>
 
     @Query("SELECT * FROM widgets WHERE ID = :id")
-    fun getWidgetSingle(id: Int): Single<List<WidgetDataEntityDb>> // TODO Single?
+    fun getWidgetSingle(id: Int): Single<List<WidgetDataEntityDb>>
 
 
     @Insert
-    fun insert(widgetDataEntityDb: WidgetDataEntityDb)
+    fun insert(vararg widgetDataEntityDb: WidgetDataEntityDb)
+
+    @Insert
+    fun insert(widgetDataEntityDb: List<WidgetDataEntityDb>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateOrInsert(widgetDataEntityDb: WidgetDataEntityDb): Long
