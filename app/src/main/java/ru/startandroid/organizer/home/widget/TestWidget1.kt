@@ -32,8 +32,6 @@ data class TestWidget1Settings(
 
 class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Data>() {
 
-    lateinit var text: TextView
-
     override fun getLayoutId(): Int = R.layout.widget_test1
 
     override fun onDataSet(widgetData: TestWidget1Data) {
