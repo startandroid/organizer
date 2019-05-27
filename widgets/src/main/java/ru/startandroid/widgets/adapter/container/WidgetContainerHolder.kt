@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import ru.startandroid.widgets.R
-import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.adapter.WidgetAdapterCallback
 
@@ -19,9 +18,6 @@ class WidgetContainerHolder(private val view: View,
 
     private lateinit var widgetContainerData: WidgetContainerData
 
-    // TODO use data binding
-
-    // TODO set TextView right side limit and ... if cropped
     private val headerTitle = view.findViewById<TextView>(R.id.header_title)
     private val refreshButton = view.findViewById<View>(R.id.refresh)
     private val settingsButton = view.findViewById<View>(R.id.settings)
