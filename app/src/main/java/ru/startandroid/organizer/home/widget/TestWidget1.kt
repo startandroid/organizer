@@ -20,7 +20,7 @@ import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-
+import kotlinx.android.synthetic.main.widget_test1.*
 
 data class TestWidget1Data(
         val text: String
@@ -32,13 +32,7 @@ data class TestWidget1Settings(
 
 class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Data>() {
 
-    lateinit var text: TextView
-
     override fun getLayoutId(): Int = R.layout.widget_test1
-
-    override fun onViewInflated(widgetView: View) {
-        text = widgetView.findViewById(R.id.text)
-    }
 
     override fun onDataSet(widgetData: TestWidget1Data) {
         text.text = widgetData.text

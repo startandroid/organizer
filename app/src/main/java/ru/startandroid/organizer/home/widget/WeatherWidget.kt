@@ -24,7 +24,7 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-
+import kotlinx.android.synthetic.main.widget_weather.*
 
 data class WeatherWidgetData(
         val time: String,
@@ -45,28 +45,11 @@ data class WeatherWidgetSettings(
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidgetData>() {
 
-    lateinit var tvTime: TextView
-    lateinit var tvTempMain: TextView
-    lateinit var tvTemp1: TextView
-    lateinit var tvTemp2: TextView
-    lateinit var tvTemp3: TextView
-    lateinit var tvDay1: TextView
-    lateinit var tvDay2: TextView
-    lateinit var tvDay3: TextView
+
 
 
     override fun getLayoutId(): Int = R.layout.widget_weather
 
-    override fun onViewInflated(widgetView: View) {
-        tvTime = widgetView.findViewById(R.id.time_val)
-        tvTempMain = widgetView.findViewById(R.id.current_temp)
-        tvTemp1 = widgetView.findViewById(R.id.forecast_day1_val)
-        tvTemp2 = widgetView.findViewById(R.id.forecast_day2_val)
-        tvTemp3 = widgetView.findViewById(R.id.forecast_day3_val)
-        tvDay1 = widgetView.findViewById(R.id.forecast_day1)
-        tvDay2 = widgetView.findViewById(R.id.forecast_day2)
-        tvDay3 = widgetView.findViewById(R.id.forecast_day3)
-    }
 
     override fun onDataSet(widgetData: WeatherWidgetData) {
         tvTime.text = widgetData.time
