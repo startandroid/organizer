@@ -1,29 +1,22 @@
 package ru.startandroid.widgets.adapter.container
 
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ru.startandroid.widgets.R
+import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.widget_container.*
 import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.adapter.WidgetAdapterCallback
 
 
-class WidgetContainerHolder(private val view: View,
+class WidgetContainerHolder(override val containerView: View,
                             private val widgetContent: WidgetContent?,
                             private val widgetAdapterCallback: WidgetAdapterCallback?)
-    : RecyclerView.ViewHolder(view),
-        WidgetContainerDataCallback {
+    : RecyclerView.ViewHolder(containerView),
+        WidgetContainerDataCallback, LayoutContainer {
 
 
     private lateinit var widgetContainerData: WidgetContainerData
 
-    private val headerTitle = view.findViewById<TextView>(R.id.header_title)
-    private val refreshButton = view.findViewById<View>(R.id.refresh)
-    private val settingsButton = view.findViewById<View>(R.id.settings)
-    private val closeButton = view.findViewById<View>(R.id.close)
-
-    private val content = view.findViewById<ViewGroup>(R.id.content)
 
     init {
         widgetContent?.run {
