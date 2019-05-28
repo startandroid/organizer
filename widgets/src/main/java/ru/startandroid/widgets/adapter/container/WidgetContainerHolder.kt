@@ -17,10 +17,7 @@ class WidgetContainerHolder(override val containerView: View,
 
     private lateinit var widgetContainerData: WidgetContainerData
 
-    // TODO use data binding
 
-    // TODO set TextView right side limit and ... if cropped
-    
     init {
         widgetContent?.run {
             setWidgetContainerCallback(this@WidgetContainerHolder)

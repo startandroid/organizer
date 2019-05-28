@@ -42,7 +42,6 @@ constructor(
                         .subscribe {
                             setWidgets(it)
                             notifyDataSetChanged()
-                            // TODO use diffutils
                         }
     }
 

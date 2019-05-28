@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import java.util.concurrent.Executors
 import javax.inject.Inject
 import javax.inject.Provider
@@ -24,23 +25,22 @@ class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitial
                         super.onCreate(db)
                         Log.d("qweee", "room onCreate")
                         Executors.newSingleThreadExecutor().execute {
-                            // TODO use DB scheduler
                             createInitRecords()
                         }
 
                     }
                 })
-                .allowMainThreadQueries() // TODO disable
                 .build()
         return widgetDatabase
     }
 
     private fun createInitRecords() {
+        val initRecords = mutableListOf<WidgetDataEntityDb>()
         widgetRegistrator.registerWidgetToDbInitializer { id, widgetInitProvider ->
-            // TODO use batch insert
-            widgetDatabase.widgetDao().insert(widgetInitProvider.get().initRecord())
+            initRecords.add(widgetInitProvider.get().initRecord())
         }
 
+        widgetDatabase.widgetDao().insert(initRecords)
     }
 
 }

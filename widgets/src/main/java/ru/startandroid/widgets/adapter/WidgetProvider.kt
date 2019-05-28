@@ -14,7 +14,6 @@ constructor(
         fun registerWidgetToProvider(registerFunc: (id: Int, widgetContentProvider: Provider<out WidgetContent>) -> Unit)
     }
 
-    // TODO use KClass
     private val widgets = mutableMapOf<Int, Provider<out WidgetContent>>()
 
     init {
