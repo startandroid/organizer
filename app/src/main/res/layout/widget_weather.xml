@@ -7,32 +7,32 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/forecast_day1"
+        android:id="@+id/tvDay1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="12.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/time_val" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
     <TextView
-        android:id="@+id/forecast_day2"
+        android:id="@+id/tvDay2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="13.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/forecast_day1" />
+        app:layout_constraintTop_toBottomOf="@+id/tvDay1" />
 
     <TextView
-        android:id="@+id/forecast_day3"
+        android:id="@+id/tvDay3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         tools:text="14.07"
         android:layout_marginBottom="16dp"
-        app:layout_constraintStart_toStartOf="@+id/forecast_day2"
-        app:layout_constraintTop_toBottomOf="@+id/forecast_day2" />
+        app:layout_constraintStart_toStartOf="@+id/tvDay2"
+        app:layout_constraintTop_toBottomOf="@+id/tvDay2" />
 
     <TextView
         android:id="@+id/city_name"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/current_temp"
+        android:id="@+id/tvTempMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -61,9 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         tools:text="-"
-        app:layout_constraintBottom_toBottomOf="@+id/forecast_day1"
-        app:layout_constraintStart_toEndOf="@+id/forecast_day1"
-        app:layout_constraintTop_toTopOf="@+id/forecast_day1" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDay1"
+        app:layout_constraintStart_toEndOf="@+id/tvDay1"
+        app:layout_constraintTop_toTopOf="@+id/tvDay1" />
 
     <TextView
         android:id="@+id/hyphen2"
@@ -71,9 +71,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         tools:text="-"
-        app:layout_constraintBottom_toBottomOf="@+id/forecast_day2"
-        app:layout_constraintStart_toEndOf="@+id/forecast_day2"
-        app:layout_constraintTop_toTopOf="@+id/forecast_day2" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDay2"
+        app:layout_constraintStart_toEndOf="@+id/tvDay2"
+        app:layout_constraintTop_toTopOf="@+id/tvDay2" />
 
     <TextView
         android:id="@+id/hyphen3"
@@ -81,12 +81,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         tools:text="-"
-        app:layout_constraintBottom_toBottomOf="@+id/forecast_day3"
-        app:layout_constraintStart_toEndOf="@+id/forecast_day3"
-        app:layout_constraintTop_toTopOf="@+id/forecast_day3" />
+        app:layout_constraintBottom_toBottomOf="@+id/tvDay3"
+        app:layout_constraintStart_toEndOf="@+id/tvDay3"
+        app:layout_constraintTop_toTopOf="@+id/tvDay3" />
 
     <TextView
-        android:id="@+id/forecast_day1_val"
+        android:id="@+id/tvTemp1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toTopOf="@+id/hyphen1" />
 
     <TextView
-        android:id="@+id/forecast_day2_val"
+        android:id="@+id/tvTemp2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toTopOf="@+id/hyphen2" />
 
     <TextView
-        android:id="@+id/forecast_day3_val"
+        android:id="@+id/tvTemp3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toTopOf="@+id/hyphen3" />
 
     <TextView
-        android:id="@+id/time_val"
+        android:id="@+id/tvTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="11:00"

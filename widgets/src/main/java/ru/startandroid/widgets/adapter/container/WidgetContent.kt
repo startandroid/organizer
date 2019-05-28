@@ -3,7 +3,7 @@ package ru.startandroid.widgets.adapter.container
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.startandroid.widgets.WidgetData
+import kotlinx.android.extensions.LayoutContainer
 import ru.startandroid.widgets.WidgetDataEntity
 
 
@@ -13,8 +13,11 @@ interface WidgetContent {
     fun setWidgetContainerCallback(dataCallback: WidgetContainerDataCallback)
 }
 
-abstract class BaseWidgetContent<WidgetDataType> : WidgetContent {
+abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContainer {
     private var widgetContainerDataCallback: WidgetContainerDataCallback? = null
+    private var tempView: View? = null
+    override val containerView: View?
+        get() = tempView
 
     override fun setWidgetContainerCallback(callback: WidgetContainerDataCallback) {
         this.widgetContainerDataCallback = callback
@@ -30,7 +33,9 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent {
 
     abstract fun getLayoutId(): Int
 
-    abstract fun onViewInflated(widgetView: View)
+    fun onViewInflated(widgetView: View) {
+        tempView = widgetView
+    }
 
     abstract fun onDataSet(widgetData: WidgetDataType)
 
