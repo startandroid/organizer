@@ -8,8 +8,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import ru.startandroid.widgets.R
 import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.WidgetEntityMapper
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.container.WidgetContainerHolder
+import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
 import javax.inject.Inject
 
@@ -29,7 +30,7 @@ constructor(
     fun loadData() {
         disposable?.dispose()
         disposable =
-                widgetDatabase.widgetDao()
+                widgetDatabase.widgetDataDao()
                         .getAll()
                         .doOnNext { Log.d("qweee", "refresh widget list $it") }
                         .map {
