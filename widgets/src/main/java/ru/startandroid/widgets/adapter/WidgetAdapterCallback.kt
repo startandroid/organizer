@@ -8,7 +8,7 @@ class WidgetAdapterCallback @Inject constructor(val widgetsRefresher: WidgetsRef
         widgetsRefresher.refresh(id)
     }
 
-    fun onWidgetSettingsClick(id: Int) {
+    fun onWidgetConfigClick(id: Int) {
 
     }
 

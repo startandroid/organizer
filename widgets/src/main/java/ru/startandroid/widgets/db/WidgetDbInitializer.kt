@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
 import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import java.util.concurrent.Executors
 import javax.inject.Inject
@@ -35,12 +36,17 @@ class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitial
     }
 
     private fun createInitRecords() {
-        val initRecords = mutableListOf<WidgetDataEntityDb>()
+        val widgetsData = mutableListOf<WidgetDataEntityDb>()
+        val widgetsConfig = mutableListOf<WidgetConfigEntityDb>()
         widgetRegistrator.registerWidgetToDbInitializer { id, widgetInitProvider ->
-            initRecords.add(widgetInitProvider.get().initRecord())
+            val widgetInitProvider = widgetInitProvider.get()
+            widgetsData.add(widgetInitProvider.initData())
+            widgetsConfig.add(widgetInitProvider.initConfig())
         }
 
-        widgetDatabase.widgetDao().insert(initRecords)
+        widgetDatabase.widgetDataDao().insert(widgetsData)
+        widgetDatabase.widgetConfigDao().insert(widgetsConfig)
+
     }
 
 }
