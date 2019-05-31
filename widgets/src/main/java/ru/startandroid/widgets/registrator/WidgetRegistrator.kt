@@ -3,13 +3,12 @@ package ru.startandroid.widgets.registrator
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDbInitializer
-import ru.startandroid.widgets.db.WidgetInit
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.refresh.WidgetsRefresher
+import ru.startandroid.widgets.refresh.WidgetWorkerFactory
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
@@ -17,7 +16,7 @@ import kotlin.reflect.KClass
 interface WidgetRegistrator :
         WidgetEntityMapper.ToMapperRegistrator,
         WidgetProvider.ToProviderRegistrator,
-        WidgetsRefresher.ToRefresherRegistrator,
+        WidgetWorkerFactory.ToWorkerFactoryRegistrator,
         WidgetDbInitializer.ToDbInitializerRegistrator,
         WidgetRegistratorData
 
@@ -34,7 +33,7 @@ class WidgetRegistratorImpl @Inject constructor() : WidgetRegistrator {
         fun widgetConfigCls(): KClass<out WidgetConfig>
         fun widgetContentProvider(): Provider<out WidgetContent>
         fun widgetRefresher(): Provider<out WidgetRefresher>
-        fun widgetInit(): Provider<out WidgetInit>
+        //fun widgetInit(): Provider<out WidgetInit>
     }
 
     private val registerData: MutableSet<RegisterData> = mutableSetOf()
@@ -52,12 +51,12 @@ class WidgetRegistratorImpl @Inject constructor() : WidgetRegistrator {
         registerData.forEach { registerFunc(it.id(), it.widgetContentProvider()) }
     }
 
-    override fun registerWidgetToRefresher(registerFunc: (id: Int, widgetRefresher: Provider<out WidgetRefresher>) -> Unit) {
+    override fun registerWidgetToWorkerFactory(registerFunc: (id: Int, widgetRefresher: Provider<out WidgetRefresher>) -> Unit) {
         registerData.forEach { registerFunc(it.id(), it.widgetRefresher()) }
     }
 
-    override fun registerWidgetToDbInitializer(registerFunc: (id: Int, widgetInitProvider: Provider<out WidgetInit>) -> Unit) {
-        registerData.forEach { registerFunc(it.id(), it.widgetInit()) }
+    override fun registerWidgetToDbInitializer(registerFunc: (id: Int) -> Unit) {
+        registerData.forEach { registerFunc(it.id()) }
     }
 
 

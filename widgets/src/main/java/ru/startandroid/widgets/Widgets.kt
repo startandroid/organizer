@@ -13,7 +13,7 @@ data class WidgetDataEntity(
 data class WidgetConfigEntity(
         val id: Int,
         val config: WidgetConfig,
-        val enabled: Boolean
+        val enabled: Boolean = true
 )
 
 

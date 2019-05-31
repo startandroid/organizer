@@ -2,7 +2,8 @@ package ru.startandroid.organizer.app
 
 import android.app.Activity
 import android.app.Application
-import android.util.Log
+import androidx.work.Configuration
+import androidx.work.WorkManager
 import com.crashlytics.android.Crashlytics
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -11,6 +12,7 @@ import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
+import ru.startandroid.widgets.refresh.WidgetWorkerFactory
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
@@ -26,6 +28,9 @@ class App : Application(), HasActivityInjector {
     @Inject
     lateinit var widgetData: MutableSet<WidgetRegistratorImpl.RegisterData>
 
+    @Inject
+    lateinit var workerFactory: WidgetWorkerFactory
+
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
 
     lateinit var applicationComponent: ApplicationComponent
@@ -36,6 +41,7 @@ class App : Application(), HasActivityInjector {
         initApplicationComponentAndInject()
         initFabric()
         initWidgets()
+        initWorkManager()
     }
 
     private fun initApplicationComponentAndInject() {
@@ -55,8 +61,19 @@ class App : Application(), HasActivityInjector {
     }
 
     private fun initWidgets() {
-        Log.d("qweee", "App initWidgets, widgetRegistrator ${widgetRegistratorData}")
         widgetRegistratorData.putRegisterData(widgetData)
+    }
+
+    private fun initWorkManager() {
+        workerFactory.reg()
+        // provide custom configuration
+        val config = Configuration.Builder()
+                //.setMinimumLoggingLevel(android.util.Log.INFO)
+                .setWorkerFactory(workerFactory)
+                .build()
+
+// initialize WorkManager
+        WorkManager.initialize(this, config)
     }
 
 }

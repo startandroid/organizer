@@ -14,7 +14,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-        classpath 'com.google.gms:google-services:4.2.0' // change version carefully. 4.1.0 doesnt work well
+        classpath 'com.google.gms:google-services:4.2.0'
         classpath 'io.fabric.tools:gradle:1.29.0'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -67,7 +67,8 @@ ext {
             rxandroid: '2.1.1',
             cardview: "1.0.0",
             retrofit: "2.5.0",
-            logginginterceptor:"3.12.0"
+            logginginterceptor:"3.12.0",
+            workmanager: "2.0.1"
     ]
 
     okhttp3 = [
@@ -144,5 +145,10 @@ ext {
 
     gson = [
             gson: "com.google.code.gson:gson:${versions.gson}"
+    ]
+
+
+    workmanager = [
+            runtimektx: "androidx.work:work-runtime-ktx:${versions.workmanager}"
     ]
 }

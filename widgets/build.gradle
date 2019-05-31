@@ -50,4 +50,6 @@ dependencies {
     implementation androidx.appcompat
     testImplementation junit.junit
 
+    implementation workmanager.runtimektx
+
 }
