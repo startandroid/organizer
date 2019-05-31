@@ -1,11 +1,11 @@
 package ru.startandroid.widgets.registrator
 
 import ru.startandroid.domain.ScopeApplication
+import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.WidgetEntityMapper
-import ru.startandroid.widgets.WidgetSettings
-import ru.startandroid.widgets.adapter.WidgetProvider
-import ru.startandroid.widgets.adapter.container.WidgetContent
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
+import ru.startandroid.widgets.adapter.content.WidgetContent
+import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDbInitializer
 import ru.startandroid.widgets.db.WidgetInit
 import ru.startandroid.widgets.refresh.WidgetRefresher
@@ -31,7 +31,7 @@ class WidgetRegistratorImpl @Inject constructor() : WidgetRegistrator {
     interface RegisterData {
         fun id(): Int
         fun widgetDataCls(): KClass<out WidgetData>
-        fun widgetSettingsCls(): KClass<out WidgetSettings>
+        fun widgetConfigCls(): KClass<out WidgetConfig>
         fun widgetContentProvider(): Provider<out WidgetContent>
         fun widgetRefresher(): Provider<out WidgetRefresher>
         fun widgetInit(): Provider<out WidgetInit>
@@ -44,8 +44,8 @@ class WidgetRegistratorImpl @Inject constructor() : WidgetRegistrator {
         registerData.addAll(data)
     }
 
-    override fun registerWidgetToMapper(registerFunc: (id: Int, widgetDataCls: KClass<out WidgetData>) -> Unit) {
-        registerData.forEach { registerFunc(it.id(), it.widgetDataCls()) }
+    override fun registerWidgetToMapper(registerFunc: (id: Int, widgetDataCls: KClass<out WidgetData>, widgetConfigCls: KClass<out WidgetConfig>) -> Unit) {
+        registerData.forEach { registerFunc(it.id(), it.widgetDataCls(), it.widgetConfigCls()) }
     }
 
     override fun registerWidgetToProvider(registerFunc: (id: Int, widgetContentProvider: Provider<out WidgetContent>) -> Unit) {

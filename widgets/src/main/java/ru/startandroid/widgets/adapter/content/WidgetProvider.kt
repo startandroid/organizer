@@ -1,6 +1,5 @@
-package ru.startandroid.widgets.adapter
+package ru.startandroid.widgets.adapter.content
 
-import ru.startandroid.widgets.adapter.container.WidgetContent
 import javax.inject.Inject
 import javax.inject.Provider
 

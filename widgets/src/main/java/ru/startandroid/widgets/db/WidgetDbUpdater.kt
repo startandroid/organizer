@@ -6,9 +6,8 @@ import io.reactivex.Scheduler
 import io.reactivex.SingleTransformer
 import io.reactivex.schedulers.Schedulers
 //import ru.startandroid.data.AppDatabase
-import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.WidgetEntityMapper
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import java.util.concurrent.Executors
 import javax.inject.Inject
 
@@ -36,7 +35,7 @@ constructor(
     ): Completable {
         val dbScheduler = Schedulers.from(Executors.newSingleThreadExecutor())
 
-        return database.widgetDao().getWidgetSingle(id)
+        return database.widgetDataDao().getById(id)
                 .subscribeOn(dbScheduler)
                 .map {
                     Log.d("qweee", "map from db")
@@ -54,7 +53,7 @@ constructor(
                     widgetEntityMapper.map(it)
                 }
                 .doOnSuccess {
-                    database.widgetDao().updateOrInsert(it)
+                    database.widgetDataDao().updateOrInsert(it)
                 }
 
                 .ignoreElement()

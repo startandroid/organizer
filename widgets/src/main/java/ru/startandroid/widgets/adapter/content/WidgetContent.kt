@@ -1,10 +1,12 @@
-package ru.startandroid.widgets.adapter.container
+package ru.startandroid.widgets.adapter.content
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.extensions.LayoutContainer
 import ru.startandroid.widgets.WidgetDataEntity
+import ru.startandroid.widgets.adapter.container.WidgetContainerData
+import ru.startandroid.widgets.adapter.container.WidgetContainerDataCallback
 
 
 interface WidgetContent {
@@ -26,9 +28,9 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
     fun setContainerData(id: Int = 0,
                          title: String = "",
                          refreshButtonIsVisible: Boolean = false,
-                         settingsButtonIsVisible: Boolean = false,
+                         configButtonIsVisible: Boolean = false,
                          closeButtonIsVisible: Boolean = false) {
-        widgetContainerDataCallback?.setWidgetContainerData(WidgetContainerData(id, title, refreshButtonIsVisible, settingsButtonIsVisible, closeButtonIsVisible))
+        widgetContainerDataCallback?.setWidgetContainerData(WidgetContainerData(id, title, refreshButtonIsVisible, configButtonIsVisible, closeButtonIsVisible))
     }
 
     abstract fun getLayoutId(): Int
