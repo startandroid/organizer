@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import ru.startandroid.organizer.home.widget.TestWidget1RegisterData
 import ru.startandroid.organizer.home.widget.TestWidget2RegisterData
-import ru.startandroid.organizer.home.widget.widgets.WeatherWidgetRegisterData
+import ru.startandroid.organizer.home.widget.WeatherWidgetRegisterData
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 
 @Module

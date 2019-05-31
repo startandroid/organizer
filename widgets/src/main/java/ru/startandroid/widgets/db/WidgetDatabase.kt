@@ -2,13 +2,13 @@ package ru.startandroid.widgets.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ru.startandroid.widgets.db.dao.WidgetConfigDao
 import ru.startandroid.widgets.db.dao.WidgetDataDao
-import ru.startandroid.widgets.db.dao.WidgetSettingsDao
+import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
 import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import ru.startandroid.widgets.db.data.WidgetSettingsEntityDb
 
-@Database(entities = [WidgetDataEntityDb::class, WidgetSettingsEntityDb::class], version = 1)
+@Database(entities = [WidgetDataEntityDb::class, WidgetConfigEntityDb::class], version = 1)
 abstract class WidgetDatabase : RoomDatabase() {
-    abstract fun widgetDao(): WidgetDataDao
-    abstract fun widgetSettingsDao(): WidgetSettingsDao
+    abstract fun widgetDataDao(): WidgetDataDao
+    abstract fun widgetConfigDao(): WidgetConfigDao
 }

@@ -5,8 +5,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.widgets.WidgetEntityMapper
-import ru.startandroid.widgets.adapter.WidgetProvider
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
+import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
 import ru.startandroid.widgets.db.WidgetDbInitializer
 import ru.startandroid.widgets.refresh.WidgetsRefresher

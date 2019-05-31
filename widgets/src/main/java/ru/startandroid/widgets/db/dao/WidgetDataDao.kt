@@ -6,19 +6,17 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import io.reactivex.Flowable
 import io.reactivex.Single
+import ru.startandroid.widgets.DB_TABLE_NAMES.WIDGET_DATA
 import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 
 @Dao
 interface WidgetDataDao {
 
-    @Query("SELECT * FROM widgets")
+    @Query("SELECT * FROM $WIDGET_DATA")
     fun getAll(): Flowable<List<WidgetDataEntityDb>>
 
-    @Query("SELECT * FROM widgets WHERE ID = :id")
-    fun getWidget(id: Int): Flowable<List<WidgetDataEntityDb>>
-
-    @Query("SELECT * FROM widgets WHERE ID = :id")
-    fun getWidgetSingle(id: Int): Single<List<WidgetDataEntityDb>>
+    @Query("SELECT * FROM $WIDGET_DATA WHERE ID = :id")
+    fun getById(id: Int): Single<List<WidgetDataEntityDb>>
 
 
     @Insert
@@ -30,10 +28,7 @@ interface WidgetDataDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateOrInsert(widgetDataEntityDb: WidgetDataEntityDb): Long
 
-    @Insert
-    fun insertAll(widgetDataEntityDb: List<WidgetDataEntityDb>)
-
-    @Query("DELETE FROM widgets")
+    @Query("DELETE FROM $WIDGET_DATA")
     fun deleteAll()
 
 }

@@ -1,21 +1,21 @@
-package ru.startandroid.organizer.home.widget.widgets
+package ru.startandroid.organizer.home.widget
 
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.widget_weather.*
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.WEATHER_WIDGET
+import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.WidgetSettings
-import ru.startandroid.widgets.adapter.container.BaseWidgetContent
-import ru.startandroid.widgets.adapter.container.WidgetContent
+import ru.startandroid.widgets.adapter.content.BaseWidgetContent
+import ru.startandroid.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgets.db.WidgetDbUpdater
 import ru.startandroid.widgets.db.WidgetInit
+import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
 import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
@@ -24,7 +24,6 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-import kotlinx.android.synthetic.main.widget_weather.*
 
 data class WeatherWidgetData(
         val time: String,
@@ -37,15 +36,14 @@ data class WeatherWidgetData(
         val day3: String
 ) : WidgetData
 
-data class WeatherWidgetSettings(
-        val flag1: Boolean,
-        val flag2: Boolean
-) : WidgetSettings
+data class WeatherWidgetConfig(
+        val cities: List<City> = emptyList()
+) : WidgetConfig
+
+data class City(val id: Int, val name: String)
 
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidgetData>() {
-
-
 
 
     override fun getLayoutId(): Int = R.layout.widget_weather
@@ -65,7 +63,7 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
                 id = WEATHER_WIDGET,
                 title = "Weather widget",
                 refreshButtonIsVisible = true,
-                settingsButtonIsVisible = true,
+                configButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
 
@@ -106,10 +104,16 @@ class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUp
 }
 
 class WeatherWidgetInit @Inject constructor(val gson: Gson) : WidgetInit {
-    override fun initRecord(): WidgetDataEntityDb {
-        val wdata = WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
-        return WidgetDataEntityDb(WEATHER_WIDGET, gson.toJson(wdata))
+    override fun initData(): WidgetDataEntityDb {
+        val data = WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
+        return WidgetDataEntityDb(WEATHER_WIDGET, gson.toJson(data))
     }
+
+    override fun initConfig(): WidgetConfigEntityDb {
+        val config = WeatherWidgetConfig(listOf(City(1, "City 1"), City(2, "City 2")))
+        return WidgetConfigEntityDb(WEATHER_WIDGET, gson.toJson(config), true)
+    }
+
 }
 
 class WeatherWidgetRegisterData @Inject constructor(
@@ -120,7 +124,7 @@ class WeatherWidgetRegisterData @Inject constructor(
 ) : WidgetRegistratorImpl.RegisterData {
     override fun id(): Int = WEATHER_WIDGET
     override fun widgetDataCls(): KClass<out WidgetData> = WeatherWidgetData::class
-    override fun widgetSettingsCls(): KClass<out WidgetSettings> = WeatherWidgetSettings::class
+    override fun widgetConfigCls(): KClass<out WidgetConfig> = WeatherWidgetConfig::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
     override fun widgetInit(): Provider<out WidgetInit> = widgetInitProvider
