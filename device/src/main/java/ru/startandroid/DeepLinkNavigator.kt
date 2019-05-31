@@ -14,7 +14,6 @@ class DeepLinkNavigator(val activity: Activity) {
 
     fun openDeepLink(uri: Uri?) {
         uri?.let {
-            Log.d("qweee", "open deeplink ${it.toString()}")
             Intent(Intent.ACTION_VIEW, it).let {
                 if (it.resolveActivity(activity.packageManager) != null) {
                     activity.startActivity(it)

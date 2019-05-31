@@ -1,23 +1,50 @@
 package ru.startandroid.widgets.refresh
 
+import androidx.work.Data
+import androidx.work.OneTimeWorkRequest
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
+import ru.startandroid.domain.ScopeApplication
+import ru.startandroid.widgets.PARAM_KEY.WIDGET_ID
 import javax.inject.Inject
-import javax.inject.Provider
 
+@ScopeApplication
+class WidgetsRefresher @Inject constructor() {
 
-class WidgetsRefresher @Inject constructor(widgetRegistrator: ToRefresherRegistrator) {
-
-    interface ToRefresherRegistrator {
-        fun registerWidgetToRefresher(registerFunc: (id: Int, widgetRefresher: Provider<out WidgetRefresher>) -> Unit)
+    fun refresh(id: Int) {
+        WorkManager.getInstance()
+                .enqueue(createRefreshWorker(id))
     }
 
-    private val widgets = mutableMapOf<Int, Provider<out WidgetRefresher>>()
-
-    init {
-        widgetRegistrator.registerWidgetToRefresher { id, widgetRefresher -> widgets.put(id, widgetRefresher) }
+    fun init(ids: IntArray) {
+        for (id in ids) {
+            WorkManager.getInstance()
+                    .beginWith(createInitWorker(id))
+                    .then(createCorrectWorker(id))
+                    .then(createRefreshWorker(id))
+                    .enqueue()
+        }
     }
 
-    fun refresh(id: Int?) {
-        widgets.get(id)?.get()?.refresh()
+    private fun createInitWorker(id: Int): OneTimeWorkRequest {
+        val data = Data.Builder().putInt(WIDGET_ID, id).build()
+        return OneTimeWorkRequestBuilder<InitWorker>()
+                .setInputData(data)
+                .build()
+    }
+
+    private fun createCorrectWorker(id: Int): OneTimeWorkRequest {
+        val data = Data.Builder().putInt(WIDGET_ID, id).build()
+        return OneTimeWorkRequestBuilder<CorrectWorker>()
+                .setInputData(data)
+                .build()
+    }
+
+    private fun createRefreshWorker(id: Int): OneTimeWorkRequest {
+        val data = Data.Builder().putInt(WIDGET_ID, id).build()
+        return OneTimeWorkRequestBuilder<RefreshWorker>()
+                .setInputData(data)
+                .build()
     }
 
 }

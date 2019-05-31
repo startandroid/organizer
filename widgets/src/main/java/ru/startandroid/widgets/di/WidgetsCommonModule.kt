@@ -5,11 +5,11 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
 import ru.startandroid.widgets.db.WidgetDbInitializer
-import ru.startandroid.widgets.refresh.WidgetsRefresher
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
+import ru.startandroid.widgets.refresh.WidgetWorkerFactory
 import ru.startandroid.widgets.registrator.WidgetRegistrator
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
@@ -38,7 +38,7 @@ abstract class WidgetRegistratorModule {
     abstract fun provideToProviderRegistrator(widgetRegistrator: WidgetRegistrator): WidgetProvider.ToProviderRegistrator
 
     @Binds
-    abstract fun provideToRefresherRegistrator(widgetRegistrator: WidgetRegistrator): WidgetsRefresher.ToRefresherRegistrator
+    abstract fun provideToFactoryRegistrator(widgetRegistrator: WidgetRegistrator): WidgetWorkerFactory.ToWorkerFactoryRegistrator
 
     @Binds
     abstract fun provideToDbInitializer(widgetRegistrator: WidgetRegistrator): WidgetDbInitializer.ToDbInitializerRegistrator
