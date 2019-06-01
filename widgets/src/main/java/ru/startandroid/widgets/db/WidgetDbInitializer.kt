@@ -1,20 +1,16 @@
 package ru.startandroid.widgets.db
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import java.util.concurrent.Executors
+import ru.startandroid.widgets.refresh.WidgetsRefresher
 import javax.inject.Inject
-import javax.inject.Provider
 
-class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitializerRegistrator) {
+class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitializerRegistrator, val widgetsRefresher: WidgetsRefresher) {
 
     interface ToDbInitializerRegistrator {
-        fun registerWidgetToDbInitializer(registerFunc: (id: Int, widgetInitProvider: Provider<out WidgetInit>) -> Unit)
+        fun registerWidgetToDbInitializer(registerFunc: (id: Int) -> Unit)
     }
 
     lateinit var widgetDatabase: WidgetDatabase
@@ -24,11 +20,7 @@ class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitial
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        Log.d("qweee", "room onCreate")
-                        Executors.newSingleThreadExecutor().execute {
-                            createInitRecords()
-                        }
-
+                        createInitRecords()
                     }
                 })
                 .build()
@@ -36,17 +28,12 @@ class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitial
     }
 
     private fun createInitRecords() {
-        val widgetsData = mutableListOf<WidgetDataEntityDb>()
-        val widgetsConfig = mutableListOf<WidgetConfigEntityDb>()
-        widgetRegistrator.registerWidgetToDbInitializer { id, widgetInitProvider ->
-            val widgetInitProvider = widgetInitProvider.get()
-            widgetsData.add(widgetInitProvider.initData())
-            widgetsConfig.add(widgetInitProvider.initConfig())
+
+        val ids = mutableListOf<Int>()
+        widgetRegistrator.registerWidgetToDbInitializer { id ->
+            ids.add(id)
         }
-
-        widgetDatabase.widgetDataDao().insert(widgetsData)
-        widgetDatabase.widgetConfigDao().insert(widgetsConfig)
-
+        widgetsRefresher.init(ids.toIntArray())
     }
 
 }

@@ -14,6 +14,9 @@ interface WidgetConfigDao {
     @Query("SELECT * FROM $WIDGET_CONFIG WHERE ID = :id")
     fun getById(id: Int): Single<List<WidgetConfigEntityDb>>
 
+    @Query("SELECT * FROM $WIDGET_CONFIG WHERE ID = :id")
+    fun getByIdSync(id: Int): WidgetConfigEntityDb?
+
     @Query("SELECT * FROM $WIDGET_CONFIG")
     fun getAll(): Flowable<List<WidgetConfigEntityDb>>
 

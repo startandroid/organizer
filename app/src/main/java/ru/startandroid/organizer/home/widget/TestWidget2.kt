@@ -1,20 +1,14 @@
 package ru.startandroid.organizer.home.widget
 
-import android.annotation.SuppressLint
+//import ru.startandroid.widgets.db.WidgetInit
 import android.util.Log
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.widget_test2.*
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_2
 import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.adapter.content.BaseWidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetContent
-import ru.startandroid.widgets.db.WidgetDbUpdater
-import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import java.io.BufferedInputStream
@@ -53,60 +47,44 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
     }
 }
 
-class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
-    @SuppressLint("CheckResult")
-    override fun refresh() {
-        Log.d("qweee", "refresh widget 2")
-        widgetDbUpdater.getAndUpdate(TEST_WIDGET_2) { entity ->
+class TestWidget2Refresher @Inject constructor() : WidgetRefresher {
+    override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
+        return TestWidget2Data("test1", text2 = "test2")
+    }
 
-            entity?.let {
+    override fun refreshData(config: WidgetConfig?): WidgetData? {
+        Log.d("qweee", "widget2, refresh $config")
 
-                val url = URL("http://worldtimeapi.org/api/ip.txt")
-                val urlConnection = url.openConnection() as HttpURLConnection
-                try {
-                    val instream = BufferedInputStream(urlConnection.getInputStream())
+        val url = URL("http://worldtimeapi.org/api/ip.txt")
+        val urlConnection = url.openConnection() as HttpURLConnection
+        try {
+            val instream = BufferedInputStream(urlConnection.getInputStream())
 
-                    val contents = ByteArray(1024)
+            val contents = ByteArray(1024)
 
-                    var bytesRead = 0
-                    var strFileContents: String = ""
-                    bytesRead = instream.read(contents)
-                    while ((bytesRead) != -1) {
-                        strFileContents += String(contents, 0, bytesRead)
-                        bytesRead = instream.read(contents)
-                    }
-                    Log.d("qweee", "refresh widget 2 $strFileContents")
-                    var data = it.data as TestWidget2Data
-                    data = data.copy(text2 = strFileContents)
-                    WidgetDataEntity(it.id, data)
-                } finally {
-                    urlConnection.disconnect()
-                }
+            var bytesRead = 0
+            var strFileContents: String = ""
+            bytesRead = instream.read(contents)
+            while ((bytesRead) != -1) {
+                strFileContents += String(contents, 0, bytesRead)
+                bytesRead = instream.read(contents)
             }
-
-        }.subscribe { Log.d("qweee", "refresh widget 2 done") }
-
-
-    }
-}
-
-class TestWidget2Init @Inject constructor(val gson: Gson) : WidgetInit {
-    override fun initData(): WidgetDataEntityDb {
-        val data = TestWidget2Data("test1", text2 = "test2")
-        return WidgetDataEntityDb(TEST_WIDGET_2, gson.toJson(data))
+            Log.d("qweee", "refreshData widget 2 $strFileContents")
+            return TestWidget2Data(text1 = "test1", text2 = strFileContents)
+        } finally {
+            urlConnection.disconnect()
+        }
     }
 
-    override fun initConfig(): WidgetConfigEntityDb {
-        val config = TestWidget2Config(true, false)
-        return WidgetConfigEntityDb(TEST_WIDGET_2, gson.toJson(config), true)
+    override fun initConfig(): WidgetConfig? {
+        return TestWidget2Config(true, false)
     }
 
 }
 
 class TestWidget2RegisterData @Inject constructor(
         val widgetContentProvider: Provider<TestWidget2Content>,
-        val widgetRefresherProvider: Provider<TestWidget2Refresher>,
-        val widetInitProvider: Provider<TestWidget2Init>
+        val widgetRefresherProvider: Provider<TestWidget2Refresher>
 
 ) : WidgetRegistratorImpl.RegisterData {
     override fun id(): Int = TEST_WIDGET_2
@@ -114,5 +92,4 @@ class TestWidget2RegisterData @Inject constructor(
     override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget2Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
-    override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
 }

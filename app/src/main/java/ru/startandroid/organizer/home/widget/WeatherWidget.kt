@@ -1,22 +1,14 @@
 package ru.startandroid.organizer.home.widget
 
-import android.util.Log
-import com.google.gson.Gson
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+//import ru.startandroid.widgets.db.WidgetInit
 import kotlinx.android.synthetic.main.widget_weather.*
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.adapter.content.BaseWidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetContent
-import ru.startandroid.widgets.db.WidgetDbUpdater
-import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.widgets.db.data.WidgetConfigEntityDb
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
 import ru.startandroid.widgets.refresh.WidgetRefresher
 import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import java.text.SimpleDateFormat
@@ -66,60 +58,41 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
                 configButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
-
 }
 
-class WeatherWidgetRefresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
+class WeatherWidgetRefresher @Inject constructor() : WidgetRefresher {
 
-    var api: WeatherAPI = WeatherAPI.create()
-
-    override fun refresh() {
-
-        api.getCityWeather("Moscow", "3").observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ result ->
-                    widgetDbUpdater.getAndUpdate(WEATHER_WIDGET, scheduler = AndroidSchedulers.mainThread()) { entity ->
-                        Log.d("qweee", "widget1 func")
-                        entity?.let {
-                            var data = it.data as WeatherWidgetData
-                            var forecastList = result.forecast?.forecastday
-                            if (forecastList != null) {
-                                data = data.copy(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}", tempMain = result.current?.tempC?.toInt().toString()
-                                        , temp1 = forecastList[0]?.day?.avgtempC?.toInt().toString()
-                                        , temp2 = forecastList[1]?.day?.avgtempC?.toInt().toString()
-                                        , temp3 = forecastList[2]?.day?.avgtempC?.toInt().toString()
-                                        , day1 = forecastList[0]?.date.toString()
-                                        , day2 = forecastList[1]?.date.toString()
-                                        , day3 = forecastList[2]?.date.toString())
-                            }
-                            WidgetDataEntity(it.id, data)
-                        }
-
-                    }.subscribe()
-                }, { error ->
-                    error.printStackTrace()
-                    Log.d("Result", "There are ${error.message.toString()} Java developers in Lagos")
-                })
-    }
-}
-
-class WeatherWidgetInit @Inject constructor(val gson: Gson) : WidgetInit {
-    override fun initData(): WidgetDataEntityDb {
-        val data = WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
-        return WidgetDataEntityDb(WEATHER_WIDGET, gson.toJson(data))
+    override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
+        return WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
     }
 
-    override fun initConfig(): WidgetConfigEntityDb {
-        val config = WeatherWidgetConfig(listOf(City(1, "City 1"), City(2, "City 2")))
-        return WidgetConfigEntityDb(WEATHER_WIDGET, gson.toJson(config), true)
+    override fun refreshData(config: WidgetConfig?): WidgetData? {
+        val api: WeatherAPI = WeatherAPI.create()
+
+        val response = api.getCityWeather("Moscow", "3").execute()
+        val weatherData = response.body()
+
+        return weatherData?.forecast?.forecastday?.let {
+            WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}",
+                    tempMain = weatherData.current?.tempC?.toInt().toString()
+                    , temp1 = it[0]?.day?.avgtempC?.toInt().toString()
+                    , temp2 = it[1]?.day?.avgtempC?.toInt().toString()
+                    , temp3 = it[2]?.day?.avgtempC?.toInt().toString()
+                    , day1 = it[0]?.date.toString()
+                    , day2 = it[1]?.date.toString()
+                    , day3 = it[2]?.date.toString())
+        }
+
     }
 
+    override fun initConfig(): WidgetConfig? {
+        return WeatherWidgetConfig(listOf(City(1, "City 1"), City(2, "City 2")))
+    }
 }
 
 class WeatherWidgetRegisterData @Inject constructor(
         val widgetContentProvider: Provider<WeatherWidgetContent>,
-        val widgetRefresherProvider: Provider<WeatherWidgetRefresher>,
-        val widgetInitProvider: Provider<WeatherWidgetInit>
+        val widgetRefresherProvider: Provider<WeatherWidgetRefresher>
 
 ) : WidgetRegistratorImpl.RegisterData {
     override fun id(): Int = WEATHER_WIDGET
@@ -127,5 +100,4 @@ class WeatherWidgetRegisterData @Inject constructor(
     override fun widgetConfigCls(): KClass<out WidgetConfig> = WeatherWidgetConfig::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
-    override fun widgetInit(): Provider<out WidgetInit> = widgetInitProvider
 }

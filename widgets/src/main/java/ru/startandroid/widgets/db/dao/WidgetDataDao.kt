@@ -18,6 +18,8 @@ interface WidgetDataDao {
     @Query("SELECT * FROM $WIDGET_DATA WHERE ID = :id")
     fun getById(id: Int): Single<List<WidgetDataEntityDb>>
 
+    @Query("SELECT * FROM $WIDGET_DATA WHERE ID = :id")
+    fun getByIdSync(id: Int): WidgetDataEntityDb?
 
     @Insert
     fun insert(vararg widgetDataEntityDb: WidgetDataEntityDb)
