@@ -1,6 +1,5 @@
 package ru.startandroid.widgets.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,10 +7,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import ru.startandroid.widgets.R
 import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.adapter.container.WidgetContainerHolder
 import ru.startandroid.widgets.adapter.content.WidgetProvider
 import ru.startandroid.widgets.db.WidgetDatabase
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import javax.inject.Inject
 
 class WidgetAdapter
@@ -32,7 +31,6 @@ constructor(
         disposable =
                 widgetDatabase.widgetDataDao()
                         .getAll()
-                        .doOnNext { Log.d("qweee", "refresh widget list $it") }
                         .map {
                             it.map {
                                 widgetEntityMapper.map(it)
@@ -47,7 +45,6 @@ constructor(
     }
 
     private fun setWidgets(widgets: List<WidgetDataEntity>) {
-        Log.d("qweee", "setWidgets $widgets")
         this.widgets.clear()
         this.widgets.addAll(widgets)
     }
@@ -59,7 +56,6 @@ constructor(
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
-        Log.d("qweee", "onBindViewHolder $position")
         containerHolder.bind(widgets[position])
     }
 

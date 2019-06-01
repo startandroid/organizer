@@ -16,7 +16,7 @@ android {
         versionName conf.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-
+        multiDexEnabled true
     }
 
     androidExtensions {
@@ -29,6 +29,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+
 }
 
 dependencies {
@@ -71,7 +73,7 @@ dependencies {
     implementation retrofit.retrofit
     implementation retrofit.gson
 
-
+    implementation workmanager.runtimektx
 }
 
 repositories {
