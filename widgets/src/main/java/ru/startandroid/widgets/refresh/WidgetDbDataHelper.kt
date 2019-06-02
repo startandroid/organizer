@@ -3,7 +3,8 @@ package ru.startandroid.widgets.refresh
 import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
 
-interface WidgetRefresher {
+
+interface WidgetDbDataHelper {
 
     fun initConfig(): WidgetConfig?
 

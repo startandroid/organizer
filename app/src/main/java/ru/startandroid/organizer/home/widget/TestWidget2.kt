@@ -9,8 +9,8 @@ import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.adapter.content.BaseWidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetContent
-import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import ru.startandroid.widgets.refresh.WidgetDbDataHelper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,7 +47,7 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
     }
 }
 
-class TestWidget2Refresher @Inject constructor() : WidgetRefresher {
+class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
     override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
         return TestWidget2Data("test1", text2 = "test2")
     }
@@ -82,14 +82,14 @@ class TestWidget2Refresher @Inject constructor() : WidgetRefresher {
 
 }
 
-class TestWidget2RegisterData @Inject constructor(
+class TestWidget2WidgetMetadata @Inject constructor(
         val widgetContentProvider: Provider<TestWidget2Content>,
-        val widgetRefresherProvider: Provider<TestWidget2Refresher>
+        val widgetRefresherProvider: Provider<TestWidget2DbDataHelper>
 
-) : WidgetRegistratorImpl.RegisterData {
+) : WidgetMetadatRepositoryImpl.WidgetMetadata {
     override fun id(): Int = TEST_WIDGET_2
     override fun widgetDataCls(): KClass<out WidgetData> = TestWidget2Data::class
     override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget2Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
+    override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
 }

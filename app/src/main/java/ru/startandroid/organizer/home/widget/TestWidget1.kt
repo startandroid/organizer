@@ -8,8 +8,8 @@ import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.adapter.content.BaseWidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetContent
-import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import ru.startandroid.widgets.refresh.WidgetDbDataHelper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
@@ -37,7 +37,7 @@ class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Da
     }
 }
 
-class TestWidget1Refresher @Inject constructor() : WidgetRefresher {
+class TestWidget1DbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
     override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
         Log.d("qweee", "widget1, correct $data $config")
@@ -56,15 +56,15 @@ class TestWidget1Refresher @Inject constructor() : WidgetRefresher {
 
 }
 
-class TestWidget1RegisterData @Inject constructor(
+class TestWidget1WidgetMetadata @Inject constructor(
         val widgetContentProvider: Provider<TestWidget1Content>,
-        val widgetRefresherProvider: Provider<TestWidget1Refresher>
-) : WidgetRegistratorImpl.RegisterData {
+        val widgetRefresherProvider: Provider<TestWidget1DbDataHelper>
+) : WidgetMetadatRepositoryImpl.WidgetMetadata {
 
     override fun id(): Int = TEST_WIDGET_1
     override fun widgetDataCls(): KClass<out WidgetData> = TestWidget1Data::class
     override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget1Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
+    override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
 
 }

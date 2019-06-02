@@ -10,26 +10,18 @@ import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import javax.inject.Inject
 import javax.inject.Provider
 
-class WidgetWorkerFactory @Inject constructor(val widgetRegistrator: ToWorkerFactoryRegistrator, val widgetDatabase: WidgetDatabase, val widgetEntityMapper: WidgetEntityMapper) : WorkerFactory() {
+class WidgetWorkerFactory @Inject constructor(
+        val widgetMetadataRepository: WidgetDbDataHelperRepository,
+        val widgetDatabase: WidgetDatabase,
+        val widgetEntityMapper: WidgetEntityMapper) : WorkerFactory() {
 
-    interface ToWorkerFactoryRegistrator {
-        fun registerWidgetToWorkerFactory(registerFunc: (id: Int, widgetRefresher: Provider<out WidgetRefresher>) -> Unit)
-    }
-
-    private val widgets = mutableMapOf<Int, Provider<out WidgetRefresher>>()
-
-    init {
-        reg()
-    }
-
-    fun reg() {
-        // temporary workaround, will be fixed
-        widgetRegistrator.registerWidgetToWorkerFactory { id, widgetRefresher -> widgets.put(id, widgetRefresher) }
+    interface WidgetDbDataHelperRepository {
+        fun getWidgetRefresherProvider(id: Int): Provider<out WidgetDbDataHelper>?
     }
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
         val id = workerParameters.inputData.getInt(PARAM_KEY.WIDGET_ID, 0)
-        val refresher = widgets.get(id)?.get()
+        val refresher = widgetMetadataRepository.getWidgetRefresherProvider(id)?.get()
 
         return when (workerClassName) {
             InitWorker::class.java.name -> InitWorker(appContext, workerParameters, refresher, widgetDatabase, widgetEntityMapper)

@@ -10,7 +10,7 @@ import ru.startandroid.widgets.mapper.WidgetEntityMapper
 
 class RefreshWorker(context: Context,
                     private val workerParams: WorkerParameters,
-                    private val widgetRefresher: WidgetRefresher?,
+                    private val widgetDbDataHelper: WidgetDbDataHelper?,
                     private val widgetDatabase: WidgetDatabase,
                     private val widgetEntityMapper: WidgetEntityMapper
 ) : Worker(context, workerParams) {
@@ -26,7 +26,7 @@ class RefreshWorker(context: Context,
                     widgetEntityMapper.map(it)
                 }?.config
 
-        val data = widgetRefresher?.refreshData(config)
+        val data = widgetDbDataHelper?.refreshData(config)
 
         data?.let {
             val dataEntity = WidgetDataEntity(id, it)
