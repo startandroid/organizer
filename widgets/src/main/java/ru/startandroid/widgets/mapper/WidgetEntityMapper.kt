@@ -15,39 +15,20 @@ import kotlin.reflect.KClass
 class WidgetEntityMapper
 @Inject
 constructor(
-        val widgetRegistrator: ToMapperRegistrator,
+        val widgetMetadataRepository: WidgetMappingMetadataRepository,
         private val gson: Gson
 ) {
 
-    interface ToMapperRegistrator {
-        fun registerWidgetToMapper(registerFunc: (id: Int,
-                                                  widgetDataCls: KClass<out WidgetData>,
-                                                  widgetConfigCls: KClass<out WidgetConfig>) -> Unit)
+    interface WidgetMappingMetadataRepository {
+        fun getWidgetDataClass(id: Int): KClass<out WidgetData>?
+        fun getWidgetConfigClass(id: Int): KClass<out WidgetConfig>?
     }
-
-    val dataClasses = mutableMapOf<Int, KClass<out WidgetData>>()
-    val configClasses = mutableMapOf<Int, KClass<out WidgetConfig>>()
-
-    init {
-        reg()
-    }
-
-    private fun reg() {
-        // temporary workaround, will be fixed
-        if (configClasses.size == 0)
-            widgetRegistrator.registerWidgetToMapper { id: Int,
-                                                       widgetDataCls: KClass<out WidgetData>,
-                                                       widgetConfigCls: KClass<out WidgetConfig> ->
-                dataClasses.put(id, widgetDataCls)
-                configClasses.put(id, widgetConfigCls)
-            }
-    }
-
 
     fun map(widgetDataEntityDb: WidgetDataEntityDb?): WidgetDataEntity? {
-        reg()
         if (widgetDataEntityDb == null) return null
-        val data = dataClasses.get(widgetDataEntityDb.id)?.let { gson.fromJson(widgetDataEntityDb.data, it.java) }
+
+        val data = widgetMetadataRepository.getWidgetDataClass(widgetDataEntityDb.id)
+                ?.let { gson.fromJson(widgetDataEntityDb.data, it.java) }
 
         if (data == null) return null
 
@@ -55,15 +36,14 @@ constructor(
     }
 
     fun map(widgetDataEntity: WidgetDataEntity): WidgetDataEntityDb {
-        reg()
         val data = gson.toJson(widgetDataEntity.data)
 
         return WidgetDataEntityDb(widgetDataEntity.id, data)
     }
 
     fun map(widgetConfigEntityDb: WidgetConfigEntityDb): WidgetConfigEntity? {
-        reg()
-        val config = configClasses.get(widgetConfigEntityDb.id)?.let { gson.fromJson(widgetConfigEntityDb.config, it.java) }
+        val config = widgetMetadataRepository.getWidgetConfigClass(widgetConfigEntityDb.id)
+                ?.let { gson.fromJson(widgetConfigEntityDb.config, it.java) }
 
         if (config == null) return null
 
@@ -71,7 +51,6 @@ constructor(
     }
 
     fun map(widgetConfigEntity: WidgetConfigEntity): WidgetConfigEntityDb {
-        reg()
         val config = gson.toJson(widgetConfigEntity.config)
 
         return WidgetConfigEntityDb(widgetConfigEntity.id, config, widgetConfigEntity.enabled)

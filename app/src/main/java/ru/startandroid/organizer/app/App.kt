@@ -13,8 +13,8 @@ import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
 import ru.startandroid.widgets.refresh.WidgetWorkerFactory
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 import javax.inject.Inject
 
 
@@ -26,7 +26,7 @@ class App : Application(), HasActivityInjector {
     @Inject
     lateinit var widgetRegistratorData: WidgetRegistratorData
     @Inject
-    lateinit var widgetData: MutableSet<WidgetRegistratorImpl.RegisterData>
+    lateinit var widgetData: MutableSet<WidgetMetadatRepositoryImpl.WidgetMetadata>
 
     @Inject
     lateinit var workerFactory: WidgetWorkerFactory
@@ -65,14 +65,13 @@ class App : Application(), HasActivityInjector {
     }
 
     private fun initWorkManager() {
-        workerFactory.reg()
         // provide custom configuration
         val config = Configuration.Builder()
                 //.setMinimumLoggingLevel(android.util.Log.INFO)
                 .setWorkerFactory(workerFactory)
                 .build()
 
-// initialize WorkManager
+        // initialize WorkManager
         WorkManager.initialize(this, config)
     }
 
