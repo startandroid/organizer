@@ -7,10 +7,12 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import ru.startandroid.widgets.refresh.WidgetsRefresher
 import javax.inject.Inject
 
-class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitializerRegistrator, val widgetsRefresher: WidgetsRefresher) {
+class WidgetDbInitializer @Inject constructor(
+        val widgetMetadataRepository: WidgetDbInitMetadataRepository,
+        val widgetsRefresher: WidgetsRefresher) {
 
-    interface ToDbInitializerRegistrator {
-        fun registerWidgetToDbInitializer(registerFunc: (id: Int) -> Unit)
+    interface WidgetDbInitMetadataRepository {
+        fun getWidgetIds(): IntArray
     }
 
     lateinit var widgetDatabase: WidgetDatabase
@@ -27,13 +29,8 @@ class WidgetDbInitializer @Inject constructor(val widgetRegistrator: ToDbInitial
         return widgetDatabase
     }
 
-    private fun createInitRecords() {
+    private fun createInitRecords() =
+            widgetsRefresher.init(widgetMetadataRepository.getWidgetIds())
 
-        val ids = mutableListOf<Int>()
-        widgetRegistrator.registerWidgetToDbInitializer { id ->
-            ids.add(id)
-        }
-        widgetsRefresher.init(ids.toIntArray())
-    }
 
 }

@@ -9,8 +9,8 @@ import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
 import ru.startandroid.widgets.adapter.content.BaseWidgetContent
 import ru.startandroid.widgets.adapter.content.WidgetContent
-import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import ru.startandroid.widgets.refresh.WidgetDbDataHelper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -60,7 +60,7 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidg
     }
 }
 
-class WeatherWidgetRefresher @Inject constructor() : WidgetRefresher {
+class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
     override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
         return WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
@@ -90,14 +90,14 @@ class WeatherWidgetRefresher @Inject constructor() : WidgetRefresher {
     }
 }
 
-class WeatherWidgetRegisterData @Inject constructor(
+class WeatherWidgetWidgetMetadata @Inject constructor(
         val widgetContentProvider: Provider<WeatherWidgetContent>,
-        val widgetRefresherProvider: Provider<WeatherWidgetRefresher>
+        val widgetRefresherProvider: Provider<WeatherWidgetDbDataHelper>
 
-) : WidgetRegistratorImpl.RegisterData {
+) : WidgetMetadatRepositoryImpl.WidgetMetadata {
     override fun id(): Int = WEATHER_WIDGET
     override fun widgetDataCls(): KClass<out WidgetData> = WeatherWidgetData::class
     override fun widgetConfigCls(): KClass<out WidgetConfig> = WeatherWidgetConfig::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
+    override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
 }

@@ -9,7 +9,7 @@ import ru.startandroid.widgets.db.WidgetDatabase
 import ru.startandroid.widgets.mapper.WidgetEntityMapper
 
 class CorrectWorker(context: Context, val workerParams: WorkerParameters,
-                    private val widgetRefresher: WidgetRefresher?,
+                    private val widgetDbDataHelper: WidgetDbDataHelper?,
                     private val widgetDatabase: WidgetDatabase,
                     private val widgetEntityMapper: WidgetEntityMapper
 ) : Worker(context, workerParams) {
@@ -34,7 +34,7 @@ class CorrectWorker(context: Context, val workerParams: WorkerParameters,
                 ?.data
 
 
-        val refreshedData = widgetRefresher?.correctDataAccordingToConfig(data, config)
+        val refreshedData = widgetDbDataHelper?.correctDataAccordingToConfig(data, config)
 
         refreshedData?.let {
             val dataEntity = WidgetDataEntity(id, it)
