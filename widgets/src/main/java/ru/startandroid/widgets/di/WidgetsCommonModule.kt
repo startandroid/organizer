@@ -10,9 +10,9 @@ import ru.startandroid.widgets.db.WidgetDatabase
 import ru.startandroid.widgets.db.WidgetDbInitializer
 import ru.startandroid.widgets.mapper.WidgetEntityMapper
 import ru.startandroid.widgets.refresh.WidgetWorkerFactory
-import ru.startandroid.widgets.registrator.WidgetRegistrator
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
+import ru.startandroid.widgets.registrator.WidgetMetadataRepository
 import ru.startandroid.widgets.registrator.WidgetRegistratorData
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
 
 @Module(includes = [WidgetRegistratorModule::class])
 class WidgetsCommonModule {
@@ -29,22 +29,22 @@ class WidgetsCommonModule {
 abstract class WidgetRegistratorModule {
 
     @Binds
-    abstract fun provide(widgetRegistrator: WidgetRegistratorImpl): WidgetRegistrator
+    abstract fun provide(widgetMetadatRepository: WidgetMetadatRepositoryImpl): WidgetMetadataRepository
 
     @Binds
-    abstract fun provideToMapperRegistrator(widgetRegistrator: WidgetRegistrator): WidgetEntityMapper.ToMapperRegistrator
+    abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetEntityMapper.WidgetMappingMetadataRepository
 
     @Binds
-    abstract fun provideToProviderRegistrator(widgetRegistrator: WidgetRegistrator): WidgetProvider.ToProviderRegistrator
+    abstract fun provideWidgetContentMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetProvider.WidgetContentMetadataRepository
 
     @Binds
-    abstract fun provideToFactoryRegistrator(widgetRegistrator: WidgetRegistrator): WidgetWorkerFactory.ToWorkerFactoryRegistrator
+    abstract fun provideWidgetRefresherMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetWorkerFactory.WidgetDbDataHelperRepository
 
     @Binds
-    abstract fun provideToDbInitializer(widgetRegistrator: WidgetRegistrator): WidgetDbInitializer.ToDbInitializerRegistrator
+    abstract fun provideWidgetDbInitMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbInitializer.WidgetDbInitMetadataRepository
 
     @Binds
-    abstract fun provideWidgetRegistratorData(widgetRegistrator: WidgetRegistrator): WidgetRegistratorData
+    abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorData
 
 
 }

@@ -6,19 +6,13 @@ import javax.inject.Provider
 class WidgetProvider
 @Inject
 constructor(
-        widgetRegistrator: ToProviderRegistrator
+        val widgetMetadataRepository: WidgetContentMetadataRepository
 ) {
 
-    interface ToProviderRegistrator {
-        fun registerWidgetToProvider(registerFunc: (id: Int, widgetContentProvider: Provider<out WidgetContent>) -> Unit)
+    interface WidgetContentMetadataRepository {
+        fun getWidgetContentProvider(id: Int): Provider<out WidgetContent>?
     }
 
-    private val widgets = mutableMapOf<Int, Provider<out WidgetContent>>()
-
-    init {
-        widgetRegistrator.registerWidgetToProvider { id, widgetContentProvider -> widgets.put(id, widgetContentProvider) }
-    }
-
-    fun getWidget(id: Int) = widgets.get(id)?.get()
+    fun getWidget(id: Int) = widgetMetadataRepository.getWidgetContentProvider(id)?.get()
 
 }
