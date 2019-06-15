@@ -47,6 +47,7 @@ ext {
             minSdkVersion    : 20,
             targetSdkVersion : 26,
             compileSdkVersion: 28,
+
     ]
 
     versions = [

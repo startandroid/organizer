@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -19,7 +20,8 @@ constructor(
         private val widgetProvider: WidgetProvider,
         private val widgetDatabase: WidgetDatabase,
         private var widgetEntityMapper: WidgetEntityMapper,
-        private var widgetAdapterCallback: WidgetAdapterCallback
+        private var widgetAdapterCallback: WidgetAdapterCallback,
+        private var context: Context
 ) : RecyclerView.Adapter<WidgetContainerHolder>() {
 
     val widgets = mutableListOf<WidgetDataEntity>()
@@ -55,7 +57,7 @@ constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetContainerHolder {
         val widgetContent = widgetProvider.getWidget(viewType)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_container, parent, false)
-        return WidgetContainerHolder(view, widgetContent, widgetAdapterCallback)
+        return WidgetContainerHolder(view, widgetContent, widgetAdapterCallback,context)
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
