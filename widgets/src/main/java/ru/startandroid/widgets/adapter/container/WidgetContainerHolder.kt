@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.adapter.container
 
+import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
@@ -10,7 +11,8 @@ import ru.startandroid.widgets.adapter.WidgetAdapterCallback
 
 class WidgetContainerHolder(override val containerView: View,
                             private val widgetContent: WidgetContent?,
-                            private val widgetAdapterCallback: WidgetAdapterCallback?)
+                            private val widgetAdapterCallback: WidgetAdapterCallback?,
+                            private var context: Context)
     : RecyclerView.ViewHolder(containerView),
         WidgetContainerDataCallback, LayoutContainer {
 
@@ -29,7 +31,7 @@ class WidgetContainerHolder(override val containerView: View,
 
         closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
         refreshButton.setOnClickListener { widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
-        settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id) }
+        settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id, context) }
     }
 
     fun bind(widgetDataEntity: WidgetDataEntity) {

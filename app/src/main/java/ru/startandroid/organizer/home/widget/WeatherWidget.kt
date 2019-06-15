@@ -1,11 +1,10 @@
 package ru.startandroid.organizer.home.widget.widgets
 
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import com.google.gson.Gson
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.widget_weather.*
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.WEATHER_WIDGET
@@ -24,7 +23,6 @@ import java.util.*
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-import kotlinx.android.synthetic.main.widget_weather.*
 
 data class WeatherWidgetData(
         val time: String,
@@ -44,8 +42,6 @@ data class WeatherWidgetSettings(
 
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<WeatherWidgetData>() {
-
-
 
 
     override fun getLayoutId(): Int = R.layout.widget_weather

@@ -1,5 +1,9 @@
 package ru.startandroid.widgets.adapter
 
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import ru.startandroid.widgets.refresh.WidgetsRefresher
 import javax.inject.Inject
 
@@ -8,8 +12,11 @@ class WidgetAdapterCallback @Inject constructor(val widgetsRefresher: WidgetsRef
         widgetsRefresher.refresh(id)
     }
 
-    fun onWidgetSettingsClick(id: Int) {
-
+    fun onWidgetSettingsClick(id: Int, context: Context) {
+        var myAction = Uri.parse("app://organizer/widgets/config/$id")
+        var  intent = Intent(Intent.ACTION_VIEW, myAction)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(intent)
     }
 
     fun onWidgetCloseClick(id: Int) {
