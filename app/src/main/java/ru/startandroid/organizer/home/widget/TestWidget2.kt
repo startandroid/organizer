@@ -1,47 +1,38 @@
 package ru.startandroid.organizer.home.widget
 
-import android.annotation.SuppressLint
+//import ru.startandroid.widgets.db.WidgetInit
 import android.util.Log
-import android.view.View
-import android.widget.TextView
-import com.google.gson.Gson
+import kotlinx.android.synthetic.main.widget_test2.*
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_2
+import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.WidgetSettings
-import ru.startandroid.widgets.adapter.container.BaseWidgetContent
-import ru.startandroid.widgets.adapter.container.WidgetContent
-import ru.startandroid.widgets.db.WidgetDbUpdater
-import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import ru.startandroid.widgets.adapter.content.BaseWidgetContent
+import ru.startandroid.widgets.adapter.content.WidgetContent
+import ru.startandroid.widgets.refresh.WidgetDbDataHelper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
 import java.net.URL
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-import kotlinx.android.synthetic.main.widget_test2.*
 
 data class TestWidget2Data(
         val text1: String,
         val text2: String
 ) : WidgetData
 
-data class TestWidget2Settings(
+data class TestWidget2Config(
         val flag1: Boolean,
         val flag2: Boolean
-) : WidgetSettings
+) : WidgetConfig
 
 
 class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Data>() {
 
 
-
     override fun getLayoutId(): Int = R.layout.widget_test2
-
 
 
     override fun onDataSet(widgetData: TestWidget2Data) {
@@ -51,65 +42,54 @@ class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Da
                 id = TEST_WIDGET_2,
                 title = "Test widget 21",
                 refreshButtonIsVisible = true,
-                settingsButtonIsVisible = true,
+                configButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
 }
 
-class TestWidget2Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
-    @SuppressLint("CheckResult")
-    override fun refresh() {
-        Log.d("qweee", "refresh widget 2")
-        widgetDbUpdater.getAndUpdate(TEST_WIDGET_2) { entity ->
+class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
+    override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
+        return TestWidget2Data("test1", text2 = "test2")
+    }
 
-            entity?.let {
+    override fun refreshData(config: WidgetConfig?): WidgetData? {
+        Log.d("qweee", "widget2, refresh $config")
 
-                val url = URL("http://worldtimeapi.org/api/ip.txt")
-                val urlConnection = url.openConnection() as HttpURLConnection
-                try {
-                    val instream = BufferedInputStream(urlConnection.getInputStream())
+        val url = URL("http://worldtimeapi.org/api/ip.txt")
+        val urlConnection = url.openConnection() as HttpURLConnection
+        try {
+            val instream = BufferedInputStream(urlConnection.getInputStream())
 
-                    val contents = ByteArray(1024)
+            val contents = ByteArray(1024)
 
-                    var bytesRead = 0
-                    var strFileContents: String = ""
-                    bytesRead = instream.read(contents)
-                    while ((bytesRead) != -1) {
-                        strFileContents += String(contents, 0, bytesRead)
-                        bytesRead = instream.read(contents)
-                    }
-                    Log.d("qweee", "refresh widget 2 $strFileContents")
-                    var data = it.data as TestWidget2Data
-                    data = data.copy(text2 = strFileContents)
-                    WidgetDataEntity(it.id, data)
-                } finally {
-                    urlConnection.disconnect()
-                }
+            var bytesRead = 0
+            var strFileContents: String = ""
+            bytesRead = instream.read(contents)
+            while ((bytesRead) != -1) {
+                strFileContents += String(contents, 0, bytesRead)
+                bytesRead = instream.read(contents)
             }
-
-        }.subscribe { Log.d("qweee", "refresh widget 2 done") }
-
-
+            Log.d("qweee", "refreshData widget 2 $strFileContents")
+            return TestWidget2Data(text1 = "test1", text2 = strFileContents)
+        } finally {
+            urlConnection.disconnect()
+        }
     }
+
+    override fun initConfig(): WidgetConfig? {
+        return TestWidget2Config(true, false)
+    }
+
 }
 
-class TestWidget2Init @Inject constructor(val gson: Gson) : WidgetInit {
-    override fun initRecord(): WidgetDataEntityDb {
-        val wdata = TestWidget2Data("test1", text2 = "test2")
-        return WidgetDataEntityDb(TEST_WIDGET_2, gson.toJson(wdata))
-    }
-}
-
-class TestWidget2RegisterData @Inject constructor(
+class TestWidget2WidgetMetadata @Inject constructor(
         val widgetContentProvider: Provider<TestWidget2Content>,
-        val widgetRefresherProvider: Provider<TestWidget2Refresher>,
-        val widetInitProvider: Provider<TestWidget2Init>
+        val widgetRefresherProvider: Provider<TestWidget2DbDataHelper>
 
-) : WidgetRegistratorImpl.RegisterData {
+) : WidgetMetadatRepositoryImpl.WidgetMetadata {
     override fun id(): Int = TEST_WIDGET_2
     override fun widgetDataCls(): KClass<out WidgetData> = TestWidget2Data::class
-    override fun widgetSettingsCls(): KClass<out WidgetSettings> = TestWidget2Settings::class
+    override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget2Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
-    override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
+    override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
 }

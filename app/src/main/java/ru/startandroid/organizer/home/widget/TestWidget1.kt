@@ -1,34 +1,26 @@
 package ru.startandroid.organizer.home.widget
 
 import android.util.Log
-import android.view.View
-import android.widget.TextView
-import com.google.gson.Gson
-import io.reactivex.android.schedulers.AndroidSchedulers
+import kotlinx.android.synthetic.main.widget_test1.*
 import ru.startandroid.organizer.R
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_1
+import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
-import ru.startandroid.widgets.WidgetDataEntity
-import ru.startandroid.widgets.WidgetSettings
-import ru.startandroid.widgets.adapter.container.BaseWidgetContent
-import ru.startandroid.widgets.adapter.container.WidgetContent
-import ru.startandroid.widgets.db.WidgetDbUpdater
-import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.widgets.db.data.WidgetDataEntityDb
-import ru.startandroid.widgets.refresh.WidgetRefresher
-import ru.startandroid.widgets.registrator.WidgetRegistratorImpl
+import ru.startandroid.widgets.adapter.content.BaseWidgetContent
+import ru.startandroid.widgets.adapter.content.WidgetContent
+import ru.startandroid.widgets.refresh.WidgetDbDataHelper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass
-import kotlinx.android.synthetic.main.widget_test1.*
 
 data class TestWidget1Data(
         val text: String
 ) : WidgetData
 
-data class TestWidget1Settings(
+data class TestWidget1Config(
         val flag: Boolean
-) : WidgetSettings
+) : WidgetConfig
 
 class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Data>() {
 
@@ -40,45 +32,39 @@ class TestWidget1Content @Inject constructor() : BaseWidgetContent<TestWidget1Da
                 id = TEST_WIDGET_1,
                 title = "Test widget 1",
                 refreshButtonIsVisible = true,
-                settingsButtonIsVisible = true,
+                configButtonIsVisible = true,
                 closeButtonIsVisible = true)
     }
 }
 
-class TestWidget1Refresher @Inject constructor(val widgetDbUpdater: WidgetDbUpdater) : WidgetRefresher {
-    override fun refresh() {
-        Log.d("qweee", "refresh widget 1")
+class TestWidget1DbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
-        widgetDbUpdater.getAndUpdate(TEST_WIDGET_1, scheduler = AndroidSchedulers.mainThread()) { entity ->
-            Log.d("qweee", "widget1 func")
-            entity?.let {
-                var data = it.data as TestWidget1Data
-                data = data.copy(text = "Time is ${System.currentTimeMillis()}")
-                WidgetDataEntity(it.id, data)
-            }
-
-        }.subscribe()
+    override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
+        Log.d("qweee", "widget1, correct $data $config")
+        return TestWidget1Data("test")
     }
+
+    override fun refreshData(config: WidgetConfig?): WidgetData? {
+        Log.d("qweee", "widget1, refresh $config")
+        return TestWidget1Data("Time is ${System.currentTimeMillis()}")
+    }
+
+    override fun initConfig(): WidgetConfig? {
+        Log.d("qweee", "widget1, init")
+        return TestWidget1Config(true)
+    }
+
 }
 
-class TestWidget1Init @Inject constructor(val gson: Gson) : WidgetInit {
-    override fun initRecord(): WidgetDataEntityDb {
-        val wdata = TestWidget1Data("test")
-        return WidgetDataEntityDb(TEST_WIDGET_1, gson.toJson(wdata))
-    }
-}
-
-class TestWidget1RegisterData @Inject constructor(
+class TestWidget1WidgetMetadata @Inject constructor(
         val widgetContentProvider: Provider<TestWidget1Content>,
-        val widgetRefresherProvider: Provider<TestWidget1Refresher>,
-        val widetInitProvider: Provider<TestWidget1Init>
-) : WidgetRegistratorImpl.RegisterData {
+        val widgetRefresherProvider: Provider<TestWidget1DbDataHelper>
+) : WidgetMetadatRepositoryImpl.WidgetMetadata {
 
     override fun id(): Int = TEST_WIDGET_1
     override fun widgetDataCls(): KClass<out WidgetData> = TestWidget1Data::class
-    override fun widgetSettingsCls(): KClass<out WidgetSettings> = TestWidget1Settings::class
+    override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget1Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
-    override fun widgetRefresher(): Provider<out WidgetRefresher> = widgetRefresherProvider
-    override fun widgetInit(): Provider<out WidgetInit> = widetInitProvider
+    override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
 
 }

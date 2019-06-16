@@ -7,6 +7,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.widget_container.*
 import ru.startandroid.widgets.WidgetDataEntity
 import ru.startandroid.widgets.adapter.WidgetAdapterCallback
+import ru.startandroid.widgets.adapter.content.WidgetContent
 
 
 class WidgetContainerHolder(override val containerView: View,
@@ -19,10 +20,7 @@ class WidgetContainerHolder(override val containerView: View,
 
     private lateinit var widgetContainerData: WidgetContainerData
 
-    // TODO use data binding
 
-    // TODO set TextView right side limit and ... if cropped
-    
     init {
         widgetContent?.run {
             setWidgetContainerCallback(this@WidgetContainerHolder)
@@ -31,7 +29,7 @@ class WidgetContainerHolder(override val containerView: View,
 
         closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
         refreshButton.setOnClickListener { widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
-        settingsButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id, context) }
+        configButton.setOnClickListener { widgetAdapterCallback?.onWidgetConfigClick(widgetContainerData.id) }
     }
 
     fun bind(widgetDataEntity: WidgetDataEntity) {
@@ -50,7 +48,7 @@ class WidgetContainerHolder(override val containerView: View,
         widgetContainerData.run {
             headerTitle.text = title
             refreshButton.visibility = if (refreshButtonIsVisible) View.VISIBLE else View.GONE
-            settingsButton.visibility = if (settingsButtonIsVisible) View.VISIBLE else View.GONE
+            configButton.visibility = if (configButtonIsVisible) View.VISIBLE else View.GONE
             closeButton.visibility = if (closeButtonIsVisible) View.VISIBLE else View.GONE
         }
     }
