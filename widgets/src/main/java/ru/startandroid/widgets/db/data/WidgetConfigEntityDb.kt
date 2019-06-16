@@ -2,11 +2,11 @@ package ru.startandroid.widgets.db.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import ru.startandroid.widgets.DB_TABLE_NAMES.WIDGET_CONFIG
 
-@Entity(tableName = "widget_settings")
-data class WidgetSettingsEntityDb(
+@Entity(tableName = WIDGET_CONFIG)
+data class WidgetConfigEntityDb(
         @PrimaryKey val id: Int,
-        val settings: String,
-        val order: Int,
+        val config: String,
         val enabled: Boolean
 )
