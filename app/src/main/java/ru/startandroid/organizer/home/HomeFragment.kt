@@ -32,23 +32,17 @@ class HomeFragment : android.app.Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    private fun init(view: View) {
-
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val linearLayoutManager = LinearLayoutManager(activity)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = widgetAdapter
 
         widgetAdapter.loadData()
 
-        val floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
         floatingActionButton.setOnClickListener { var myAction = Uri.parse("app://organizer/widgets/config")
             var  intent = Intent(Intent.ACTION_VIEW, myAction)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

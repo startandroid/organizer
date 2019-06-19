@@ -12,8 +12,7 @@ import ru.startandroid.widgets.adapter.content.WidgetContent
 
 class WidgetContainerHolder(override val containerView: View,
                             private val widgetContent: WidgetContent?,
-                            private val widgetAdapterCallback: WidgetAdapterCallback?,
-                            private var context: Context)
+                            private val widgetAdapterCallback: WidgetAdapterCallback?)
     : RecyclerView.ViewHolder(containerView),
         WidgetContainerDataCallback, LayoutContainer {
 
@@ -29,7 +28,7 @@ class WidgetContainerHolder(override val containerView: View,
 
         closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
         refreshButton.setOnClickListener { widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
-        configButton.setOnClickListener { widgetAdapterCallback?.onWidgetConfigClick(widgetContainerData.id) }
+        configButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id, containerView.context) }
     }
 
     fun bind(widgetDataEntity: WidgetDataEntity) {

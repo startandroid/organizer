@@ -55,7 +55,7 @@ constructor(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetContainerHolder {
         val widgetContent = widgetProvider.getWidget(viewType)
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_container, parent, false)
-        return WidgetContainerHolder(view, widgetContent, widgetAdapterCallback,context)
+        return WidgetContainerHolder(view, widgetContent, widgetAdapterCallback)
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
