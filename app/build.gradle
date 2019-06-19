@@ -16,6 +16,7 @@ android {
         versionName conf.versionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
 
     }
 
@@ -72,9 +73,11 @@ dependencies {
 
     implementation retrofit.retrofit
     implementation retrofit.gson
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation material.material
 
     implementation workmanager.runtimektx
+
+    implementation multidex.multidex
 }
 
 repositories {
