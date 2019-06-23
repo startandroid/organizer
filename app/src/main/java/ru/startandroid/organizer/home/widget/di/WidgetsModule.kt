@@ -5,7 +5,7 @@ import dagger.Provides
 import ru.startandroid.organizer.home.widget.TestWidget1WidgetMetadata
 import ru.startandroid.organizer.home.widget.TestWidget2WidgetMetadata
 import ru.startandroid.organizer.home.widget.WeatherWidgetWidgetMetadata
-import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
+import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
 
 @Module
 class WidgetsModule {
