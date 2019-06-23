@@ -40,7 +40,7 @@ dependencies {
     implementation project(':data')
     implementation project(':device')
     implementation project(':domain')
-    implementation project(':widgets')
+    implementation project(':widgetsbase')
 
     testImplementation junit.junit
     androidTestImplementation androidxtest.runner
@@ -73,8 +73,6 @@ dependencies {
     implementation material.material
 
     implementation workmanager.runtimektx
-
-    implementation multidex.multidex
 }
 
 repositories {
