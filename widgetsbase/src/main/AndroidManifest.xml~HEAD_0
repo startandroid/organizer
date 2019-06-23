@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.startandroid.widgets">
+    package="ru.startandroid.widgetsbase">
 
     <application>
-        <activity android:name=".WidgetsConfigActivity">
+        <activity android:name="ru.startandroid.widgetsbase.WidgetsConfigActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
