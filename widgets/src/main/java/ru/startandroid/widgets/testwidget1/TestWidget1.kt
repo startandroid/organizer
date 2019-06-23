@@ -1,11 +1,13 @@
-package ru.startandroid.organizer.home.widget
+package ru.startandroid.widgets.testwidget1
 
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_1
+import ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_1
 import ru.startandroid.widgetsbase.WidgetConfig
 import ru.startandroid.widgetsbase.WidgetData
 import ru.startandroid.widgetsbase.adapter.content.WidgetContent
 import ru.startandroid.widgetsbase.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
+import java.security.Provider
 import javax.inject.Inject
 import javax.inject.Provider
 import kotlin.reflect.KClass

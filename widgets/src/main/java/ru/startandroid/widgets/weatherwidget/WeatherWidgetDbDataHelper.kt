@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget
+package ru.startandroid.widgets.weatherwidget
 
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.widgetsbase.WidgetConfig
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
     override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
-        return WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
+        return ru.startandroid.widgets.weatherwidget.WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
     }
 
     override fun refreshData(config: WidgetConfig?): WidgetData? {
@@ -21,7 +21,7 @@ class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
         val weatherData = response.body()
 
         return weatherData?.forecast?.forecastday?.let {
-            WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}",
+            ru.startandroid.widgets.weatherwidget.WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}",
                     tempMain = weatherData.current?.tempC?.toInt().toString()
                     , temp1 = it[0]?.day?.avgtempC?.toInt().toString()
                     , temp2 = it[1]?.day?.avgtempC?.toInt().toString()
@@ -34,6 +34,6 @@ class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
     }
 
     override fun initConfig(): WidgetConfig? {
-        return WeatherWidgetConfig(listOf(City(1, "City 1"), City(2, "City 2")))
+        return ru.startandroid.widgets.weatherwidget.WeatherWidgetConfig(listOf(ru.startandroid.widgets.weatherwidget.City(1, "City 1"), ru.startandroid.widgets.weatherwidget.City(2, "City 2")))
     }
 }

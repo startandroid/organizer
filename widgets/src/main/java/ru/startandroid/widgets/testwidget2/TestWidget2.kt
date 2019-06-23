@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget
+package ru.startandroid.widgets.testwidget2
 
 //import ru.startandroid.widgets.db.WidgetInit
 import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_2
