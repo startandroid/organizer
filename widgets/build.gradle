@@ -1,7 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -14,10 +11,7 @@ android {
         versionName conf.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
 
-    androidExtensions {
-        experimental = true
     }
 
     buildTypes {
@@ -32,26 +26,8 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation kotlinn.stdlibjdk8
-    implementation dagger.dagger
-    implementation androidx.appcompat
-    implementation androidx.constraintlayout
-    implementation multidex.multidex
-    kapt dagger.daggerCompiler
-    implementation project(':domain')
-    implementation gson.gson
-    implementation androidx_view.recyclerview
-
-    implementation rxjava2.rxjava
-    implementation rxjava2.rxandroid
-
-    implementation room.roomRuntime
-    implementation room.roomRxjava2
-    kapt room.roomCompiler
-
-    implementation androidx.appcompat
-    testImplementation junit.junit
-
-    implementation workmanager.runtimektx
-
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
