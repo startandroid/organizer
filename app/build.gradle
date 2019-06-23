@@ -17,7 +17,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
-
     }
 
     androidExtensions {
@@ -64,8 +63,6 @@ dependencies {
 
     implementation room.roomRuntime
     implementation room.roomRxjava2
-
-    //implementation gson.gson
 
     implementation rxjava2.rxjava
     implementation rxjava2.adapter

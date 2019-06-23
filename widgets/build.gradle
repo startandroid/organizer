@@ -8,13 +8,12 @@ android {
 
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion conf.minSdkVersion
+        targetSdkVersion conf.targetSdkVersion
+        versionCode conf.versionCode
+        versionName conf.versionName
         multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     androidExtensions {
