@@ -1,4 +1,4 @@
-package ru.startandroid.organizer.home.widget
+package ru.startandroid.widgets.testwidget2
 
 import android.util.Log
 import ru.startandroid.widgetsbase.WidgetConfig
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
     override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
-        return TestWidget2Data("test1", text2 = "test2")
+        return ru.startandroid.widgets.testwidget2.TestWidget2Data("test1", text2 = "test2")
     }
 
     override fun refreshData(config: WidgetConfig?): WidgetData? {
@@ -32,14 +32,14 @@ class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
                 bytesRead = instream.read(contents)
             }
             Log.d("qweee", "refreshData widget 2 $strFileContents")
-            return TestWidget2Data(text1 = "test1", text2 = strFileContents)
+            return ru.startandroid.widgets.testwidget2.TestWidget2Data(text1 = "test1", text2 = strFileContents)
         } finally {
             urlConnection.disconnect()
         }
     }
 
     override fun initConfig(): WidgetConfig? {
-        return TestWidget2Config(true, false)
+        return ru.startandroid.widgets.testwidget2.TestWidget2Config(true, false)
     }
 
 }

@@ -1,4 +1,7 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -11,7 +14,10 @@ android {
         versionName conf.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
 
+    androidExtensions {
+        experimental = true
     }
 
     buildTypes {
@@ -26,8 +32,32 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation androidx.appcompat
+    implementation androidx_view.constraintlayout
+    implementation androidx_view.recyclerview
+    implementation androidx_view.cardview
+
+    implementation kotlinn.stdlibjdk8
+
+    implementation firebase.core
+    implementation crashlyticss.crashlytics
+
+    implementation dagger.dagger
+    kapt dagger.daggerCompiler
+    implementation dagger.daggerAndroid
+    kapt dagger.daggerAndroidProcessor
+
+    implementation room.roomRuntime
+    implementation room.roomRxjava2
+
+    implementation rxjava2.rxjava
+    implementation rxjava2.adapter
+    implementation rxjava2.rxandroid
+
+    implementation retrofit.retrofit
+    implementation retrofit.gson
+    implementation material.material
+
+    implementation workmanager.runtimektx
+
 }
