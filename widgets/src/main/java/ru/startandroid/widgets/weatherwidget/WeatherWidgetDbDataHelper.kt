@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.weatherwidget
 
+
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.widgetsbase.WidgetConfig
 import ru.startandroid.widgetsbase.WidgetData

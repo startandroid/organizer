@@ -1,6 +1,7 @@
 package ru.startandroid.widgets.weatherwidget
 
 //import ru.startandroid.widgets.db.WidgetInit
+import ru.startandroid.organizer.home.widget.WeatherWidgetContent
 import ru.startandroid.widgets.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgetsbase.WidgetConfig
 import ru.startandroid.widgetsbase.WidgetData

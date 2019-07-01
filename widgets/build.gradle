@@ -59,5 +59,8 @@ dependencies {
     implementation material.material
 
     implementation workmanager.runtimektx
+    implementation project(':widgetsbase')
+    implementation project(':data')
+    implementation project(':domain')
 
 }
