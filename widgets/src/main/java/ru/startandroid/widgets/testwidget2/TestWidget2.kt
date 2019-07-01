@@ -1,7 +1,9 @@
 package ru.startandroid.widgets.testwidget2
 
 //import ru.startandroid.widgets.db.WidgetInit
-import ru.startandroid.organizer.home.widget.WIDGETS_IDS.TEST_WIDGET_2
+
+import ru.startandroid.organizer.home.widget.TestWidget2Content
+import ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_2
 import ru.startandroid.widgetsbase.WidgetConfig
 import ru.startandroid.widgetsbase.WidgetData
 import ru.startandroid.widgetsbase.adapter.content.WidgetContent

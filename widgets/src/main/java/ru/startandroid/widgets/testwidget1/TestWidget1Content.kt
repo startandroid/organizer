@@ -1,7 +1,7 @@
 package ru.startandroid.organizer.home.widget
 
 import kotlinx.android.synthetic.main.widget_test1.*
-import ru.startandroid.organizer.R
+import ru.startandroid.widgets.R
 import ru.startandroid.widgetsbase.adapter.content.BaseWidgetContent
 import javax.inject.Inject
 
