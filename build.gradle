@@ -80,7 +80,7 @@ ext {
 
 
     androidx = [
-            appcompat: "androidx.appcompat:appcompat:${versions.androidx}"
+            appcompat: "androidx.appcompat:appcompat:${versions.appcompat}"
     ]
 
     androidx_view = [
@@ -157,12 +157,6 @@ ext {
 
     material = [
             material: "com.google.android.material:material:${versions.material}"
-    ]
-
-    androidx = [
-            appcompat       : "androidx.appcompat:appcompat:${versions.appcompat}",
-            constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}",
-            multidex        : "com.android.support:multidex:${versions.multidex}"
     ]
 
 }
