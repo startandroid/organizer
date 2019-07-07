@@ -35,7 +35,7 @@ dependencies {
     implementation kotlinn.stdlibjdk8
     implementation dagger.dagger
     implementation androidx.appcompat
-    implementation androidx.constraintlayout
+    implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
     implementation project(':domain')
     implementation gson.gson
