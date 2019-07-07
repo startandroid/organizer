@@ -43,6 +43,8 @@ dependencies {
     implementation crashlyticss.crashlytics
 
     implementation dagger.dagger
+    implementation androidx.appcompat
+    implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
     implementation dagger.daggerAndroid
     kapt dagger.daggerAndroidProcessor
