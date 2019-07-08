@@ -9,9 +9,8 @@ android {
         targetSdkVersion conf.targetSdkVersion
         versionCode conf.versionCode
         versionName conf.versionName
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
     }
 
     buildTypes {
