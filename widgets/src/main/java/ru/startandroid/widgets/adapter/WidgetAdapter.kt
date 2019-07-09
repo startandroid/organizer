@@ -1,5 +1,7 @@
 package ru.startandroid.widgets.adapter
 
+import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +21,8 @@ constructor(
         private val widgetProvider: WidgetProvider,
         private val widgetDatabase: WidgetDatabase,
         private var widgetEntityMapper: WidgetEntityMapper,
-        private var widgetAdapterCallback: WidgetAdapterCallback
+        private var widgetAdapterCallback: WidgetAdapterCallback,
+        private var context: Context
 ) : RecyclerView.Adapter<WidgetContainerHolder>() {
 
     val widgets = mutableListOf<WidgetDataEntity>()

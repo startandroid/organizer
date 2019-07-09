@@ -28,7 +28,7 @@ dependencies {
     implementation rxjava2.rxjava
     kapt room.roomCompiler
 
-   implementation rxjava2.rxjava
+    implementation rxjava2.rxjava
 
     implementation dagger.dagger
 

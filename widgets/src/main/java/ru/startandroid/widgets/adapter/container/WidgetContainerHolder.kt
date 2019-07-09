@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.adapter.container
 
+import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
@@ -27,7 +28,7 @@ class WidgetContainerHolder(override val containerView: View,
 
         closeButton.setOnClickListener { widgetAdapterCallback?.onWidgetCloseClick(widgetContainerData.id) }
         refreshButton.setOnClickListener { widgetAdapterCallback?.onWidgetRefreshClick(widgetContainerData.id) }
-        configButton.setOnClickListener { widgetAdapterCallback?.onWidgetConfigClick(widgetContainerData.id) }
+        configButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id, containerView.context) }
     }
 
     fun bind(widgetDataEntity: WidgetDataEntity) {
