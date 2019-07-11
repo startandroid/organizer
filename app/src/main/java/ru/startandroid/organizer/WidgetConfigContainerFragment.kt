@@ -1,45 +1,110 @@
 package ru.startandroid.organizer
 
+import android.app.Fragment
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import dagger.android.AndroidInjection
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import ru.startandroid.widgets.WidgetConfig
+import ru.startandroid.widgets.db.WidgetDatabase
+import ru.startandroid.widgets.mapper.WidgetEntityMapper
+import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
+import javax.inject.Inject
 
 
 private const val ARG_WIDGET_ID = "widget_id"
+private const val EXTRA_WIDGET_CONFIG = "widget_config"
 
 class WidgetConfigContainerFragment : Fragment() {
+
+    // TODO create presenter
+    // TODO check all !!, it[0], ...
+
     private var widgetId: Int? = null
-    private var listener: OnFragmentInteractionListener? = null
-    lateinit var configValue: String
+    private var widgetConfig: WidgetConfig? = null
+
+    @Inject
+    lateinit var widgetDatabase: WidgetDatabase
+
+    @Inject
+    lateinit var widgetEntityMapper: WidgetEntityMapper
+
+    @Inject
+    lateinit var widgetMetadatRepositoryImpl: WidgetMetadatRepositoryImpl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("qweee", "cont onCreate ${hashCode()} $savedInstanceState")
         arguments?.let {
             widgetId = it.getInt(ARG_WIDGET_ID)
         }
 
-        configValue = "config value 1"
-
         if (savedInstanceState == null) {
-            Log.d("qweee", "cont add frag ${hashCode()} $savedInstanceState")
+            firstInit()
+        } else {
+            init(savedInstanceState)
+        }
+    }
+
+    private fun firstInit() {
+        readWidgetConfigFromDb().subscribe(
+                {
+                    widgetConfig = it
+                    createWidgetConfigFragment()
+                },
+                {
+                    Log.d("qweee", "readWidgetConfigFromDb error $it")
+                }
+        )
+    }
+
+    private fun readWidgetConfigFromDb(): Single<WidgetConfig> {
+        return widgetDatabase.widgetConfigDao().getById(widgetId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess { Log.d("qweee", "readWidgetConfigFromDb data $it") }
+                .map {
+                    widgetEntityMapper.mapConfigDbToConfig(it[0])?.config!!
+                }
+    }
+
+    private fun createWidgetConfigFragment() {
+        widgetConfig?.let {
+            val widgetConfigFragment = (widgetMetadatRepositoryImpl.getConfigFragment(widgetId!!) as BaseWidgetConfigFragment<*>)
+                    .withConfig(it)
             childFragmentManager
                     .beginTransaction()
-                    .add(R.id.container, TestWidget1ConfigFragment.newInstance(configValue), "config")
+                    .add(R.id.container, widgetConfigFragment)
                     .commit()
         }
+    }
 
+    private fun init(savedInstanceState: Bundle) {
+        widgetConfig = savedInstanceState.getParcelable(EXTRA_WIDGET_CONFIG)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(EXTRA_WIDGET_CONFIG, widgetConfig)
     }
 
     fun onBackPressed(): Boolean {
-        Log.d("qweee", "cont onBackPressed")
+
+        val newConfig = getWidgetConfigFromWidgetConfigFragment()
+        Log.d("qweee", "new config $newConfig, old config $widgetConfig, equals: ${newConfig == widgetConfig}")
+
+        if (widgetConfig != newConfig) {
+            Toast.makeText(activity, "config was changed, save it", Toast.LENGTH_SHORT).show()
+            return true
+        }
         return false
     }
 
@@ -54,52 +119,36 @@ class WidgetConfigContainerFragment : Fragment() {
         return view
     }
 
+    private fun getWidgetConfigFromWidgetConfigFragment(): WidgetConfig {
+        return (childFragmentManager.findFragmentById(R.id.container) as BaseWidgetConfigFragment<*>).getNewConfig()
+    }
+
     private fun save() {
-        (childFragmentManager.findFragmentById(R.id.container) as? TestWidget1ConfigFragment)?.let {
-            val c = it.getConfig()
-            Log.d("qweee", "new config $c")
-        }
+        val newConfig = getWidgetConfigFromWidgetConfigFragment()
+        // TODO move this logic to a repository
+        widgetDatabase.widgetConfigDao().getById(widgetId!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess {
+                    widgetDatabase.widgetConfigDao().update(
+                            it[0].copy(config = widgetEntityMapper.configToJson(newConfig))
+                    ).subscribeOn(Schedulers.io()).subscribe()
+                }
+                .subscribe({
+                    widgetConfig = newConfig
+                    Log.d("qweee", "save config done")
+                }, {
+                    Log.d("qweee", "save config error $it")
+                }
+                )
+
     }
-//
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        Log.d("qweee", "cont onDestroyView ${hashCode()}")
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//        Log.d("qweee", "cont onDestroy ${hashCode()}")
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        Log.d("qweee", "cont onStart ${hashCode()}")
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        Log.d("qweee", "cont onStop ${hashCode()}")
-//    }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        Log.d("qweee", "cont onAttach ${hashCode()}")
-//        if (context is OnFragmentInteractionListener) {
-//            listener = context
-//        } else {
-//            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-//        }
-//    }
-
-//    override fun onDetach() {
-//        super.onDetach()
-//        Log.d("qweee", "cont onDetach ${hashCode()}")
-//        listener = null
-//    }
-
-    interface OnFragmentInteractionListener {
-        fun onFragmentInteraction(uri: Uri)
+    override fun onAttach(context: Context?) {
+        AndroidInjection.inject(this)
+        super.onAttach(context)
     }
+
 
     companion object {
         @JvmStatic
