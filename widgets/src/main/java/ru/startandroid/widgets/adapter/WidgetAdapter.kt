@@ -1,7 +1,6 @@
 package ru.startandroid.widgets.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -36,7 +35,7 @@ constructor(
                         .getAll()
                         .map {
                             it.map {
-                                widgetEntityMapper.map(it)
+                                widgetEntityMapper.mapDataDbToData(it)
                             }.filterNotNull()
 
                         }

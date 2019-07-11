@@ -22,14 +22,14 @@ class CorrectWorker(context: Context, val workerParams: WorkerParameters,
         val config = widgetDatabase.widgetConfigDao()
                 .getByIdSync(id)
                 ?.let {
-                    widgetEntityMapper.map(it)
+                    widgetEntityMapper.mapConfigDbToConfig(it)
                 }
                 ?.config
 
         val data = widgetDatabase.widgetDataDao()
                 .getByIdSync(id)
                 ?.let {
-                    widgetEntityMapper.map(it)
+                    widgetEntityMapper.mapDataDbToData(it)
                 }
                 ?.data
 
@@ -38,7 +38,7 @@ class CorrectWorker(context: Context, val workerParams: WorkerParameters,
 
         refreshedData?.let {
             val dataEntity = WidgetDataEntity(id, it)
-            val dataEntityDb = widgetEntityMapper.map(dataEntity)
+            val dataEntityDb = widgetEntityMapper.mapDataToDataDb(dataEntity)
             widgetDatabase.widgetDataDao().updateOrInsert(dataEntityDb)
         }
 

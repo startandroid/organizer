@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.registrator
 
+import android.app.Fragment
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgets.WidgetConfig
 import ru.startandroid.widgets.WidgetData
@@ -26,6 +27,13 @@ interface WidgetRegistratorData {
 
 @ScopeApplication
 class WidgetMetadatRepositoryImpl @Inject constructor() : WidgetMetadataRepository {
+
+    // TODO should be BaseWidgetConfigFragment
+    fun getConfigFragment(id: Int): Fragment? {
+        return widgetMetadata[id]?.widgetConfigFragment()
+    }
+
+
     override fun getWidgetIds(): IntArray =
             widgetMetadata.keys.toIntArray()
 
@@ -51,6 +59,7 @@ class WidgetMetadatRepositoryImpl @Inject constructor() : WidgetMetadataReposito
         fun widgetConfigCls(): KClass<out WidgetConfig>
         fun widgetContentProvider(): Provider<out WidgetContent>
         fun widgetRefresher(): Provider<out WidgetDbDataHelper>
+        fun widgetConfigFragment(): Fragment // TODO should be BaseWidgetConfigFragment
     }
 
     private val widgetMetadata: MutableMap<Int, WidgetMetadata> = mutableMapOf()

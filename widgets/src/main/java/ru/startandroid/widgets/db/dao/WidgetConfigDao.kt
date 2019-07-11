@@ -1,8 +1,6 @@
 package ru.startandroid.widgets.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.startandroid.widgets.DB_TABLE_NAMES.WIDGET_CONFIG
@@ -25,5 +23,8 @@ interface WidgetConfigDao {
 
     @Insert
     fun insert(widgetEntityDb: List<WidgetConfigEntityDb>)
+
+    @Update
+    fun update(widgetEntityDb: WidgetConfigEntityDb): Single<Int>
 
 }
