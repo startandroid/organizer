@@ -1,0 +1,22 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD:widgets/src/main/AndroidManifest.xml
+    package="com.example.widgets" />
+=======
+    package="ru.startandroid.widgetsbase">
+
+    <application>
+        <activity android:name="ru.startandroid.widgetsbase.WidgetsConfigActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="app"
+                    android:host="organizer"
+                    android:pathPrefix="/widgets/config" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+>>>>>>> task-57-reorganize-widgets-classes:widgetsbase/src/main/AndroidManifest.xml
