@@ -4,8 +4,9 @@ import dagger.Component
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.organizer.TestActivity
 import ru.startandroid.organizer.app.App
+import ru.startandroid.organizer.fortest.TestActivity
+import ru.startandroid.organizer.fortest.TestActivityInjectorModule
 import ru.startandroid.organizer.home.HomeActivity
 import ru.startandroid.organizer.home.di.HomeActivityInjectorModule
 import ru.startandroid.organizer.home.di.HomeActivityModule
@@ -32,7 +33,7 @@ abstract class SubcomponentModule {
     internal abstract fun contributeHomeActivityInjector(): HomeActivity
 
 
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = [TestActivityInjectorModule::class])
     internal abstract fun contributeTestActivityInjector(): TestActivity
 
 

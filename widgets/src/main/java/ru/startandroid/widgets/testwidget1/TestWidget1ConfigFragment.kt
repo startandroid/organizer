@@ -1,12 +1,13 @@
-package ru.startandroid.organizer
+package ru.startandroid.widgets.testwidget1
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.startandroid.organizer.home.widget.TestWidget1Config
-import ru.startandroid.widgets.WidgetConfig
 import kotlinx.android.synthetic.main.fragment_test_widget1_config.*
+import ru.startandroid.widgets.R
+import ru.startandroid.widgetsbase.WidgetConfig
+import ru.startandroid.widgetsbase.config.BaseWidgetConfigFragment
 
 
 class TestWidget1ConfigFragment : BaseWidgetConfigFragment<TestWidget1Config>() {
