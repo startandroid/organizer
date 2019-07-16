@@ -20,7 +20,7 @@ class TestWidget1DbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
     override fun initConfig(): WidgetConfig? {
         Log.d("qweee", "widget1, init")
-        return ru.startandroid.widgets.testwidget1.TestWidget1Config(true)
+        return TestWidget1Config(true, "text1", listOf("one", "two", "three"))
     }
 
 }

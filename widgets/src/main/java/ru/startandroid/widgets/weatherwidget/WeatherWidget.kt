@@ -1,6 +1,9 @@
 package ru.startandroid.widgets.weatherwidget
 
 //import ru.startandroid.widgets.db.WidgetInit
+import android.app.Fragment
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 import ru.startandroid.organizer.home.widget.WeatherWidgetContent
 import ru.startandroid.widgets.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgetsbase.WidgetConfig
@@ -23,11 +26,13 @@ data class WeatherWidgetData(
         val day3: String
 ) : WidgetData
 
+@Parcelize
 data class WeatherWidgetConfig(
         val cities: List<City> = emptyList()
-) : WidgetConfig
+): WidgetConfig
 
-data class City(val id: Int, val name: String)
+@Parcelize
+data class City(val id: Int, val name: String): Parcelable
 
 
 class WeatherWidgetWidgetMetadata @Inject constructor(
@@ -40,4 +45,5 @@ class WeatherWidgetWidgetMetadata @Inject constructor(
     override fun widgetConfigCls(): KClass<out WidgetConfig> = WeatherWidgetConfig::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
+    override fun widgetConfigFragment(): Fragment = WeatherWidgetConfigFragment()
 }

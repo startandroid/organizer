@@ -1,13 +1,11 @@
-package ru.startandroid.organizer
+package ru.startandroid.widgetsbase.config
 
 import android.app.Fragment
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dagger.android.AndroidInjection
-import ru.startandroid.widgets.WidgetConfig
+import ru.startandroid.widgetsbase.WidgetConfig
 
 
 private const val ARG_CONFIG = "config"

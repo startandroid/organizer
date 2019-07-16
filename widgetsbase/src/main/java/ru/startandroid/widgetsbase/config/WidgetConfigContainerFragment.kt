@@ -1,4 +1,4 @@
-package ru.startandroid.organizer
+package ru.startandroid.widgetsbase.config
 
 import android.app.Fragment
 import android.content.Context
@@ -14,10 +14,11 @@ import dagger.android.AndroidInjection
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.startandroid.widgets.WidgetConfig
-import ru.startandroid.widgets.db.WidgetDatabase
-import ru.startandroid.widgets.mapper.WidgetEntityMapper
-import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
+import ru.startandroid.widgetsbase.R
+import ru.startandroid.widgetsbase.WidgetConfig
+import ru.startandroid.widgetsbase.db.WidgetDatabase
+import ru.startandroid.widgetsbase.mapper.WidgetEntityMapper
+import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
 import javax.inject.Inject
 
 

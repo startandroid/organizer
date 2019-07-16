@@ -1,7 +1,7 @@
 package ru.startandroid.widgets.testwidget2
 
-//import ru.startandroid.widgets.db.WidgetInit
-
+import android.app.Fragment
+import kotlinx.android.parcel.Parcelize
 import ru.startandroid.organizer.home.widget.TestWidget2Content
 import ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_2
 import ru.startandroid.widgetsbase.WidgetConfig
@@ -18,6 +18,7 @@ data class TestWidget2Data(
         val text2: String
 ) : WidgetData
 
+@Parcelize
 data class TestWidget2Config(
         val flag1: Boolean,
         val flag2: Boolean
@@ -34,4 +35,5 @@ class TestWidget2WidgetMetadata @Inject constructor(
     override fun widgetConfigCls(): KClass<out WidgetConfig> = TestWidget2Config::class
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
+    override fun widgetConfigFragment(): Fragment = TestWidget2ConfigFragment()
 }
