@@ -12,9 +12,9 @@ import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
-import ru.startandroid.widgets.refresh.WidgetWorkerFactory
-import ru.startandroid.widgets.registrator.WidgetMetadatRepositoryImpl
-import ru.startandroid.widgets.registrator.WidgetRegistratorData
+import ru.startandroid.widgetsbase.refresh.WidgetWorkerFactory
+import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
+import ru.startandroid.widgetsbase.registrator.WidgetRegistratorData
 import javax.inject.Inject
 
 

@@ -11,7 +11,7 @@ import ru.startandroid.organizer.home.di.HomeActivityInjectorModule
 import ru.startandroid.organizer.home.di.HomeActivityModule
 import ru.startandroid.organizer.home.di.ScopeHome
 import ru.startandroid.organizer.home.widget.di.WidgetsModule
-import ru.startandroid.widgets.di.WidgetsCommonModule
+import ru.startandroid.widgetsbase.di.WidgetsCommonModule
 
 @Component(modules = [AppModule::class,
     SubcomponentModule::class,
