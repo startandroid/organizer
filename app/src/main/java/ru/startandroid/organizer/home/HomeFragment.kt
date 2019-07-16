@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.fragment_home.*
 import ru.startandroid.organizer.R
-import ru.startandroid.widgets.adapter.WidgetAdapter
+import ru.startandroid.widgetsbase.adapter.WidgetAdapter
 import javax.inject.Inject
 
 class HomeFragment : android.app.Fragment() {

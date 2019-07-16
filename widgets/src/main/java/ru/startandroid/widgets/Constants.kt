@@ -1,10 +1,7 @@
 package ru.startandroid.widgets
 
-object DB_TABLE_NAMES {
-    const val WIDGET_DATA = "widgets_data"
-    const val WIDGET_CONFIG = "widgets_config"
-}
-
-object PARAM_KEY {
-    const val WIDGET_ID = "widgetid"
+object WIDGETS_IDS {
+    const val TEST_WIDGET_1 = 1
+    const val TEST_WIDGET_2 = 2
+    const val WEATHER_WIDGET = 3
 }
