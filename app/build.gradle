@@ -40,6 +40,7 @@ dependencies {
     implementation project(':data')
     implementation project(':device')
     implementation project(':domain')
+    implementation project(':widgetsbase')
     implementation project(':widgets')
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -74,7 +75,6 @@ dependencies {
     implementation material.material
 
     implementation workmanager.runtimektx
-
 }
 
 repositories {
