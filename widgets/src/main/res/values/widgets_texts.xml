@@ -1,0 +1,11 @@
+<resources>
+    <string name="test_widget_1_title">Test widget 1</string>
+    <string name="test_widget_1_description">Test widget 1 description</string>
+
+    <string name="test_widget_2_title">Test widget 2</string>
+    <string name="test_widget_2_description">Test widget 2 description</string>
+
+    <string name="weather_widget_title">Weather widget</string>
+    <string name="weather_widget_description">Weather widget description</string>
+
+</resources>

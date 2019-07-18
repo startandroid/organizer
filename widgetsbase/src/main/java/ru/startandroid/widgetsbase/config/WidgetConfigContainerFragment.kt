@@ -7,18 +7,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import dagger.android.AndroidInjection
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_widget_config_container.*
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.WidgetConfig
+import ru.startandroid.widgetsbase.WidgetConfigEntity
 import ru.startandroid.widgetsbase.db.WidgetDatabase
+import ru.startandroid.widgetsbase.db.data.WidgetConfigEntityDb
 import ru.startandroid.widgetsbase.mapper.WidgetEntityMapper
-import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
+import ru.startandroid.widgetsbase.metadata.WidgetConfigScreenMetadataRepository
 import javax.inject.Inject
 
 
@@ -27,11 +28,9 @@ private const val EXTRA_WIDGET_CONFIG = "widget_config"
 
 class WidgetConfigContainerFragment : Fragment() {
 
-    // TODO create presenter
-    // TODO check all !!, it[0], ...
-
-    private var widgetId: Int? = null
-    private var widgetConfig: WidgetConfig? = null
+    // TODO implement MVVM, task 66
+    var widgetId: Int = 0
+    private var widgetConfigEntity: WidgetConfigEntity? = null
 
     @Inject
     lateinit var widgetDatabase: WidgetDatabase
@@ -40,7 +39,7 @@ class WidgetConfigContainerFragment : Fragment() {
     lateinit var widgetEntityMapper: WidgetEntityMapper
 
     @Inject
-    lateinit var widgetMetadatRepositoryImpl: WidgetMetadatRepositoryImpl
+    lateinit var widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +55,11 @@ class WidgetConfigContainerFragment : Fragment() {
     }
 
     private fun firstInit() {
-        readWidgetConfigFromDb().subscribe(
+        val disposable = readWidgetConfigFromDb().subscribe(
                 {
-                    widgetConfig = it
+                    widgetConfigEntity = widgetEntityMapper.mapConfigDbToConfig(it)?.apply {
+                        enabledToggle.isChecked = enabled
+                    }
                     createWidgetConfigFragment()
                 },
                 {
@@ -67,20 +68,17 @@ class WidgetConfigContainerFragment : Fragment() {
         )
     }
 
-    private fun readWidgetConfigFromDb(): Single<WidgetConfig> {
-        return widgetDatabase.widgetConfigDao().getById(widgetId!!)
+    private fun readWidgetConfigFromDb(): Single<WidgetConfigEntityDb> {
+        return widgetDatabase.widgetConfigDao().getById(widgetId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { Log.d("qweee", "readWidgetConfigFromDb data $it") }
-                .map {
-                    widgetEntityMapper.mapConfigDbToConfig(it[0])?.config!!
-                }
     }
 
     private fun createWidgetConfigFragment() {
-        widgetConfig?.let {
-            val widgetConfigFragment = (widgetMetadatRepositoryImpl.getConfigFragment(widgetId!!) as BaseWidgetConfigFragment<*>)
-                    .withConfig(it)
+        widgetConfigEntity?.let {
+            val widgetConfigFragment = (widgetMetadataRepositoryImpl.getConfigFragment(widgetId) as BaseWidgetConfigFragment<*>)
+                    .withConfig(it.config)
             childFragmentManager
                     .beginTransaction()
                     .add(R.id.container, widgetConfigFragment)
@@ -89,60 +87,66 @@ class WidgetConfigContainerFragment : Fragment() {
     }
 
     private fun init(savedInstanceState: Bundle) {
-        widgetConfig = savedInstanceState.getParcelable(EXTRA_WIDGET_CONFIG)
+        widgetConfigEntity = savedInstanceState.getParcelable(EXTRA_WIDGET_CONFIG)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelable(EXTRA_WIDGET_CONFIG, widgetConfig)
+        outState?.putParcelable(EXTRA_WIDGET_CONFIG, widgetConfigEntity)
     }
 
     fun onBackPressed(): Boolean {
-
-        val newConfig = getWidgetConfigFromWidgetConfigFragment()
-        Log.d("qweee", "new config $newConfig, old config $widgetConfig, equals: ${newConfig == widgetConfig}")
-
-        if (widgetConfig != newConfig) {
+        if (configWasChanged()) {
+            // TODO   dialog will be created later, task 64
             Toast.makeText(activity, "config was changed, save it", Toast.LENGTH_SHORT).show()
             return true
         }
         return false
     }
 
+    fun configWasChanged(): Boolean {
+        val newConfig = getNewConfig()
+        Log.d("qweee", "new config $newConfig, old config ${widgetConfigEntity?.config}, equals: ${newConfig == widgetConfigEntity?.config}")
+
+        return (widgetConfigEntity?.config != newConfig || widgetConfigEntity?.enabled != enabledToggle.isChecked)
+
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         Log.d("qweee", "cont onCreateView ${hashCode()} $savedInstanceState")
-        val view = inflater.inflate(R.layout.fragment_widget_config_container, container, false)
-        view.findViewById<TextView>(R.id.widgetId).text = "Widget ID = $widgetId"
-        view.findViewById<Button>(R.id.save).setOnClickListener {
+        return inflater.inflate(R.layout.fragment_widget_config_container, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        saveButton.setOnClickListener {
             save()
         }
-        return view
+        widgetMetadataRepositoryImpl.getWidgetTitleResId(widgetId)?.let { widgetTitle.setText(it) }
+        widgetMetadataRepositoryImpl.getWidgetDescriptionResId(widgetId)?.let { widgetDescription.setText(it) }
     }
 
-    private fun getWidgetConfigFromWidgetConfigFragment(): WidgetConfig {
-        return (childFragmentManager.findFragmentById(R.id.container) as BaseWidgetConfigFragment<*>).getNewConfig()
-    }
+    private fun getNewConfig(): WidgetConfig = getChildWidgetConfigFragment().getNewConfig()
+
+    private fun checkIfNewConfigIsValid(): Boolean = getChildWidgetConfigFragment().checkIfNewConfigIsValid()
+
+    private fun getChildWidgetConfigFragment() = (childFragmentManager.findFragmentById(R.id.container) as BaseWidgetConfigFragment<*>)
 
     private fun save() {
-        val newConfig = getWidgetConfigFromWidgetConfigFragment()
-        // TODO move this logic to a repository
-        widgetDatabase.widgetConfigDao().getById(widgetId!!)
+        val newConfig = getNewConfig()
+
+        // TODO move this logic to the repository, task 50
+        val disposable = widgetDatabase.widgetConfigDao().update(widgetId, widgetEntityMapper.configToJson(newConfig), enabledToggle.isChecked)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess {
-                    widgetDatabase.widgetConfigDao().update(
-                            it[0].copy(config = widgetEntityMapper.configToJson(newConfig))
-                    ).subscribeOn(Schedulers.io()).subscribe()
-                }
                 .subscribe({
-                    widgetConfig = newConfig
-                    Log.d("qweee", "save config done")
-                }, {
-                    Log.d("qweee", "save config error $it")
-                }
-                )
+                    Log.d("qweee", "save config done $it")
+                    // remove it after implementing closing screen after saving
+                    widgetConfigEntity = widgetConfigEntity?.copy(config = newConfig, enabled = enabledToggle.isChecked)
 
+                }, { Log.d("qweee", "save config error $it") }
+                )
     }
 
     override fun onAttach(context: Context?) {

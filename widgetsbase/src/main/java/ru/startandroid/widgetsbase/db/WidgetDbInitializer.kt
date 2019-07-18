@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.startandroid.widgetsbase.metadata.WidgetDbInitMetadataRepository
 import ru.startandroid.widgetsbase.refresh.WidgetsRefresher
 import javax.inject.Inject
 
@@ -11,9 +12,6 @@ class WidgetDbInitializer @Inject constructor(
         val widgetMetadataRepository: WidgetDbInitMetadataRepository,
         val widgetsRefresher: WidgetsRefresher) {
 
-    interface WidgetDbInitMetadataRepository {
-        fun getWidgetIds(): IntArray
-    }
 
     lateinit var widgetDatabase: WidgetDatabase
 
