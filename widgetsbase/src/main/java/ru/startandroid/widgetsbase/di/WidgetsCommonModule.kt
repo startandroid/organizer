@@ -5,14 +5,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.widgetsbase.adapter.content.WidgetProvider
 import ru.startandroid.widgetsbase.db.WidgetDatabase
 import ru.startandroid.widgetsbase.db.WidgetDbInitializer
-import ru.startandroid.widgetsbase.mapper.WidgetEntityMapper
-import ru.startandroid.widgetsbase.refresh.WidgetWorkerFactory
-import ru.startandroid.widgetsbase.registrator.WidgetMetadatRepositoryImpl
-import ru.startandroid.widgetsbase.registrator.WidgetMetadataRepository
-import ru.startandroid.widgetsbase.registrator.WidgetRegistratorData
+import ru.startandroid.widgetsbase.metadata.*
 
 @Module(includes = [WidgetRegistratorModule::class])
 class WidgetsCommonModule {
@@ -32,16 +27,19 @@ abstract class WidgetRegistratorModule {
     abstract fun provide(widgetMetadatRepository: WidgetMetadatRepositoryImpl): WidgetMetadataRepository
 
     @Binds
-    abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetEntityMapper.WidgetMappingMetadataRepository
+    abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetMappingMetadataRepository
 
     @Binds
-    abstract fun provideWidgetContentMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetProvider.WidgetContentMetadataRepository
+    abstract fun provideWidgetContentMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetContentMetadataRepository
 
     @Binds
-    abstract fun provideWidgetRefresherMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetWorkerFactory.WidgetDbDataHelperRepository
+    abstract fun provideWidgetRefresherMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbDataHelperRepository
 
     @Binds
-    abstract fun provideWidgetDbInitMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbInitializer.WidgetDbInitMetadataRepository
+    abstract fun provideWidgetDbInitMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbInitMetadataRepository
+
+    @Binds
+    abstract fun provideWidgetConfigScreenMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetConfigScreenMetadataRepository
 
     @Binds
     abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorData

@@ -22,14 +22,14 @@ class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
         val weatherData = response.body()
 
         return weatherData?.forecast?.forecastday?.let {
-            ru.startandroid.widgets.weatherwidget.WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime()))}",
+            ru.startandroid.widgets.weatherwidget.WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().time))}",
                     tempMain = weatherData.current?.tempC?.toInt().toString()
-                    , temp1 = it[0]?.day?.avgtempC?.toInt().toString()
-                    , temp2 = it[1]?.day?.avgtempC?.toInt().toString()
-                    , temp3 = it[2]?.day?.avgtempC?.toInt().toString()
-                    , day1 = it[0]?.date.toString()
-                    , day2 = it[1]?.date.toString()
-                    , day3 = it[2]?.date.toString())
+                    , temp1 = it[0].day?.avgtempC?.toInt().toString()
+                    , temp2 = it[1].day?.avgtempC?.toInt().toString()
+                    , temp3 = it[2].day?.avgtempC?.toInt().toString()
+                    , day1 = it[0].date.toString()
+                    , day2 = it[1].date.toString()
+                    , day3 = it[2].date.toString())
         }
 
     }

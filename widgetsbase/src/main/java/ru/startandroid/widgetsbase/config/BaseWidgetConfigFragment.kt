@@ -30,6 +30,7 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
     }
 
     abstract fun getNewConfig(): WidgetConfig
+    abstract fun checkIfNewConfigIsValid(): Boolean
     abstract fun getLayoutId(): Int
 
     fun withConfig(config: WidgetConfig): BaseWidgetConfigFragment<T> {

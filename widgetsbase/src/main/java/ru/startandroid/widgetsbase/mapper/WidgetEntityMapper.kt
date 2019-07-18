@@ -4,12 +4,11 @@ import com.google.gson.Gson
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.WidgetConfig
 import ru.startandroid.widgetsbase.WidgetConfigEntity
-import ru.startandroid.widgetsbase.WidgetData
 import ru.startandroid.widgetsbase.WidgetDataEntity
 import ru.startandroid.widgetsbase.db.data.WidgetConfigEntityDb
 import ru.startandroid.widgetsbase.db.data.WidgetDataEntityDb
+import ru.startandroid.widgetsbase.metadata.WidgetMappingMetadataRepository
 import javax.inject.Inject
-import kotlin.reflect.KClass
 
 @ScopeApplication
 class WidgetEntityMapper
@@ -19,10 +18,6 @@ constructor(
         private val gson: Gson
 ) {
 
-    interface WidgetMappingMetadataRepository {
-        fun getWidgetDataClass(id: Int): KClass<out WidgetData>?
-        fun getWidgetConfigClass(id: Int): KClass<out WidgetConfig>?
-    }
 
     fun mapDataDbToData(widgetDataEntityDb: WidgetDataEntityDb?): WidgetDataEntity? {
         if (widgetDataEntityDb == null) return null
