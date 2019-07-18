@@ -7,17 +7,14 @@ import androidx.work.WorkerParameters
 import ru.startandroid.widgetsbase.PARAM_KEY
 import ru.startandroid.widgetsbase.db.WidgetDatabase
 import ru.startandroid.widgetsbase.mapper.WidgetEntityMapper
+import ru.startandroid.widgetsbase.metadata.WidgetDbDataHelperRepository
 import javax.inject.Inject
-import javax.inject.Provider
 
 class WidgetWorkerFactory @Inject constructor(
         val widgetMetadataRepository: WidgetDbDataHelperRepository,
         val widgetDatabase: WidgetDatabase,
         val widgetEntityMapper: WidgetEntityMapper) : WorkerFactory() {
 
-    interface WidgetDbDataHelperRepository {
-        fun getWidgetRefresherProvider(id: Int): Provider<out WidgetDbDataHelper>?
-    }
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
         val id = workerParameters.inputData.getInt(PARAM_KEY.WIDGET_ID, 0)
