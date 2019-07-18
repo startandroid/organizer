@@ -2,7 +2,6 @@ package ru.startandroid.organizer.fortest
 
 import android.app.Fragment
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
@@ -27,7 +26,7 @@ class TestActivity : AppCompatActivity(), HasFragmentInjector {
         if (savedInstanceState == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(1))
+                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(2))
                     .commit()
         }
 

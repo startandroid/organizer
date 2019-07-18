@@ -14,7 +14,7 @@ class WidgetAdapterCallback @Inject constructor(val widgetsRefresher: WidgetsRef
 
     fun onWidgetSettingsClick(id: Int, context: Context) {
         var myAction = Uri.parse("app://organizer/widgets/config/$id")
-        var  intent = Intent(Intent.ACTION_VIEW, myAction)
+        var intent = Intent(Intent.ACTION_VIEW, myAction)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(intent)
     }

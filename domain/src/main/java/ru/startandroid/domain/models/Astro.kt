@@ -3,7 +3,7 @@ package ru.startandroid.domain.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Astro (@SerializedName("sunrise")
+data class Astro(@SerializedName("sunrise")
                  @Expose
                  var sunrise: String? = null, @SerializedName("sunset")
                  @Expose
