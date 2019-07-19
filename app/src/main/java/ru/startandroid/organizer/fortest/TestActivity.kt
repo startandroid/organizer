@@ -26,16 +26,23 @@ class TestActivity : AppCompatActivity(), HasFragmentInjector {
         if (savedInstanceState == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(2))
+                    .add(R.id.cont, TestFragment())
                     .commit()
         }
 
-        onBackPressedDispatcher.addCallback {
-            (fragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
-                    ?.let {
-                        it.onBackPressed()
-                    } ?: false
-        }
+//        if (savedInstanceState == null) {
+//            fragmentManager
+//                    .beginTransaction()
+//                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(2))
+//                    .commit()
+//        }
+//
+//        onBackPressedDispatcher.addCallback {
+//            (fragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
+//                    ?.let {
+//                        it.onBackPressed()
+//                    } ?: false
+//        }
 
     }
 
