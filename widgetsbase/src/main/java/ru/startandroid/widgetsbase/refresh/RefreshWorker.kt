@@ -23,14 +23,14 @@ class RefreshWorker(context: Context,
         val config = widgetDatabase.widgetConfigDao()
                 .getByIdSync(id)
                 ?.let {
-                    widgetEntityMapper.map(it)
+                    widgetEntityMapper.mapConfigDbToConfig(it)
                 }?.config
 
         val data = widgetDbDataHelper?.refreshData(config)
 
         data?.let {
             val dataEntity = WidgetDataEntity(id, it)
-            val dataEntityDb = widgetEntityMapper.map(dataEntity)
+            val dataEntityDb = widgetEntityMapper.mapDataToDataDb(dataEntity)
             widgetDatabase.widgetDataDao().updateOrInsert(dataEntityDb)
         }
         return Result.success()

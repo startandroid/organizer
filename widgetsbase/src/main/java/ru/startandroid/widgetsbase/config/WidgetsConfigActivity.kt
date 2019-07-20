@@ -1,8 +1,9 @@
-package ru.startandroid.widgetsbase
+package ru.startandroid.widgetsbase.config
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import ru.startandroid.widgetsbase.R
 
 
 class WidgetsConfigActivity : AppCompatActivity() {
@@ -16,7 +17,7 @@ class WidgetsConfigActivity : AppCompatActivity() {
                 Toast.makeText(this, "Widget " + pathSegments[2].toString() + " config", Toast.LENGTH_LONG).show()
             else
                 Toast.makeText(this, "Widgets list", Toast.LENGTH_LONG).show()
-            intent.data= null
+            intent.data = null
         }
     }
 }

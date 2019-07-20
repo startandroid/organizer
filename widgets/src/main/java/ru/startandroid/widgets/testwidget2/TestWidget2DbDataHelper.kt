@@ -20,7 +20,7 @@ class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
         val url = URL("http://worldtimeapi.org/api/ip.txt")
         val urlConnection = url.openConnection() as HttpURLConnection
         try {
-            val instream = BufferedInputStream(urlConnection.getInputStream())
+            val instream = BufferedInputStream(urlConnection.inputStream)
 
             val contents = ByteArray(1024)
 

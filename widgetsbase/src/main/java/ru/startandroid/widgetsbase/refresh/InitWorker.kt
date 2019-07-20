@@ -25,7 +25,7 @@ class InitWorker(context: Context, val workerParams: WorkerParameters,
         val config = widgetDbDataHelper?.initConfig()
         config?.let {
             val configEntity = WidgetConfigEntity(id, config)
-            val configEntityDb = widgetEntityMapper.map(configEntity)
+            val configEntityDb = widgetEntityMapper.mapConfigToConfigDb(configEntity)
             widgetDatabase.widgetConfigDao().insert(configEntityDb)
         }
         return Result.success()
