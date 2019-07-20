@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Organizer</string>
 
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    <string name="dialog_cancel">Cancel</string>
+
     <string name="test_title_1">Test title 1</string>
     <string name="test_title_2">Test title 2</string>
     <string name="test_message_1">Test message 1</string>

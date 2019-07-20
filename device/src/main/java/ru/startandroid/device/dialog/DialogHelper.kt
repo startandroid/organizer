@@ -1,12 +1,10 @@
 package ru.startandroid.device.dialog
 
-import android.app.*
+import android.app.Fragment
 import android.content.Intent
-import android.os.Bundle
+import javax.inject.Inject
 
-// TODO fix !! and check all ?
-
-class DialogHelper {
+class DialogHelper @Inject constructor() {
 
     private val configs: MutableMap<Int, DialogConfig> = mutableMapOf()
 
@@ -15,11 +13,19 @@ class DialogHelper {
     }
 
     fun showDialog(dialogCode: Int, targetFragment: Fragment) {
-        configs[dialogCode]?.show(dialogCode, targetFragment)
+        DialogFragment.newInstance(dialogCode, configs[dialogCode], targetFragment)
+                .show(targetFragment.activity.fragmentManager, "dialog")
     }
 
-    fun onActivityResult(dialogCode: Int, resultCode: Int, data: Intent?) {
-        configs[dialogCode]?.handleResult(resultCode, data)
+    fun handleResult(dialogCode: Int, resultCode: Int, data: Intent?) {
+        configs[dialogCode]?.run {
+            when (resultCode) {
+                DialogFragment.RESULT_POSITIVE -> positiveAction
+                DialogFragment.RESULT_NEGATIVE -> negativeAction
+                DialogFragment.RESULT_NEUTRAL -> neutralAction
+                else -> null
+            }?.invoke(data)
+        }
     }
 
 }

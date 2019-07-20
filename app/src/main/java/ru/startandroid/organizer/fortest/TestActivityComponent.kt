@@ -8,7 +8,7 @@ import ru.startandroid.widgetsbase.config.WidgetConfigContainerFragment
 @Module
 abstract class TestActivityInjectorModule {
     @ContributesAndroidInjector(modules = [])
-    internal abstract fun contributeWidgetConfigContainerFragmentInjector(): WidgetConfigContainerFragment
+    internal abstract fun contributeTestFragmentInjector(): TestFragment
 
 }
 
