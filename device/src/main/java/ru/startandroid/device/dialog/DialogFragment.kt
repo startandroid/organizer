@@ -2,12 +2,13 @@ package ru.startandroid.device.dialog
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
 
 typealias AndroidDialogFragment = android.app.DialogFragment
 
-class DialogFragment: AndroidDialogFragment() {
+class DialogFragment : AndroidDialogFragment() {
 
     companion object {
         const val EXTRA_TITLE = "title"
@@ -20,6 +21,25 @@ class DialogFragment: AndroidDialogFragment() {
         const val RESULT_POSITIVE = 1
         const val RESULT_NEGATIVE = 2
         const val RESULT_NEUTRAL = 3
+
+        fun newInstance(dialogCode: Int, config: DialogConfig?, targetFragment: Fragment): DialogFragment {
+            val fragment = DialogFragment()
+            fragment.setTargetFragment(targetFragment, dialogCode)
+
+            val args = Bundle()
+            fragment.arguments = args
+
+            args.putInt(EXTRA_DIALOG_CODE, dialogCode)
+            config?.run {
+                title?.let { args.putInt(EXTRA_TITLE, it) }
+                message?.let { args.putInt(EXTRA_MESSAGE, it) }
+                positiveText?.let { args.putInt(EXTRA_POSITIVE_TEXT, it) }
+                negativeText?.let { args.putInt(EXTRA_NEGATIVE_TEXT, it) }
+                neutralText?.let { args.putInt(EXTRA_NEUTRAL_TEXT, it) }
+            }
+
+            return fragment
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -31,24 +51,26 @@ class DialogFragment: AndroidDialogFragment() {
         }
 
         builder.run {
+            if (argumentExists(EXTRA_TITLE)) {
+                setTitle(getTextFromArguments(EXTRA_TITLE))
+            }
+            if (argumentExists(EXTRA_MESSAGE)) {
+                setMessage(getTextFromArguments(EXTRA_MESSAGE))
+            }
 
-            ifArgumentExists(EXTRA_TITLE) { setTitle(getTextFromArguments(EXTRA_TITLE)) }
-
-            ifArgumentExists(EXTRA_MESSAGE) { setMessage(getTextFromArguments(EXTRA_MESSAGE)) }
-
-            ifArgumentExists(EXTRA_POSITIVE_TEXT) {
+            if (argumentExists(EXTRA_POSITIVE_TEXT)) {
                 setPositiveButton(getTextFromArguments(EXTRA_POSITIVE_TEXT)) { _, _ ->
                     targetFragment.onActivityResult(dialogCode, RESULT_POSITIVE, Intent())
                 }
             }
 
-            ifArgumentExists(EXTRA_NEGATIVE_TEXT) {
+            if (argumentExists(EXTRA_NEGATIVE_TEXT)) {
                 setNegativeButton(getTextFromArguments(EXTRA_NEGATIVE_TEXT)) { _, _ ->
                     targetFragment.onActivityResult(dialogCode, RESULT_NEGATIVE, Intent())
                 }
             }
 
-            ifArgumentExists(EXTRA_NEUTRAL_TEXT) {
+            if (argumentExists(EXTRA_NEUTRAL_TEXT)) {
                 setNeutralButton(getTextFromArguments(EXTRA_NEUTRAL_TEXT)) { _, _ ->
                     targetFragment.onActivityResult(dialogCode, RESULT_NEUTRAL, Intent())
                 }
@@ -60,10 +82,6 @@ class DialogFragment: AndroidDialogFragment() {
 
     private fun getTextFromArguments(key: String) = getString(arguments.getInt(key))
 
-    private fun ifArgumentExists(key: String, func: () -> Unit) {
-        if (arguments.containsKey(key)) {
-            func.invoke()
-        }
-    }
+    private fun argumentExists(key: String) = arguments.containsKey(key)
 
 }
