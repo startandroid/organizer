@@ -41,10 +41,12 @@ class HomeFragment : android.app.Fragment() {
 
         widgetAdapter.loadData()
 
-        floatingActionButton.setOnClickListener { var myAction = Uri.parse("app://organizer/widgets/config")
-            var  intent = Intent(Intent.ACTION_VIEW, myAction)
+        floatingActionButton.setOnClickListener {
+            var myAction = Uri.parse("app://organizer/widgets/config")
+            var intent = Intent(Intent.ACTION_VIEW, myAction)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)  }
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

@@ -37,6 +37,9 @@ dependencies {
     implementation androidx.appcompat
     implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
+    implementation dagger.daggerAndroid
+    kapt dagger.daggerAndroidProcessor
+
     implementation project(':domain')
     implementation gson.gson
     implementation androidx_view.recyclerview

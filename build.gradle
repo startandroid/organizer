@@ -2,7 +2,7 @@
 
 buildscript {
 
-    ext.kotlin_version = '1.3.31'
+    ext.kotlin_version = '1.3.41'
 
     repositories {
         maven {
@@ -12,9 +12,9 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.google.gms:google-services:4.3.0'
         classpath 'io.fabric.tools:gradle:1.29.0'
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -79,7 +79,7 @@ ext {
 
 
     androidx = [
-            appcompat: "androidx.appcompat:appcompat:${versions.appcompat}"
+            appcompat: "androidx.appcompat:appcompat:${versions.androidx}"
     ]
 
     androidx_view = [

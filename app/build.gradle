@@ -43,6 +43,7 @@ dependencies {
     implementation project(':widgetsbase')
     implementation project(':widgets')
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation junit.junit
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core

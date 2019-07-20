@@ -46,8 +46,6 @@ dependencies {
     implementation androidx.appcompat
     implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
-    implementation dagger.daggerAndroid
-    kapt dagger.daggerAndroidProcessor
 
     implementation room.roomRuntime
     implementation room.roomRxjava2

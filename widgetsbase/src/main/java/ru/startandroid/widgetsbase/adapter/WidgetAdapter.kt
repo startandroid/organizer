@@ -35,7 +35,7 @@ constructor(
                         .getAll()
                         .map {
                             it.map {
-                                widgetEntityMapper.map(it)
+                                widgetEntityMapper.mapDataDbToData(it)
                             }.filterNotNull()
 
                         }
