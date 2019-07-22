@@ -33,17 +33,17 @@ class DialogConfig {
 
     fun message(text: Int) = apply { message = text }
 
-    fun positive(text: Int, action: ((Intent?) -> Unit)?) = apply {
+    fun positive(text: Int, action: ((Intent?) -> Unit)? = null) = apply {
         positiveText = text
         positiveAction = action
     }
 
-    fun negative(text: Int, action: ((Intent?) -> Unit)?) = apply {
+    fun negative(text: Int, action: ((Intent?) -> Unit)? = null) = apply {
         negativeText = text
         negativeAction = action
     }
 
-    fun neutral(text: Int, action: ((Intent?) -> Unit)?) = apply {
+    fun neutral(text: Int, action: ((Intent?) -> Unit)? = null) = apply {
         neutralText = text
         neutralAction = action
     }
