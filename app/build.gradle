@@ -30,7 +30,17 @@ android {
         }
     }
 
+    flavorDimensions "startActivity"
 
+    productFlavors {
+        home {
+            dimension "startActivity"
+        }
+
+        tst {
+            dimension "startActivity"
+        }
+    }
 }
 
 dependencies {
