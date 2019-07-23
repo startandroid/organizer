@@ -35,6 +35,8 @@ dependencies {
     implementation androidx.appcompat
     implementation kotlinn.stdlibjdk8
 
+    implementation dagger.dagger
+
 }
 repositories {
     mavenCentral()
