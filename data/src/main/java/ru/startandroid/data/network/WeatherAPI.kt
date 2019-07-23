@@ -1,6 +1,5 @@
 package ru.startandroid.data.network
 
-import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -12,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.startandroid.data.BuildConfig
-import ru.startandroid.domain.models.WeatherData
+import ru.startandroid.domain.models.weathermodels.WeatherData
 
 
 

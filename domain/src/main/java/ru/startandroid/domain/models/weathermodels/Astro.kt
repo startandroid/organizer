@@ -1,4 +1,4 @@
-package ru.startandroid.domain.models
+package ru.startandroid.domain.models.weathermodels
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
@@ -10,5 +10,6 @@ data class Astro(@SerializedName("sunrise")
                  var sunset: String? = null, @SerializedName("moonrise")
                  @Expose
                  var moonrise: String? = null, @SerializedName("moonset")
+
                  @Expose
                  var moonset: String? = null)
