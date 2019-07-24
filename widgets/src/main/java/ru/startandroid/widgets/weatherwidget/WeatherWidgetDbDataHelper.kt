@@ -2,20 +2,22 @@ package ru.startandroid.widgets.weatherwidget
 
 
 import ru.startandroid.data.network.WeatherAPI
-import ru.startandroid.widgetsbase.WidgetConfig
-import ru.startandroid.widgetsbase.WidgetData
-import ru.startandroid.widgetsbase.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.domain.model.WidgetConfig
+import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
+import ru.startandroid.widgetsbase.domain.model.WidgetData
+import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
 class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
-    override fun correctDataAccordingToConfig(data: WidgetData?, config: WidgetConfig?): WidgetData {
-        return ru.startandroid.widgets.weatherwidget.WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
+    override fun correctDataAccordingToConfig(data: WidgetDataEntity?, config: WidgetConfigEntity?): WidgetData {
+        return WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
     }
 
-    override fun refreshData(config: WidgetConfig?): WidgetData? {
+    override fun refreshData(config: WidgetConfigEntity?): WidgetData? {
         val api: WeatherAPI = WeatherAPI.create()
 
         val response = api.getCityWeather("Moscow", "3").execute()

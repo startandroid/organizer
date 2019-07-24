@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_weather_widget_config.*
 import ru.startandroid.widgets.R
-import ru.startandroid.widgetsbase.WidgetConfig
-import ru.startandroid.widgetsbase.config.BaseWidgetConfigFragment
+import ru.startandroid.widgetsbase.domain.model.WidgetConfig
+import ru.startandroid.widgetsbase.ui.config.BaseWidgetConfigFragment
 
 
 class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig>() {
