@@ -5,7 +5,7 @@ import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.widgetsbase.data.db.PARAM_KEY.WIDGET_ID
+import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
 import javax.inject.Inject
 
 @ScopeApplication
