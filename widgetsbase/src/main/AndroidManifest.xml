@@ -3,7 +3,7 @@
     package="ru.startandroid.widgetsbase">
 
     <application>
-        <activity android:name="ru.startandroid.widgetsbase.config.WidgetsConfigActivity">
+        <activity android:name="ru.startandroid.widgetsbase.ui.config.WidgetsConfigActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

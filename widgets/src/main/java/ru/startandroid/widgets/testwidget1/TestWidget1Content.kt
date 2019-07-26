@@ -2,7 +2,7 @@ package ru.startandroid.organizer.home.widget
 
 import kotlinx.android.synthetic.main.widget_test1.*
 import ru.startandroid.widgets.R
-import ru.startandroid.widgetsbase.adapter.content.BaseWidgetContent
+import ru.startandroid.widgetsbase.ui.widgets.adapter.content.BaseWidgetContent
 import javax.inject.Inject
 
 class TestWidget1Content @Inject constructor() : BaseWidgetContent<ru.startandroid.widgets.testwidget1.TestWidget1Data>() {

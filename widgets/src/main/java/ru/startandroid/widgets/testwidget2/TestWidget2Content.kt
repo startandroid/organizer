@@ -4,7 +4,7 @@ import kotlinx.android.synthetic.main.widget_test2.*
 import ru.startandroid.widgets.R
 
 
-import ru.startandroid.widgetsbase.adapter.content.BaseWidgetContent
+import ru.startandroid.widgetsbase.ui.widgets.adapter.content.BaseWidgetContent
 import javax.inject.Inject
 
 class TestWidget2Content @Inject constructor() : BaseWidgetContent<ru.startandroid.widgets.testwidget2.TestWidget2Data>() {

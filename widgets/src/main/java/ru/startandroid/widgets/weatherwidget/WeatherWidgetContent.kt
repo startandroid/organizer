@@ -3,7 +3,7 @@ package ru.startandroid.organizer.home.widget
 
 import kotlinx.android.synthetic.main.widget_weather.*
 import ru.startandroid.widgets.R
-import ru.startandroid.widgetsbase.adapter.content.BaseWidgetContent
+import ru.startandroid.widgetsbase.ui.widgets.adapter.content.BaseWidgetContent
 import javax.inject.Inject
 
 class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<ru.startandroid.widgets.weatherwidget.WeatherWidgetData>() {

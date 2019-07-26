@@ -12,9 +12,9 @@ import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
-import ru.startandroid.widgetsbase.metadata.WidgetMetadata
-import ru.startandroid.widgetsbase.metadata.WidgetRegistratorData
-import ru.startandroid.widgetsbase.refresh.WidgetWorkerFactory
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
+import ru.startandroid.widgetsbase.data.metadata.WidgetRegistratorMetadataRepository
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkerFactory
 import javax.inject.Inject
 
 
@@ -24,7 +24,7 @@ class App : Application(), HasActivityInjector {
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
 
     @Inject
-    lateinit var widgetRegistratorData: WidgetRegistratorData
+    lateinit var widgetRegistratorMetadataRepository: WidgetRegistratorMetadataRepository
     @Inject
     lateinit var widgetData: MutableSet<WidgetMetadata>
 
@@ -61,7 +61,7 @@ class App : Application(), HasActivityInjector {
     }
 
     private fun initWidgets() {
-        widgetRegistratorData.registerData(widgetData)
+        widgetRegistratorMetadataRepository.registerData(widgetData)
     }
 
     private fun initWorkManager() {

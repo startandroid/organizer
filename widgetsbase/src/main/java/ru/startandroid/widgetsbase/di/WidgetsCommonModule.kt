@@ -4,12 +4,20 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import ru.startandroid.domain.ScopeApplication
-import ru.startandroid.widgetsbase.db.WidgetDatabase
-import ru.startandroid.widgetsbase.db.WidgetDbInitializer
-import ru.startandroid.widgetsbase.metadata.*
+import ru.startandroid.widgetsbase.data.db.WidgetDatabase
+import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
+import ru.startandroid.widgetsbase.data.db.mapper.WidgetConfigEntityMapper
+import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityMapper
+import ru.startandroid.widgetsbase.data.db.repository.WidgetConfigRepositoryImpl
+import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
+import ru.startandroid.widgetsbase.data.metadata.*
+import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
+import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 
-@Module(includes = [WidgetRegistratorModule::class])
+@Module(includes = [WidgetMetadataProviderModule::class])
 class WidgetsCommonModule {
 
     @ScopeApplication
@@ -18,13 +26,23 @@ class WidgetsCommonModule {
         return widgetDbInitializer.createDatabase(context)
     }
 
+    @Provides
+    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper, dbScheduler: Scheduler): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper, dbScheduler)
+
+    @Provides
+    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper)
+
+    @ScopeApplication
+    @Provides
+    fun provideDbScheduler() = Schedulers.newThread()
+
 }
 
 @Module
-abstract class WidgetRegistratorModule {
+abstract class WidgetMetadataProviderModule {
 
     @Binds
-    abstract fun provide(widgetMetadatRepository: WidgetMetadatRepositoryImpl): WidgetMetadataRepository
+    abstract fun provideWidgetMetadataRepository(widgetMetadataRepository: WidgetMetadataRepositoryImpl): WidgetMetadataRepository
 
     @Binds
     abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetMappingMetadataRepository
@@ -42,7 +60,7 @@ abstract class WidgetRegistratorModule {
     abstract fun provideWidgetConfigScreenMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetConfigScreenMetadataRepository
 
     @Binds
-    abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorData
+    abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorMetadataRepository
 
 
 }
