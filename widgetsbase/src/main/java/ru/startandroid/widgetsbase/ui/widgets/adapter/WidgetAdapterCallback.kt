@@ -4,7 +4,7 @@ package ru.startandroid.widgetsbase.ui.widgets.adapter
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import ru.startandroid.widgetsbase.data.refresh.WidgetsRefresher
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetsRefresher
 import javax.inject.Inject
 
 class WidgetAdapterCallback @Inject constructor(val widgetsRefresher: WidgetsRefresher) {

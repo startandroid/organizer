@@ -1,10 +1,10 @@
 package ru.startandroid.widgetsbase.data.metadata
 
-import ru.startandroid.widgetsbase.data.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
-import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgetsbase.ui.config.BaseWidgetConfigFragment
+import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
 import javax.inject.Provider
 import kotlin.reflect.KClass
 

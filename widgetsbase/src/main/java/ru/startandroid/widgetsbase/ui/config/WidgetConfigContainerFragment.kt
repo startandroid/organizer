@@ -14,12 +14,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_widget_config_container.*
 import ru.startandroid.widgetsbase.R
+import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
-import ru.startandroid.widgetsbase.data.db.WidgetDatabase
-import ru.startandroid.widgetsbase.data.db.model.WidgetConfigEntityDb
-import ru.startandroid.widgetsbase.data.db.mapper.WidgetEntityMapper
-import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
+import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import javax.inject.Inject
 
 
@@ -33,10 +31,7 @@ class WidgetConfigContainerFragment : Fragment() {
     private var widgetConfigEntity: WidgetConfigEntity? = null
 
     @Inject
-    lateinit var widgetDatabase: WidgetDatabase
-
-    @Inject
-    lateinit var widgetEntityMapper: WidgetEntityMapper
+    lateinit var widgetConfigRepository: WidgetConfigRepository
 
     @Inject
     lateinit var widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
@@ -57,9 +52,8 @@ class WidgetConfigContainerFragment : Fragment() {
     private fun firstInit() {
         val disposable = readWidgetConfigFromDb().subscribe(
                 {
-                    widgetConfigEntity = widgetEntityMapper.mapConfigDbToConfig(it)?.apply {
-                        enabledToggle.isChecked = enabled
-                    }
+                    widgetConfigEntity = it
+                    enabledToggle.isChecked = it.enabled
                     createWidgetConfigFragment()
                 },
                 {
@@ -68,8 +62,8 @@ class WidgetConfigContainerFragment : Fragment() {
         )
     }
 
-    private fun readWidgetConfigFromDb(): Single<WidgetConfigEntityDb> {
-        return widgetDatabase.widgetConfigDao().getById(widgetId)
+    private fun readWidgetConfigFromDb(): Single<WidgetConfigEntity> {
+        return widgetConfigRepository.getById(widgetId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess { Log.d("qweee", "readWidgetConfigFromDb data $it") }
@@ -137,7 +131,7 @@ class WidgetConfigContainerFragment : Fragment() {
         val newConfig = getNewConfig()
 
         // TODO move this logic to the repository, task 50
-        val disposable = widgetDatabase.widgetConfigDao().update(widgetId, widgetEntityMapper.configToJson(newConfig), enabledToggle.isChecked)
+        val disposable = widgetConfigRepository.update(widgetId, newConfig, enabledToggle.isChecked)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

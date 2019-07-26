@@ -1,12 +1,14 @@
 package ru.startandroid.widgetsbase.data.db.mapper
 
 import com.google.gson.Gson
-import ru.startandroid.widgetsbase.domain.model.WidgetConfig
-import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
+import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.model.WidgetConfigEntityDb
 import ru.startandroid.widgetsbase.data.metadata.WidgetMappingMetadataRepository
+import ru.startandroid.widgetsbase.domain.model.WidgetConfig
+import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import javax.inject.Inject
 
+@ScopeApplication
 class WidgetConfigEntityMapper @Inject constructor(
         val widgetMetadataRepository: WidgetMappingMetadataRepository,
         private val gson: Gson
@@ -16,8 +18,7 @@ class WidgetConfigEntityMapper @Inject constructor(
         if (widgetConfigEntityDb == null) return null
 
         val config = configFromJson(widgetConfigEntityDb.id, widgetConfigEntityDb.config)
-
-        if (config == null) return null
+                ?: return null
 
         return WidgetConfigEntity(widgetConfigEntityDb.id, config, widgetConfigEntityDb.enabled)
     }
@@ -28,12 +29,12 @@ class WidgetConfigEntityMapper @Inject constructor(
         return WidgetConfigEntityDb(widgetConfigEntity.id, config, widgetConfigEntity.enabled)
     }
 
-    private fun configFromJson(id: Int, json: String): WidgetConfig? {
+    fun configFromJson(id: Int, json: String): WidgetConfig? {
         return widgetMetadataRepository.getWidgetConfigClass(id)
                 ?.let { gson.fromJson(json, it.java) }
     }
 
-    private fun configToJson(config: WidgetConfig): String {
+    fun configToJson(config: WidgetConfig): String {
         return gson.toJson(config)
     }
 

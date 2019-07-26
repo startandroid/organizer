@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.data.refresh
+package ru.startandroid.widgetsbase.data.db.refresh
 
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity

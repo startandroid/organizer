@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_widgets.*
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
 
+// TODO implement MV*, task 48
 
 class WidgetsFragment : android.app.Fragment() {
 
@@ -44,9 +47,16 @@ class WidgetsFragment : android.app.Fragment() {
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = widgetAdapter
 
-        // TODO have to set data
-        //widgetAdapter.loadData()
         widgetsRepository.getEnabledWidgets()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        {
+                            widgetAdapter.setWidgets(it)
+                        },
+                        {
+                            Log.e("qweee", "getEnabledWidgets error", it)
+                        }
+                )
 
         floatingActionButton.setOnClickListener {
             var myAction = Uri.parse("app://organizer/widgets/config")
@@ -56,8 +66,4 @@ class WidgetsFragment : android.app.Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        widgetAdapter.destroy()
-    }
 }

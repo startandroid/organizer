@@ -2,11 +2,10 @@ package ru.startandroid.widgetsbase.data.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import io.reactivex.Flowable
 import io.reactivex.Single
-import ru.startandroid.widgetsbase.data.db.DB_TABLE_CONFIG
+import ru.startandroid.widgetsbase.data.DB_TABLE_CONFIG
 import ru.startandroid.widgetsbase.data.db.model.WidgetConfigEntityDb
 
 @Dao
@@ -18,17 +17,9 @@ interface WidgetConfigDao {
     @Query("SELECT * FROM ${DB_TABLE_CONFIG.TABLE_NAME} WHERE ID = :id")
     fun getByIdSync(id: Int): WidgetConfigEntityDb?
 
-    @Query("SELECT * FROM ${DB_TABLE_CONFIG.TABLE_NAME}")
-    fun getAll(): Flowable<List<WidgetConfigEntityDb>>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun updateOrInsert(widgetConfigEntityDb: WidgetConfigEntityDb): Long
 
-    @Insert
-    fun insert(vararg widgetEntityDb: WidgetConfigEntityDb)
-
-    @Insert
-    fun insert(widgetEntityDb: List<WidgetConfigEntityDb>)
-
-    @Update
-    fun update(widgetEntityDb: WidgetConfigEntityDb): Single<Int>
 
     @Query("""
         UPDATE ${DB_TABLE_CONFIG.TABLE_NAME} 

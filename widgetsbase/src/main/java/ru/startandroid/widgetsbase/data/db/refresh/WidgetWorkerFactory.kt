@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.data.refresh
+package ru.startandroid.widgetsbase.data.db.refresh
 
 import android.content.Context
 import androidx.work.ListenableWorker

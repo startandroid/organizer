@@ -4,6 +4,8 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
@@ -25,12 +27,14 @@ class WidgetsCommonModule {
     }
 
     @Provides
-    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper): WidgetDataRepository
-            = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper)
+    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper, dbScheduler: Scheduler): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper, dbScheduler)
 
     @Provides
-    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper): WidgetConfigRepository
-            = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper)
+    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper)
+
+    @ScopeApplication
+    @Provides
+    fun provideDbScheduler() = Schedulers.newThread()
 
 }
 

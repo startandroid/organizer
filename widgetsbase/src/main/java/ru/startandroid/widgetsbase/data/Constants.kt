@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.data.db
+package ru.startandroid.widgetsbase.data
 
 object DB_TABLE_CONFIG {
     const val TABLE_NAME = "widgets_config"
@@ -19,8 +19,14 @@ object DB_TABLE_DATA {
     }
 }
 
+object DB_MAPPING {
+    object BOOLEAN {
+        const val TRUE = 1
+        const val FALSE = 0
+    }
+}
 
-// TODO move to another separate Constants.kt file
+
 object PARAM_KEY {
     const val WIDGET_ID = "widgetid"
 }

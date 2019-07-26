@@ -3,7 +3,7 @@ package ru.startandroid.widgetsbase.data.db.model
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.startandroid.widgetsbase.data.db.DB_TABLE_CONFIG
+import ru.startandroid.widgetsbase.data.DB_TABLE_CONFIG
 
 @Entity(tableName = DB_TABLE_CONFIG.TABLE_NAME)
 data class WidgetConfigEntityDb(

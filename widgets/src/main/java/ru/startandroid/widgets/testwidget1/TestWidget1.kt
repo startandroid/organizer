@@ -7,7 +7,7 @@ import ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_1
 import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgetsbase.ui.config.BaseWidgetConfigFragment
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
-import ru.startandroid.widgetsbase.data.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.data.refresh
+package ru.startandroid.widgetsbase.data.db.refresh
 
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequest

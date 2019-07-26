@@ -1,7 +1,7 @@
 package ru.startandroid.widgets.testwidget1
 
 import android.util.Log
-import ru.startandroid.widgetsbase.data.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetData

@@ -40,7 +40,7 @@ task clean(type: Delete) {
 ext {
 
     conf = [
-            aplicationId     : "ru.startandroid.organizer",
+            applicationId     : "ru.startandroid.organizer",
             versionCode      : 1,
             versionName      : "1.0",
             minSdkVersion    : 21,

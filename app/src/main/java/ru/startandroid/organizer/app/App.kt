@@ -14,7 +14,7 @@ import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.metadata.WidgetRegistratorMetadataRepository
-import ru.startandroid.widgetsbase.data.refresh.WidgetWorkerFactory
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkerFactory
 import javax.inject.Inject
 
 
