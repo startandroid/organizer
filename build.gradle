@@ -55,7 +55,7 @@ ext {
             junit             : '4.13-beta-3',
             espresso          : '3.2.0-beta01',
             androidxtest      : '1.2.0-beta01',
-            dagger2           : '2.16',
+            dagger2           : '2.24',
             firebase          : '16.0.9',
             crashlytics       : '2.10.0',
             utils             : "1.0.0-beta01",
@@ -104,6 +104,7 @@ ext {
             dagger                : "com.google.dagger:dagger:${versions.dagger2}",
             daggerCompiler        : "com.google.dagger:dagger-compiler:${versions.dagger2}",
             daggerAndroid         : "com.google.dagger:dagger-android:${versions.dagger2}",
+            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${versions.dagger2}",
             daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${versions.dagger2}"
     ]
 

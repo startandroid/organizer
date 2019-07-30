@@ -12,7 +12,7 @@ class TestWidget2ConfigFragment : BaseWidgetConfigFragment<TestWidget2Config>() 
 
     override fun getLayoutId(): Int = R.layout.fragment_test_widget2_config
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         flag1.isChecked = getOriginalConfig().flag1
         flag2.isChecked = getOriginalConfig().flag2

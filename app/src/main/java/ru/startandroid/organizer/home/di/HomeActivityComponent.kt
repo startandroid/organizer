@@ -13,7 +13,7 @@ annotation class ScopeHome
 @Module()
 abstract class HomeActivityInjectorModule {
     @ContributesAndroidInjector(modules = [HomeFragmentModule::class, NetworkModule::class])
-    internal abstract fun contributeHomeFragmentInjector(): WidgetsFragment
+    abstract fun contributeHomeFragmentInjector(): WidgetsFragment
 }
 
 

@@ -12,7 +12,7 @@ class TestWidget1ConfigFragment : BaseWidgetConfigFragment<TestWidget1Config>() 
 
     override fun getLayoutId(): Int = R.layout.fragment_test_widget1_config
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         edittext.setText(getOriginalConfig().text)

@@ -1,22 +1,17 @@
 package ru.startandroid.organizer.fortest
 
-import android.app.Fragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasFragmentInjector
+import dagger.android.*
 import ru.startandroid.organizer.R
-import ru.startandroid.widgetsbase.ui.config.WidgetConfigContainerFragment
 import javax.inject.Inject
 
-class TestActivity : AppCompatActivity(), HasFragmentInjector {
+class TestActivity : AppCompatActivity(), HasAndroidInjector {
 
-    override fun fragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+    override fun androidInjector(): AndroidInjector<Any> = fragmentInjector
 
     @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentInjector: DispatchingAndroidInjector<Any>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
@@ -24,7 +19,7 @@ class TestActivity : AppCompatActivity(), HasFragmentInjector {
         setContentView(R.layout.activity_test)
 
         if (savedInstanceState == null) {
-            fragmentManager
+            supportFragmentManager
                     .beginTransaction()
                     .add(R.id.cont, TestFragment())
                     .commit()

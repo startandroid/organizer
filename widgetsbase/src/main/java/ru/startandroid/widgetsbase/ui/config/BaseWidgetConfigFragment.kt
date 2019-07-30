@@ -1,10 +1,10 @@
 package ru.startandroid.widgetsbase.ui.config
 
-import android.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 
 
@@ -21,8 +21,8 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(getLayoutId(), container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(getLayoutId(), container, false)
     }
 
     fun getOriginalConfig(): T {
@@ -37,7 +37,7 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
         if (arguments == null) {
             arguments = Bundle()
         }
-        arguments.putParcelable(ARG_CONFIG, config)
+        arguments?.putParcelable(ARG_CONFIG, config)
         return this
     }
 }

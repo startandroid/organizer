@@ -3,6 +3,7 @@ package ru.startandroid.organizer.app.di
 import dagger.Component
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.organizer.app.App
 import ru.startandroid.organizer.fortest.TestActivity
@@ -14,7 +15,9 @@ import ru.startandroid.organizer.home.di.ScopeHome
 import ru.startandroid.widgets.WidgetsModule
 import ru.startandroid.widgetsbase.di.WidgetsCommonModule
 
-@Component(modules = [AppModule::class,
+@Component(modules = [
+    AndroidSupportInjectionModule::class,
+    AppModule::class,
     SubcomponentModule::class,
     WidgetsCommonModule::class,
     WidgetsModule::class
@@ -30,11 +33,11 @@ abstract class SubcomponentModule {
 
     @ScopeHome
     @ContributesAndroidInjector(modules = [HomeActivityInjectorModule::class, HomeActivityModule::class])
-    internal abstract fun contributeHomeActivityInjector(): HomeActivity
+    abstract fun contributeHomeActivityInjector(): HomeActivity
 
 
     @ContributesAndroidInjector(modules = [TestActivityInjectorModule::class])
-    internal abstract fun contributeTestActivityInjector(): TestActivity
+    abstract fun contributeTestActivityInjector(): TestActivity
 
 
 }
