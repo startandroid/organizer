@@ -38,6 +38,7 @@ dependencies {
     implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
     implementation dagger.daggerAndroid
+    implementation dagger.daggerAndroidSupport
     kapt dagger.daggerAndroidProcessor
 
     implementation project(':domain')

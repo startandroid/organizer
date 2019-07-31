@@ -13,7 +13,7 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
 
     override fun getLayoutId(): Int = R.layout.fragment_weather_widget_config
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
     }

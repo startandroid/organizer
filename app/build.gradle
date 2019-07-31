@@ -71,6 +71,7 @@ dependencies {
     implementation dagger.dagger
     kapt dagger.daggerCompiler
     implementation dagger.daggerAndroid
+    implementation dagger.daggerAndroidSupport
     kapt dagger.daggerAndroidProcessor
 
     implementation room.roomRuntime

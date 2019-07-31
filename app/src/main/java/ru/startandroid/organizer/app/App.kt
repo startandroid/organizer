@@ -1,13 +1,12 @@
 package ru.startandroid.organizer.app
 
-import android.app.Activity
 import android.app.Application
 import androidx.work.Configuration
 import androidx.work.WorkManager
 import com.crashlytics.android.Crashlytics
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasActivityInjector
+import dagger.android.HasAndroidInjector
 import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
@@ -18,10 +17,12 @@ import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkerFactory
 import javax.inject.Inject
 
 
-class App : Application(), HasActivityInjector {
+class App : Application(), HasAndroidInjector {
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     @Inject
-    lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     @Inject
     lateinit var widgetRegistratorMetadataRepository: WidgetRegistratorMetadataRepository
@@ -30,8 +31,6 @@ class App : Application(), HasActivityInjector {
 
     @Inject
     lateinit var workerFactory: WidgetWorkerFactory
-
-    override fun activityInjector(): AndroidInjector<Activity> = dispatchingActivityInjector
 
     lateinit var applicationComponent: ApplicationComponent
 
