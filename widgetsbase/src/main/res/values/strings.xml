@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Widgets</string>
     <string name="enabled">Enabled</string>
+
+    <string name="want_to_save_changed_config">Config was changed. Do you want to save it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+
+
 </resources>

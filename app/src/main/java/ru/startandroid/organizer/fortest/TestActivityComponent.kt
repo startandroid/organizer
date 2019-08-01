@@ -10,5 +10,8 @@ abstract class TestActivityInjectorModule {
     @ContributesAndroidInjector(modules = [])
     internal abstract fun contributeTestFragmentInjector(): TestFragment
 
+    @ContributesAndroidInjector(modules = [])
+    internal abstract fun contributeWidgetConfigContainerFragmentInjector(): WidgetConfigContainerFragment
+
 }
 

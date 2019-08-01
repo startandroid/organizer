@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.startandroid.dialoghelper.*
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -24,7 +25,22 @@ import javax.inject.Inject
 private const val ARG_WIDGET_ID = "widget_id"
 private const val EXTRA_WIDGET_CONFIG = "widget_config"
 
-class WidgetConfigContainerFragment : Fragment() {
+class WidgetConfigContainerFragment : Fragment(), HasDialogHandler {
+
+    companion object {
+        private const val CODE_DIALOG_SAVE_CONFIG = 1
+
+        @JvmStatic
+        fun newInstance(widgetId: Int) =
+                WidgetConfigContainerFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt(ARG_WIDGET_ID, widgetId)
+                    }
+                }
+    }
+
+
+    override fun dialogHandler(): DialogHandler? = dialogHelper
 
     // TODO implement MVVM, task 66
     var widgetId: Int = 0
@@ -32,6 +48,9 @@ class WidgetConfigContainerFragment : Fragment() {
 
     @Inject
     lateinit var widgetConfigRepository: WidgetConfigRepository
+
+    @Inject
+    lateinit var dialogHelper: DialogHelper
 
     @Inject
     lateinit var widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
@@ -47,6 +66,16 @@ class WidgetConfigContainerFragment : Fragment() {
         } else {
             init(savedInstanceState)
         }
+
+        registerDialogs()
+    }
+
+    private fun registerDialogs() {
+        val config = DialogConfig().message(R.string.want_to_save_changed_config)
+                .positive(R.string.yes) { save(); close() }
+                .negative(R.string.no) { close() }
+                .neutral(R.string.cancel) {}
+        dialogHelper.registerDialogConfig(CODE_DIALOG_SAVE_CONFIG, config)
     }
 
     private fun firstInit() {
@@ -86,16 +115,20 @@ class WidgetConfigContainerFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState?.putParcelable(EXTRA_WIDGET_CONFIG, widgetConfigEntity)
+        outState.putParcelable(EXTRA_WIDGET_CONFIG, widgetConfigEntity)
     }
 
     fun onBackPressed(): Boolean {
         if (configWasChanged()) {
-            // TODO   dialog will be created later, task 64
-            Toast.makeText(activity, "config was changed, save it", Toast.LENGTH_SHORT).show()
+            dialogHelper.showDialog(CODE_DIALOG_SAVE_CONFIG, this)
             return true
         }
         return false
+    }
+
+    fun close() {
+        // TODO implement in task 66
+        Log.d("qweee", "close screen")
     }
 
     fun configWasChanged(): Boolean {
@@ -130,7 +163,6 @@ class WidgetConfigContainerFragment : Fragment() {
     private fun save() {
         val newConfig = getNewConfig()
 
-        // TODO move this logic to the repository, task 50
         val disposable = widgetConfigRepository.update(widgetId, newConfig, enabledToggle.isChecked)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -149,13 +181,5 @@ class WidgetConfigContainerFragment : Fragment() {
     }
 
 
-    companion object {
-        @JvmStatic
-        fun newInstance(widgetId: Int) =
-                WidgetConfigContainerFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_WIDGET_ID, widgetId)
-                    }
-                }
-    }
+
 }

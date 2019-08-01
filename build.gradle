@@ -70,7 +70,8 @@ ext {
             logginginterceptor: "3.12.0",
             workmanager       : "2.0.1",
             material          : "1.0.0",
-            appcompat         : "1.0.2"
+            appcompat         : "1.0.2",
+            dialoghelper      : "0.1.5"
     ]
 
     okhttp3 = [
@@ -157,6 +158,10 @@ ext {
 
     material = [
             material: "com.google.android.material:material:${versions.material}"
+    ]
+
+    dialoghelper = [
+            dialoghelper: "com.startandroid.dialog-helper:dialog-helper:${versions.dialoghelper}"
     ]
 
 }

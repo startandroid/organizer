@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.di
 
 import android.content.Context
+import com.startandroid.dialoghelper.DialogHelper
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -35,6 +36,9 @@ class WidgetsCommonModule {
     @ScopeApplication
     @Provides
     fun provideDbScheduler() = Schedulers.newThread()
+
+    @Provides
+    fun provideDialogHelper() = DialogHelper()
 
 }
 
