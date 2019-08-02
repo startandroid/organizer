@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.*
 import ru.startandroid.organizer.R
+import ru.startandroid.widgetsbase.ui.config.WidgetConfigContainerFragment
 import javax.inject.Inject
 
 class TestActivity : AppCompatActivity(), HasAndroidInjector {
@@ -18,26 +19,26 @@ class TestActivity : AppCompatActivity(), HasAndroidInjector {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
+//        if (savedInstanceState == null) {
+//            supportFragmentManager
+//                    .beginTransaction()
+//                    .add(R.id.cont, TestFragment())
+//                    .commit()
+//        }
+
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .add(R.id.cont, TestFragment())
+                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(2))
                     .commit()
         }
 
-//        if (savedInstanceState == null) {
-//            fragmentManager
-//                    .beginTransaction()
-//                    .add(R.id.cont, WidgetConfigContainerFragment.newInstance(2))
-//                    .commit()
-//        }
-//
-//        onBackPressedDispatcher.addCallback {
-//            (fragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
-//                    ?.let {
-//                        it.onBackPressed()
-//                    } ?: false
-//        }
+        onBackPressedDispatcher.addCallback {
+            (supportFragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
+                    ?.let {
+                        it.onBackPressed()
+                    } ?: false
+        }
 
     }
 
