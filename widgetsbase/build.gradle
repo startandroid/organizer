@@ -32,6 +32,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    implementation project(':domain')
+    implementation project(':device')
+
     implementation kotlinn.stdlibjdk8
     implementation dagger.dagger
     implementation androidx.appcompat
@@ -41,7 +44,6 @@ dependencies {
     implementation dagger.daggerAndroidSupport
     kapt dagger.daggerAndroidProcessor
 
-    implementation project(':domain')
     implementation gson.gson
     implementation androidx_view.recyclerview
 

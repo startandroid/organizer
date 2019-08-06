@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         tools:text="widget description" />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <ru.startandroid.device.widget.QuietSwitchCompat
         android:id="@+id/enabledToggle"
         android:text="@string/enabled"
         android:layout_width="wrap_content"

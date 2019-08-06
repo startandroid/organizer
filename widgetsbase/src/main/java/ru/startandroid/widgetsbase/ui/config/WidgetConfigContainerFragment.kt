@@ -6,9 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.startandroid.dialoghelper.*
+import com.startandroid.dialoghelper.DialogConfig
+import com.startandroid.dialoghelper.DialogHandler
+import com.startandroid.dialoghelper.DialogHelper
+import com.startandroid.dialoghelper.HasDialogHandler
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -82,7 +84,7 @@ class WidgetConfigContainerFragment : Fragment(), HasDialogHandler {
         val disposable = readWidgetConfigFromDb().subscribe(
                 {
                     widgetConfigEntity = it
-                    enabledToggle.isChecked = it.enabled
+                    enabledToggle.setCheckedQuiet(it.enabled)
                     createWidgetConfigFragment()
                 },
                 {
@@ -152,6 +154,13 @@ class WidgetConfigContainerFragment : Fragment(), HasDialogHandler {
         }
         widgetMetadataRepositoryImpl.getWidgetTitleResId(widgetId)?.let { widgetTitle.setText(it) }
         widgetMetadataRepositoryImpl.getWidgetDescriptionResId(widgetId)?.let { widgetDescription.setText(it) }
+
+        enabledToggle.setOnCheckedChangeListener { buttonView, isChecked ->
+            Log.d("qweee", "config container click, $widgetId $isChecked")
+            widgetConfigRepository.setEnabled(widgetId, isChecked)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({}, { Log.e("qweee", "setEnabled error $it") })
+        }
     }
 
     private fun getNewConfig(): WidgetConfig = getChildWidgetConfigFragment().getNewConfig()
@@ -179,7 +188,6 @@ class WidgetConfigContainerFragment : Fragment(), HasDialogHandler {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
-
 
 
 }

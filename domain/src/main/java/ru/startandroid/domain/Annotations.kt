@@ -4,3 +4,7 @@ import javax.inject.Scope
 
 @Scope
 annotation class ScopeApplication
+
+
+@Scope
+annotation class ScopeActivity
