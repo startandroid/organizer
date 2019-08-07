@@ -71,7 +71,8 @@ ext {
             workmanager       : "2.0.1",
             material          : "1.0.0",
             appcompat         : "1.0.2",
-            dialoghelper      : "0.1.5"
+            dialoghelper      : "0.1.5",
+            leakcanary        : "2.0-beta-2"
     ]
 
     okhttp3 = [
@@ -162,6 +163,10 @@ ext {
 
     dialoghelper = [
             dialoghelper: "com.startandroid.dialog-helper:dialog-helper:${versions.dialoghelper}"
+    ]
+
+    leakcanary = [
+            leakcanary: "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
     ]
 
 }

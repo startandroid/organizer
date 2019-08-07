@@ -86,6 +86,8 @@ dependencies {
     implementation material.material
 
     implementation workmanager.runtimektx
+
+    debugImplementation leakcanary.leakcanary
 }
 
 repositories {
