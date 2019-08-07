@@ -16,7 +16,7 @@ import kotlin.reflect.KClass
 
 data class TestWidget1Data(
         val text: String
-) : WidgetData
+) : WidgetData()
 
 @Parcelize
 data class TestWidget1Config(

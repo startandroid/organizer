@@ -24,7 +24,7 @@ data class WeatherWidgetData(
         val day1: String,
         val day2: String,
         val day3: String
-) : WidgetData
+) : WidgetData()
 
 @Parcelize
 data class WeatherWidgetConfig(

@@ -2,28 +2,18 @@ package ru.startandroid.widgetsbase.ui.widgets.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.ui.widgets.adapter.container.WidgetContainerHolder
 import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetProvider
 import javax.inject.Inject
 
-class WidgetAdapter
-@Inject
-constructor(
+class WidgetAdapter @Inject constructor(
         private val widgetProvider: WidgetProvider,
-        private var widgetAdapterCallback: WidgetAdapterCallback
-) : RecyclerView.Adapter<WidgetContainerHolder>() {
-
-    val widgets = mutableListOf<WidgetDataEntity>()
-
-    fun setWidgets(widgets: List<WidgetDataEntity>) {
-        this.widgets.clear()
-        this.widgets.addAll(widgets)
-        // TODO diffutils, task 43
-        notifyDataSetChanged()
-    }
+        private val widgetAdapterCallback: WidgetAdapterCallback
+) : ListAdapter<WidgetDataEntity, WidgetContainerHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetContainerHolder {
         val widgetContent = widgetProvider.getWidget(viewType)
@@ -32,10 +22,22 @@ constructor(
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
-        containerHolder.bind(widgets[position])
+        containerHolder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = widgets.size
-    override fun getItemViewType(position: Int): Int = widgets[position].id
+    override fun getItemViewType(position: Int): Int = getItem(position).id
+
+    companion object {
+        val diffCallback = object : DiffUtil.ItemCallback<WidgetDataEntity>() {
+            override fun areItemsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean =
+                    oldItem.id == newItem.id
+
+
+            override fun areContentsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean {
+                return oldItem.data.equals(newItem.data)
+            }
+
+        }
+    }
 
 }
