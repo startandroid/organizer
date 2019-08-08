@@ -1,14 +1,13 @@
 package ru.startandroid.organizer.home.di
 
+import android.app.Activity
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.data.network.di.NetworkModule
+import ru.startandroid.organizer.home.HomeActivity
 import ru.startandroid.widgetsbase.ui.widgets.WidgetsFragment
-import javax.inject.Scope
 
-
-@Scope
-annotation class ScopeHome
 
 @Module()
 abstract class HomeActivityInjectorModule {
@@ -18,7 +17,10 @@ abstract class HomeActivityInjectorModule {
 
 
 @Module()
-class HomeActivityModule
+class HomeActivityModule {
+    @Provides
+    fun provideActivity(activity: HomeActivity): Activity = activity
+}
 
 
 @Module

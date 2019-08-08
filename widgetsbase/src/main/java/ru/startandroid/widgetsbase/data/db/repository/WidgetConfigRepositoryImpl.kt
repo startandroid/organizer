@@ -1,5 +1,6 @@
 package ru.startandroid.widgetsbase.data.db.repository
 
+import io.reactivex.Flowable
 import io.reactivex.Single
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetConfigEntityMapper
@@ -11,6 +12,13 @@ class WidgetConfigRepositoryImpl(
         private val widgetDatabase: WidgetDatabase,
         private val widgetConfigEntityMapper: WidgetConfigEntityMapper
 ) : WidgetConfigRepository {
+
+    override fun getAll(): Flowable<List<WidgetConfigEntity>> =
+            widgetDatabase.widgetConfigDao().getAll().map {
+                it.mapNotNull {
+                    widgetConfigEntityMapper.fromDb(it)
+                }
+            }
 
     override fun getByIdSync(id: Int): WidgetConfigEntity? =
             widgetConfigEntityMapper.fromDb(widgetDatabase.widgetConfigDao().getByIdSync(id))
@@ -26,5 +34,7 @@ class WidgetConfigRepositoryImpl(
     override fun update(id: Int, config: WidgetConfig, enabled: Boolean): Single<Int> =
             widgetDatabase.widgetConfigDao().update(id, widgetConfigEntityMapper.configToJson(config), enabled)
 
+    override fun setEnabled(id: Int, enabled: Boolean): Single<Int> =
+            widgetDatabase.widgetConfigDao().setEnabled(id, enabled)
 
 }

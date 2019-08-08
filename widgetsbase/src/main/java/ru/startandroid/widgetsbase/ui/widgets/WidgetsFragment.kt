@@ -1,8 +1,6 @@
 package ru.startandroid.widgetsbase.ui.widgets
 
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.AndroidSupportInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_widgets.*
+import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
@@ -25,6 +24,9 @@ class WidgetsFragment : Fragment() {
     companion object {
         fun newInstance(): WidgetsFragment = WidgetsFragment()
     }
+
+    @Inject
+    lateinit var navigator: Navigator
 
     @Inject
     lateinit var widgetAdapter: WidgetAdapter
@@ -60,10 +62,7 @@ class WidgetsFragment : Fragment() {
                 )
 
         floatingActionButton.setOnClickListener {
-            var myAction = Uri.parse("app://organizer/widgets/config")
-            var intent = Intent(Intent.ACTION_VIEW, myAction)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            navigator.openWidgetsConfig()
         }
     }
 

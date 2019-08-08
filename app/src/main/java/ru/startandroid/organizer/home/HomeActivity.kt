@@ -2,8 +2,10 @@ package ru.startandroid.organizer.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import dagger.android.*
-
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import ru.startandroid.organizer.R
 import ru.startandroid.widgetsbase.ui.widgets.WidgetsFragment
 import javax.inject.Inject

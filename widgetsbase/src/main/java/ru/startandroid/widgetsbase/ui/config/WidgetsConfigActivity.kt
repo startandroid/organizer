@@ -1,23 +1,54 @@
 package ru.startandroid.widgetsbase.ui.config
 
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import android.util.Log
+import dagger.android.support.DaggerAppCompatActivity
 import ru.startandroid.widgetsbase.R
 
-
-class WidgetsConfigActivity : AppCompatActivity() {
+class WidgetsConfigActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_widgets_config)
-        if (intent.data != null) {
-            val pathSegments = intent.data.pathSegments
-            if (pathSegments.size > 2 && pathSegments[2] != null)
-                Toast.makeText(this, "Widget " + pathSegments[2].toString() + " config", Toast.LENGTH_LONG).show()
-            else
-                Toast.makeText(this, "Widgets list", Toast.LENGTH_LONG).show()
-            intent.data = null
+        Log.d("qweee", "link = ${intent.data}")
+        handleIntent(intent)
+    }
+
+    override fun onNewIntent(newIntent: Intent?) {
+        super.onNewIntent(newIntent)
+        handleIntent(newIntent)
+
+    }
+
+    private fun handleIntent(intent: Intent?) {
+        intent?.data?.run {
+            if (pathSegments.size > 2 && pathSegments[2] != null) {
+                showWidgetConfig(pathSegments[2].toString().toInt())
+            } else {
+                showWidgetsConfig()
+            }
         }
+        intent?.data = null
+
+    }
+
+
+    private fun showWidgetsConfig() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, WidgetsConfigFragment())
+                .commit()
+    }
+
+    private fun showWidgetConfig(widgetId: Int) {
+        Log.d("qweee", "show widget config $widgetId")
+        val transaction = supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.container, WidgetConfigContainerFragment.newInstance(widgetId))
+
+        if (supportFragmentManager.findFragmentById(R.id.container) != null) transaction.addToBackStack("widget config")
+
+        transaction.commit()
     }
 }

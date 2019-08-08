@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import ru.startandroid.widgetsbase.data.metadata.WidgetDbInitMetadataRepository
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetsRefresher
+import ru.startandroid.widgetsbase.data.metadata.WidgetDbInitMetadataRepository
 import javax.inject.Inject
 
 class WidgetDbInitializer @Inject constructor(

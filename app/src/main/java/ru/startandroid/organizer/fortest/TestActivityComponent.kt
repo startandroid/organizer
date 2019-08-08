@@ -1,8 +1,9 @@
 package ru.startandroid.organizer.fortest
 
+import android.app.Activity
 import dagger.Module
+import dagger.Provides
 import dagger.android.ContributesAndroidInjector
-import ru.startandroid.widgetsbase.ui.config.WidgetConfigContainerFragment
 
 
 @Module
@@ -10,8 +11,11 @@ abstract class TestActivityInjectorModule {
     @ContributesAndroidInjector(modules = [])
     internal abstract fun contributeTestFragmentInjector(): TestFragment
 
-    @ContributesAndroidInjector(modules = [])
-    internal abstract fun contributeWidgetConfigContainerFragmentInjector(): WidgetConfigContainerFragment
+}
 
+@Module()
+class TestActivityModule {
+    @Provides
+    fun provideActivity(activity: TestActivity): Activity = activity
 }
 
