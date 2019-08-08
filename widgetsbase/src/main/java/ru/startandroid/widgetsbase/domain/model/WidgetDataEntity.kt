@@ -1,6 +1,6 @@
 package ru.startandroid.widgetsbase.domain.model
 
-interface WidgetData
+open class WidgetData
 
 data class WidgetDataEntity(
         val id: Int,

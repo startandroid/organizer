@@ -54,7 +54,7 @@ class WidgetsFragment : Fragment() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         {
-                            widgetAdapter.setWidgets(it)
+                            widgetAdapter.submitList(it)
                         },
                         {
                             Log.e("qweee", "getEnabledWidgets error", it)
