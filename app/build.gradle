@@ -19,6 +19,15 @@ android {
         multiDexEnabled true
     }
 
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     androidExtensions {
         experimental = true
     }
@@ -53,7 +62,6 @@ dependencies {
     implementation project(':widgetsbase')
     implementation project(':widgets')
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation junit.junit
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
@@ -62,6 +70,7 @@ dependencies {
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
     implementation androidx_view.cardview
+    implementation androidx.lifecycle
 
     implementation kotlinn.stdlibjdk8
 

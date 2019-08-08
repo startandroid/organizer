@@ -1,43 +1,31 @@
 package ru.startandroid.widgetsbase.ui.widgets
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.android.support.AndroidSupportInjection
-import io.reactivex.android.schedulers.AndroidSchedulers
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widgets.*
-import ru.startandroid.device.Navigator
+import ru.startandroid.device.extension.getViewModel
 import ru.startandroid.widgetsbase.R
-import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
+import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
 
-// TODO implement MV*, task 48
-
-class WidgetsFragment : Fragment() {
+class WidgetsFragment : DaggerFragment() {
 
     companion object {
         fun newInstance(): WidgetsFragment = WidgetsFragment()
     }
 
     @Inject
-    lateinit var navigator: Navigator
-
-    @Inject
     lateinit var widgetAdapter: WidgetAdapter
 
     @Inject
-    lateinit var widgetsRepository: WidgetDataRepository
+    lateinit var widgetsViewModelFactory: WidgetsViewModelFactory
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,24 +34,21 @@ class WidgetsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val linearLayoutManager = LinearLayoutManager(activity)
+
+        val linearLayoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = widgetAdapter
 
-        widgetsRepository.getEnabledWidgets()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            widgetAdapter.submitList(it)
-                        },
-                        {
-                            Log.e("qweee", "getEnabledWidgets error", it)
-                        }
-                )
+        getModel().widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
+            widgetAdapter.submitList(it)
+        })
 
         floatingActionButton.setOnClickListener {
-            navigator.openWidgetsConfig()
+            getModel().onConfigButtonClick()
         }
+
     }
+
+    private fun getModel() = getViewModel(WidgetsViewModel::class.java, widgetsViewModelFactory)
 
 }

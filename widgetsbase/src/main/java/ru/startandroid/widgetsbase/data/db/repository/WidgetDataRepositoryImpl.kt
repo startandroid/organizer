@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.data.db.repository
 
-import io.reactivex.Flowable
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Transformations
 import io.reactivex.Scheduler
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityMapper
@@ -10,18 +11,15 @@ import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 
 class WidgetDataRepositoryImpl(
         private val widgetDatabase: WidgetDatabase,
-        private val widgetDataEntityMapper: WidgetDataEntityMapper,
-        private val dbScheduler: Scheduler
+        private val widgetDataEntityMapper: WidgetDataEntityMapper
 ) : WidgetDataRepository {
 
-    override fun getEnabledWidgets(): Flowable<List<WidgetDataEntity>> {
-        return widgetDatabase.widgetDataDao().getAllEnabled()
-                .subscribeOn(dbScheduler)
-                .map {
-                    it.mapNotNull {
-                        widgetDataEntityMapper.fromDb(it)
-                    }
-                }
+    override fun getEnabledWidgets(): LiveData<List<WidgetDataEntity>> {
+        return Transformations.map(widgetDatabase.widgetDataDao().getAllEnabled()) {
+            it.mapNotNull {
+                widgetDataEntityMapper.fromDb(it)
+            }
+        }
     }
 
     override fun getWidgetByIdSync(id: Int): WidgetDataEntity? {
@@ -30,7 +28,7 @@ class WidgetDataRepositoryImpl(
 
     override fun updateOrInsertSync(widgetDataEntity: WidgetDataEntity): Long {
         return widgetDatabase.widgetDataDao()
-                .updateOrInsert(widgetDataEntityMapper.toDb(widgetDataEntity))
+                .updateOrInsertSync(widgetDataEntityMapper.toDb(widgetDataEntity))
     }
 
 }

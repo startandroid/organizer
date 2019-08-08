@@ -17,6 +17,8 @@ import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
 import ru.startandroid.widgetsbase.data.metadata.*
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 @Module(includes = [WidgetMetadataProviderModule::class])
 class WidgetsCommonModule {
@@ -27,9 +29,11 @@ class WidgetsCommonModule {
         return widgetDbInitializer.createDatabase(context)
     }
 
+    @ScopeApplication
     @Provides
-    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper, dbScheduler: Scheduler): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper, dbScheduler)
+    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper)
 
+    @ScopeApplication
     @Provides
     fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper)
 
@@ -39,6 +43,10 @@ class WidgetsCommonModule {
 
     @Provides
     fun provideDialogHelper() = DialogHelper()
+
+    @ScopeApplication
+    @Provides
+    fun provideDbExecutor(): Executor = Executors.newSingleThreadExecutor()
 
 }
 
