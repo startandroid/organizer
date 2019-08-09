@@ -80,9 +80,14 @@ ext {
     ]
 
 
-    androidx = [
+    appcompat = [
             appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
-            lifecycle: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
+    ]
+
+    lifecycle = [
+            extensions: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
+            reactivestreams: "androidx.lifecycle:lifecycle-reactivestreams:${versions.lifecycle}"
+
     ]
 
     androidx_view = [

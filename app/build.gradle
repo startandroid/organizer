@@ -66,11 +66,11 @@ dependencies {
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
-    implementation androidx.appcompat
+    implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
     implementation androidx_view.cardview
-    implementation androidx.lifecycle
+    //implementation lifecycle.lifecycle
 
     implementation kotlinn.stdlibjdk8
 

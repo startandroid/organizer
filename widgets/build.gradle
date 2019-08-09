@@ -39,7 +39,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation androidx.appcompat
+    implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
     implementation androidx_view.cardview
@@ -50,7 +50,7 @@ dependencies {
     implementation crashlyticss.crashlytics
 
     implementation dagger.dagger
-    implementation androidx.appcompat
+    implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
 

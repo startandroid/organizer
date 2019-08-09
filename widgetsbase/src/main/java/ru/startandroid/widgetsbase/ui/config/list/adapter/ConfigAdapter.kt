@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.ui.config.adapter
+package ru.startandroid.widgetsbase.ui.config.list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,9 +7,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ru.startandroid.device.SingleLiveEvent
 import ru.startandroid.widgetsbase.R
+import javax.inject.Inject
 
 
-class ConfigAdapter : ListAdapter<Config, ConfigHolder>(diffCallback) {
+class ConfigAdapter @Inject constructor() : ListAdapter<Config, ConfigHolder>(diffCallback) {
 
     private val clicks = SingleLiveEvent<Int>()
     private val enables = SingleLiveEvent<Pair<Int, Boolean>>()

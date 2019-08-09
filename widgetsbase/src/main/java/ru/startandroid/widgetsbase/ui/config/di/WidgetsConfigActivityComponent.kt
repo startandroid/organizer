@@ -4,9 +4,9 @@ import android.app.Activity
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
-import ru.startandroid.widgetsbase.ui.config.WidgetConfigContainerFragment
+import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
 import ru.startandroid.widgetsbase.ui.config.WidgetsConfigActivity
-import ru.startandroid.widgetsbase.ui.config.WidgetsConfigFragment
+import ru.startandroid.widgetsbase.ui.config.list.WidgetsConfigFragment
 
 @Module()
 class WidgetsConfigActivityModule {

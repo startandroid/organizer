@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.ui.config
+package ru.startandroid.widgetsbase.ui.config.widget
 
 import android.content.Context
 import android.os.Bundle
@@ -173,7 +173,6 @@ class WidgetConfigContainerFragment : Fragment(), HasDialogHandler {
         val newConfig = getNewConfig()
 
         val disposable = widgetConfigRepository.update(widgetId, newConfig, enabledToggle.isChecked)
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     Log.d("qweee", "save config done $it")

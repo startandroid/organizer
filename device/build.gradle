@@ -40,8 +40,8 @@ dependencies {
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
-    implementation androidx.appcompat
-    implementation androidx.lifecycle
+    implementation appcompat.appcompat
+    implementation lifecycle.extensions
 
     implementation kotlinn.stdlibjdk8
 
