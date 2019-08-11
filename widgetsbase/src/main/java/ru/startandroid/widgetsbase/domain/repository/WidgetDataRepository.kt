@@ -1,11 +1,11 @@
 package ru.startandroid.widgetsbase.domain.repository
 
-import io.reactivex.Flowable
+import androidx.lifecycle.LiveData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 
 interface WidgetDataRepository {
 
-    fun getEnabledWidgets(): Flowable<List<WidgetDataEntity>>
+    fun getEnabledWidgets(): LiveData<List<WidgetDataEntity>>
 
     fun getWidgetByIdSync(id: Int): WidgetDataEntity?
 

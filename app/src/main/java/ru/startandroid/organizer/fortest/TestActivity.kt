@@ -36,12 +36,12 @@ class TestActivity : AppCompatActivity(), HasAndroidInjector {
                     .commit()
         }
 
-        onBackPressedDispatcher.addCallback {
-            (supportFragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
-                    ?.let {
-                        it.onBackPressed()
-                    } ?: false
-        }
+//        onBackPressedDispatcher.addCallback {
+//            (supportFragmentManager.findFragmentById(R.id.cont) as? WidgetConfigContainerFragment)
+//                    ?.let {
+//                        it.onBackPressed()
+//                    } ?: false
+//        }
 
     }
 

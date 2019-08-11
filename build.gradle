@@ -50,27 +50,27 @@ ext {
     ]
 
     versions = [
-            androidx          : "1.1.0-alpha04",
-            constraintLayout  : '2.0.0-beta1',
+            appcompat         : '1.1.0-rc01',
+            lifecycle         : "2.0.0",
+            constraintLayout  : '2.0.0-beta2',
             junit             : '4.13-beta-3',
-            espresso          : '3.2.0-beta01',
-            androidxtest      : '1.2.0-beta01',
+            espresso          : '3.3.0-alpha02',
+            androidxtest      : '1.3.0-alpha02',
             dagger2           : '2.24',
-            firebase          : '16.0.9',
-            crashlytics       : '2.10.0',
+            firebase          : '17.0.1',
+            crashlytics       : '2.10.1',
             utils             : "1.0.0-beta01",
-            recyclerview      : "1.0.0-beta01",
-            room              : '2.1.0-beta01',
+            recyclerview      : '1.1.0-beta02',
+            room              : '2.2.0-alpha02',
             gson              : "2.8.5",
-            rxjava2           : '2.2.8',
-            rxjava2adapter    : '2.5.0',
+            rxjava2           : '2.2.11',
+            rxjava2adapter    : '2.6.1',
             rxandroid         : '2.1.1',
             cardview          : "1.0.0",
-            retrofit          : "2.5.0",
-            logginginterceptor: "3.12.0",
-            workmanager       : "2.0.1",
+            retrofit          : '2.6.1',
+            logginginterceptor: '4.0.1',
+            workmanager       : '2.1.0',
             material          : "1.0.0",
-            appcompat         : "1.0.2",
             dialoghelper      : "0.1.5",
             leakcanary        : "2.0-beta-2"
     ]
@@ -81,7 +81,8 @@ ext {
 
 
     androidx = [
-            appcompat: "androidx.appcompat:appcompat:${versions.androidx}"
+            appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
+            lifecycle: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}"
     ]
 
     androidx_view = [
@@ -120,10 +121,6 @@ ext {
 
     crashlyticss = [
             crashlytics: "com.crashlytics.sdk.android:crashlytics:${versions.crashlytics}"
-    ]
-
-    support = [
-            utils: "androidx.legacy:legacy-support-core-utils:${versions.utils}",
     ]
 
     room = [

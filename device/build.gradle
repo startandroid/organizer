@@ -19,6 +19,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 
 }
 
@@ -33,6 +41,8 @@ dependencies {
     androidTestImplementation espresso.core
 
     implementation androidx.appcompat
+    implementation androidx.lifecycle
+
     implementation kotlinn.stdlibjdk8
 
     implementation dagger.dagger
