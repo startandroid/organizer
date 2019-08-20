@@ -53,4 +53,12 @@ class WidgetsConfigActivity : DaggerAppCompatActivity() {
 
         transaction.commit()
     }
+
+    override fun onBackPressed() {
+        if ((supportFragmentManager.findFragmentById(R.id.container) as? WidgetConfigContainerFragment)
+                    ?.onBackPressed() != true) {
+            super.onBackPressed()
+        }
+    }
+
 }

@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="widgetConfig"
+            type="ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerViewModel" />
+    </data>
+    
+<LinearLayout 
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,17 +17,18 @@
         android:id="@+id/widgetTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="widget title" />
+        tools:text="@{widgetConfig.title}" />
 
     <TextView
         android:id="@+id/widgetDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="widget description" />
+        tools:text="@{widgetConfig.description}" />
 
     <ru.startandroid.device.widget.QuietSwitchCompat
         android:id="@+id/enabledToggle"
         android:text="@string/enabled"
+        android:checked="@={widgetConfig.enabled}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
@@ -36,3 +45,4 @@
         android:layout_height="wrap_content" />
 
 </LinearLayout>
+</layout>
