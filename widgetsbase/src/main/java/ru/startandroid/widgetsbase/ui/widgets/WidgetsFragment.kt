@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widgets.*
-import ru.startandroid.device.extension.getViewModel
+import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
@@ -27,6 +27,8 @@ class WidgetsFragment : DaggerFragment() {
     @Inject
     lateinit var widgetsViewModelFactory: WidgetsViewModelFactory
 
+    private val model by viewModel(WidgetsViewModel::class.java) { widgetsViewModelFactory }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -39,16 +41,15 @@ class WidgetsFragment : DaggerFragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = widgetAdapter
 
-        getModel().widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
+        model.widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
             widgetAdapter.submitList(it)
         })
 
         floatingActionButton.setOnClickListener {
-            getModel().onConfigButtonClick()
+            model.onConfigButtonClick()
         }
 
     }
 
-    private fun getModel() = getViewModel(WidgetsViewModel::class.java, widgetsViewModelFactory)
 
 }
