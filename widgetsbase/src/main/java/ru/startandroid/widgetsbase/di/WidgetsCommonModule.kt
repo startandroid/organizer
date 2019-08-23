@@ -35,11 +35,11 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper)
+    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper, dbScheduler: Scheduler): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper, dbScheduler)
 
     @ScopeApplication
     @Provides
-    fun provideDbScheduler() = Schedulers.newThread()
+    fun provideDbScheduler(dbExecutor: Executor) = Schedulers.from(dbExecutor)
 
     @Provides
     fun provideDialogHelper() = DialogHelper()

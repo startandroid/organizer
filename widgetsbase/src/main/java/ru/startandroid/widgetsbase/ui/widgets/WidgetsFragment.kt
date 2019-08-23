@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.fragment_widgets.*
 import ru.startandroid.device.extension.getViewModel
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
+import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
 
@@ -35,8 +36,7 @@ class WidgetsFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val linearLayoutManager = LinearLayoutManager(requireContext())
-        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = widgetAdapter
 
         getModel().widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {

@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.ui.config.adapter
+package ru.startandroid.widgetsbase.ui.config.list.adapter
 
 import android.util.Log
 import android.view.View

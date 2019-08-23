@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import dagger.android.support.DaggerAppCompatActivity
 import ru.startandroid.widgetsbase.R
+import ru.startandroid.widgetsbase.ui.config.list.WidgetsConfigFragment
+import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
 
 class WidgetsConfigActivity : DaggerAppCompatActivity() {
 
@@ -51,4 +53,12 @@ class WidgetsConfigActivity : DaggerAppCompatActivity() {
 
         transaction.commit()
     }
+
+    override fun onBackPressed() {
+        if ((supportFragmentManager.findFragmentById(R.id.container) as? WidgetConfigContainerFragment)
+                    ?.onBackPressed() != true) {
+            super.onBackPressed()
+        }
+    }
+
 }

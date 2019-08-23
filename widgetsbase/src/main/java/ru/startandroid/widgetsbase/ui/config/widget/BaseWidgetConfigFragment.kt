@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.ui.config
+package ru.startandroid.widgetsbase.ui.config.widget
 
 import android.os.Bundle
 import android.view.LayoutInflater

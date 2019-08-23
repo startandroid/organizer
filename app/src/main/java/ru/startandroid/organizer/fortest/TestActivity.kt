@@ -7,7 +7,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import ru.startandroid.organizer.R
-import ru.startandroid.widgetsbase.ui.config.WidgetConfigContainerFragment
+import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
 import javax.inject.Inject
 
 class TestActivity : AppCompatActivity(), HasAndroidInjector {

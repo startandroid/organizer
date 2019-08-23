@@ -42,7 +42,7 @@ dependencies {
     androidTestImplementation androidxtest.runner
     androidTestImplementation espresso.core
 
-    implementation androidx.appcompat
+    implementation appcompat.appcompat
     implementation kotlinn.stdlibjdk8
 
     implementation room.roomRuntime

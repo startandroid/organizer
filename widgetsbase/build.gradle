@@ -35,6 +35,10 @@ android {
         jvmTarget = "1.8"
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -45,7 +49,7 @@ dependencies {
 
     implementation kotlinn.stdlibjdk8
     implementation dagger.dagger
-    implementation androidx.appcompat
+    implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
     kapt dagger.daggerCompiler
     implementation dagger.daggerAndroid
@@ -62,11 +66,12 @@ dependencies {
     implementation room.roomRxjava2
     kapt room.roomCompiler
 
-    implementation androidx.appcompat
     testImplementation junit.junit
 
     implementation workmanager.runtimektx
 
     api dialoghelper.dialoghelper
+
+    implementation lifecycle.reactivestreams
 
 }
