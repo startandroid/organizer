@@ -12,7 +12,7 @@ import com.startandroid.dialoghelper.DialogHelper
 import com.startandroid.dialoghelper.HasDialogHandler
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widget_config_container.*
-import ru.startandroid.device.extension.getViewModel
+import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
 import ru.startandroid.widgetsbase.databinding.FragmentWidgetConfigContainerBinding
@@ -45,6 +45,8 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     @Inject
     lateinit var widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
 
+    private val model by viewModel(WidgetConfigContainerViewModel::class.java) { widgetConfigContainerViewModelFactory }
+
     private var widgetId: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,13 +56,13 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
         }
 
         if (savedInstanceState == null) {
-            getModel().getWidgetConfigEntity().observe(this, Observer {
+            model.getWidgetConfigEntity().observe(this, Observer {
                 createWidgetConfigFragment(it)
-                getModel().getWidgetConfigEntity().removeObservers(this)
+                model.getWidgetConfigEntity().removeObservers(this)
             })
         }
 
-        getModel().closeScreen.observe(this, Observer {
+        model.closeScreen.observe(this, Observer {
             activity?.onBackPressed()
         })
 
@@ -81,14 +83,14 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     private fun registerDialogs() {
         val config = DialogConfig().message(R.string.want_to_save_changed_config)
                 .positive(R.string.yes) {
-                    if (checkIfNewConfigIsValid()) getModel().onSaveDialogPositive(getNewConfig())
+                    if (checkIfNewConfigIsValid()) model.onSaveDialogPositive(getNewConfig())
                 }
-                .negative(R.string.no) { getModel().onSaveDialogNegative() }
+                .negative(R.string.no) { model.onSaveDialogNegative() }
                 .neutral(R.string.cancel) {}
 
         dialogHelper.registerDialogConfig(CODE_DIALOG_SAVE_CONFIG, config)
 
-        getModel().showDialog.observe(this, Observer {
+        model.showDialog.observe(this, Observer {
             dialogHelper.showDialog(it, this)
         })
 
@@ -97,25 +99,24 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentWidgetConfigContainerBinding>(inflater, R.layout.fragment_widget_config_container, container, false)
-        binding.widgetConfig = getModel()
+        binding.widgetConfig = model
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         saveButton.setOnClickListener {
-            if (checkIfNewConfigIsValid()) getModel().onSaveButtonPressed(getNewConfig())
+            if (checkIfNewConfigIsValid()) model.onSaveButtonPressed(getNewConfig())
         }
     }
 
 
     override fun dialogHandler(): DialogHandler? = dialogHelper
 
-    fun onBackPressed(): Boolean = getModel().onBackPressed(getNewConfig())
+    fun onBackPressed(): Boolean = model.onBackPressed(getNewConfig())
 
     private fun getChildWidgetConfigFragment() = (childFragmentManager.findFragmentById(R.id.container) as BaseWidgetConfigFragment<*>)
 
-    private fun getModel() = getViewModel(WidgetConfigContainerViewModel::class.java, widgetConfigContainerViewModelFactory)
 
     private fun getNewConfig(): WidgetConfig = getChildWidgetConfigFragment().getNewConfig()
 
