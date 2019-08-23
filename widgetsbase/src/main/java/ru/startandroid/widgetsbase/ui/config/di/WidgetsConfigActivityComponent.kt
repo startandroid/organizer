@@ -40,10 +40,10 @@ class WidgetConfigContainerFragmentModule() {
     3) For doing injection Dagger will create subcomponent for this fragment.
         We asked about it here: WidgetsConfigActivityInjectorModule.contributeWidgetConfigContainerFragmentInjector()
 
-    4) This subcomponent by default has instance of WidgetConfigContainerFragmentModule.
+    4) This subcomponent by default has instance of WidgetConfigContainerFragment.
         It's implemented somewhere in dagger library, we dont need to do anything for it.
 
-    5) We can extract something from arguments of instance WidgetConfigContainerFragmentModule
+    5) We can extract something from arguments of instance WidgetConfigContainerFragment
         Method provideWidgetId extracts and returns widgetId
 
     6) Now we can use widgetId for any objects that injected into WidgetConfigContainerFragment
