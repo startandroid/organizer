@@ -4,6 +4,7 @@ import dagger.Component
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
+import ru.startandroid.device.di.DeviceModule
 import ru.startandroid.domain.ScopeActivity
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.organizer.app.App
@@ -24,7 +25,8 @@ import ru.startandroid.widgetsbase.ui.config.di.WidgetsConfigActivityModule
     AppModule::class,
     SubcomponentModule::class,
     WidgetsCommonModule::class,
-    WidgetsModule::class
+    WidgetsModule::class,
+    DeviceModule::class
 ])
 @ScopeApplication
 interface ApplicationComponent {

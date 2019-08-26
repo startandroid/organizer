@@ -2,18 +2,23 @@ package ru.startandroid.widgetsbase.ui.config
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import dagger.android.support.DaggerAppCompatActivity
+import ru.startandroid.device.analytics.Analytics
+import ru.startandroid.device.analytics.WidgetConfigEvent
+import ru.startandroid.device.analytics.WidgetsConfigEvent
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.ui.config.list.WidgetsConfigFragment
 import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
+import javax.inject.Inject
 
 class WidgetsConfigActivity : DaggerAppCompatActivity() {
+
+    @Inject
+    lateinit var analytics: Analytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_widgets_config)
-        Log.d("qweee", "link = ${intent.data}")
         handleIntent(intent)
     }
 
@@ -41,10 +46,10 @@ class WidgetsConfigActivity : DaggerAppCompatActivity() {
                 .beginTransaction()
                 .replace(R.id.container, WidgetsConfigFragment())
                 .commit()
+        analytics.logEvent(WidgetsConfigEvent())
     }
 
     private fun showWidgetConfig(widgetId: Int) {
-        Log.d("qweee", "show widget config $widgetId")
         val transaction = supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, WidgetConfigContainerFragment.newInstance(widgetId))
@@ -52,11 +57,12 @@ class WidgetsConfigActivity : DaggerAppCompatActivity() {
         if (supportFragmentManager.findFragmentById(R.id.container) != null) transaction.addToBackStack("widget config")
 
         transaction.commit()
+        analytics.logEvent(WidgetConfigEvent(widgetId))
     }
 
     override fun onBackPressed() {
         if ((supportFragmentManager.findFragmentById(R.id.container) as? WidgetConfigContainerFragment)
-                    ?.onBackPressed() != true) {
+                        ?.onBackPressed() != true) {
             super.onBackPressed()
         }
     }

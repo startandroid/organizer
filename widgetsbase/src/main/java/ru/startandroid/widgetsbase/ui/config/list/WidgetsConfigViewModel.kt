@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.ui.config.list
 
-import android.util.Log
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.Navigator
@@ -10,7 +9,7 @@ import ru.startandroid.widgetsbase.ui.config.list.adapter.Config
 class WidgetsConfigViewModel(
         private val widgetConfigRepository: WidgetConfigRepository,
         private val navigator: Navigator
-): ViewModel() {
+) : ViewModel() {
 
     private val widgetsConfigLiveData by lazy {
         LiveDataReactiveStreams.fromPublisher(
@@ -30,8 +29,7 @@ class WidgetsConfigViewModel(
     }
 
     fun onItemEnabled(id: Int, enabled: Boolean) {
-        widgetConfigRepository.setEnabled(id, enabled)
-                .subscribe({}, { Log.e("qweee", "setEnabled error $it") })
+        widgetConfigRepository.setEnabled(id, enabled).subscribe()
     }
 
 

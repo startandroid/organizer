@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.Scheduler
 import io.reactivex.schedulers.Schedulers
+import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
@@ -35,7 +36,7 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper, dbScheduler: Scheduler): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper, dbScheduler)
+    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper, dbScheduler: Scheduler, analytics: Analytics): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper, dbScheduler, analytics)
 
     @ScopeApplication
     @Provides
