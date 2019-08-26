@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion conf.compileSdkVersion
@@ -46,6 +47,9 @@ dependencies {
     implementation kotlinn.stdlibjdk8
 
     implementation dagger.dagger
+    kapt dagger.daggerCompiler
+
+    implementation firebase.analytics
 
 }
 repositories {

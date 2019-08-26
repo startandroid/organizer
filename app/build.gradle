@@ -99,6 +99,8 @@ dependencies {
 
     implementation workmanager.runtimektx
 
+    implementation firebase.analytics
+
     debugImplementation leakcanary.leakcanary
 }
 
