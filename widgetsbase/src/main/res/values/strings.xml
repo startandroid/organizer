@@ -7,5 +7,14 @@
     <string name="no">No</string>
     <string name="cancel">Cancel</string>
 
+    <string-array name="update_interval">
+        <item>Don\'t update</item>
+        <item>15 min</item>
+        <item>30 min</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>12 hours</item>
+        <item>24 hours</item>
+    </string-array>
 
 </resources>

@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.data.db.refresh
 
-import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
@@ -8,7 +7,7 @@ import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 
 interface WidgetDbDataHelper {
 
-    fun initConfig(): WidgetConfig?
+    fun getInitConfig(): WidgetConfigEntity?
 
     fun correctDataAccordingToConfig(data: WidgetDataEntity?, config: WidgetConfigEntity?): WidgetData
 

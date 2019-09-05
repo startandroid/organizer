@@ -17,4 +17,5 @@ interface WidgetMetadata {
     fun widgetContentProvider(): Provider<out WidgetContent>
     fun widgetRefresher(): Provider<out WidgetDbDataHelper>
     fun widgetConfigFragment(): BaseWidgetConfigFragment<*>
+    fun widgetRefreshParameters(): WidgetRefreshParameters
 }

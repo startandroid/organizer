@@ -1,6 +1,7 @@
 package ru.startandroid.organizer.app.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -16,5 +17,9 @@ class AppModule(val context: Context) {
     @Provides
     fun provideGson(): Gson = Gson()
 
-
+    @ScopeApplication
+    @Provides
+    fun provideWorkManager(context: Context): WorkManager {
+        return WorkManager.getInstance(context)
+    }
 }

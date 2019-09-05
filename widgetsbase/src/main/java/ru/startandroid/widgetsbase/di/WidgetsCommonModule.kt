@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.di
 
 import android.content.Context
+import androidx.work.WorkManager
 import com.startandroid.dialoghelper.DialogHelper
 import dagger.Binds
 import dagger.Module
@@ -13,11 +14,15 @@ import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetConfigEntityMapper
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityMapper
+import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkManagerImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetConfigRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
+import ru.startandroid.widgetsbase.data.db.repository.WidgetRefreshStatusRepositoryImpl
 import ru.startandroid.widgetsbase.data.metadata.*
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
+import ru.startandroid.widgetsbase.domain.repository.WidgetRefreshStatusRepository
+import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
@@ -40,6 +45,10 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
+    fun provideWidgetRefreshStatusRepository(widgetDatabase: WidgetDatabase): WidgetRefreshStatusRepository = WidgetRefreshStatusRepositoryImpl(widgetDatabase)
+
+    @ScopeApplication
+    @Provides
     fun provideDbScheduler(dbExecutor: Executor) = Schedulers.from(dbExecutor)
 
     @Provides
@@ -48,6 +57,11 @@ class WidgetsCommonModule {
     @ScopeApplication
     @Provides
     fun provideDbExecutor(): Executor = Executors.newSingleThreadExecutor()
+
+    @ScopeApplication
+    @Provides
+    fun provideWidgetWorkManager(workManagerProvider: dagger.Lazy<WorkManager>, widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository): WidgetWorkManager
+            = WidgetWorkManagerImpl(workManagerProvider, widgetRefreshParametersMetadataRepository)
 
 }
 
@@ -75,6 +89,8 @@ abstract class WidgetMetadataProviderModule {
     @Binds
     abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorMetadataRepository
 
+    @Binds
+    abstract fun provideWidgetRefreshParametersMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetRefreshParametersMetadataRepository
 
 }
 

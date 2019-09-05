@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="widgetConfig"
             type="ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerViewModel" />
@@ -31,6 +33,14 @@
         android:checked="@={widgetConfig.enabled}"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/updateIntervalSpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:selectedItemPosition="@={widgetConfig.updateInterval}"
+        android:visibility="@{widgetConfig.updateIntervalVisible ? View.VISIBLE : View.GONE}"
+        />
 
     <FrameLayout
         android:id="@+id/container"

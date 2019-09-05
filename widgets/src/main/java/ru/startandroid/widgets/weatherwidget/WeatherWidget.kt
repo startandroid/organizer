@@ -10,6 +10,7 @@ import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.metadata.WidgetRefreshParameters
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import javax.inject.Inject
 import javax.inject.Provider
@@ -48,4 +49,5 @@ class WeatherWidgetWidgetMetadata @Inject constructor(
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
     override fun widgetConfigFragment(): BaseWidgetConfigFragment<*> = WeatherWidgetConfigFragment()
+    override fun widgetRefreshParameters(): WidgetRefreshParameters =  WidgetRefreshParameters(autoRefresh = true, needsInternet = true)
 }

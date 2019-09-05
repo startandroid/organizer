@@ -8,6 +8,7 @@ import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
 import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
+import ru.startandroid.widgetsbase.data.metadata.WidgetRefreshParameters
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import javax.inject.Inject
@@ -26,8 +27,8 @@ data class TestWidget1Config(
 ) : WidgetConfig
 
 class TestWidget1WidgetMetadata @Inject constructor(
-        val widgetContentProvider: Provider<TestWidget1Content>,
-        val widgetRefresherProvider: Provider<TestWidget1DbDataHelper>
+        private val widgetContentProvider: Provider<TestWidget1Content>,
+        private val widgetRefresherProvider: Provider<TestWidget1DbDataHelper>
 ) : WidgetMetadata {
     override fun id(): Int = TEST_WIDGET_1
     override fun titleResId(): Int = R.string.test_widget_1_title
@@ -37,4 +38,6 @@ class TestWidget1WidgetMetadata @Inject constructor(
     override fun widgetContentProvider(): Provider<out WidgetContent> = widgetContentProvider
     override fun widgetRefresher(): Provider<out WidgetDbDataHelper> = widgetRefresherProvider
     override fun widgetConfigFragment(): BaseWidgetConfigFragment<*> = TestWidget1ConfigFragment()
+    override fun widgetRefreshParameters(): WidgetRefreshParameters =  WidgetRefreshParameters(autoRefresh = true, needsInternet = false)
+
 }

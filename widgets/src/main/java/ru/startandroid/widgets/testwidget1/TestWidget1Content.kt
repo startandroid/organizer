@@ -11,6 +11,7 @@ class TestWidget1Content @Inject constructor() : BaseWidgetContent<ru.startandro
 
     override fun onDataSet(widgetData: ru.startandroid.widgets.testwidget1.TestWidget1Data) {
         text.text = widgetData.text
+
         setContainerData(
                 id = ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_1,
                 title = "Test widget 1",

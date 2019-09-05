@@ -9,5 +9,6 @@ interface WidgetConfig : Parcelable
 data class WidgetConfigEntity(
         val id: Int,
         val config: WidgetConfig,
-        val enabled: Boolean = true
+        val enabled: Boolean = true,
+        val updateInterval: Long = 0
 ) : Parcelable

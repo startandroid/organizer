@@ -12,14 +12,21 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.startandroid.device.SingleLiveEvent
 import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetRefreshParametersMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
+import ru.startandroid.widgetsbase.domain.usecase.UpdateWidgetUseCase
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 class WidgetConfigContainerViewModel(
         private val widgetId: Int,
         private val widgetConfigRepository: WidgetConfigRepository,
-        widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
+        private val updateIntervals: UpdateIntervals,
+        private val updateWidgetUseCase: UpdateWidgetUseCase,
+        widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository,
+        widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository
 
 ) : ViewModel() {
 
@@ -27,17 +34,21 @@ class WidgetConfigContainerViewModel(
         const val CODE_DIALOG_SAVE_CONFIG = 1
     }
 
+
     private var widgetConfigEntity: WidgetConfigEntity? = null
         set(value) {
             field = value
             value?.let {
                 enabled.set(it.enabled)
+                updateInterval.set(updateIntervals.indexOfInterval(it.updateInterval))
             }
         }
 
     val title = ObservableField<Int>()
     val description = ObservableField<Int>()
     val enabled = ObservableBoolean()
+    val updateInterval = ObservableField<Int>()
+    val updateIntervalVisible = ObservableBoolean()
 
     val showDialog = SingleLiveEvent<Int>()
     val closeScreen = SingleLiveEvent<Unit>()
@@ -47,6 +58,8 @@ class WidgetConfigContainerViewModel(
     init {
         title.set(widgetMetadataRepositoryImpl.getWidgetTitleResId(widgetId))
         description.set(widgetMetadataRepositoryImpl.getWidgetDescriptionResId(widgetId))
+        updateIntervalVisible.set(widgetRefreshParametersMetadataRepository.autoRefresh(widgetId)
+                ?: false)
     }
 
     fun getWidgetConfigEntity(): LiveData<out WidgetConfigEntity?> {
@@ -71,7 +84,7 @@ class WidgetConfigContainerViewModel(
     fun onBackPressed(newConfig: WidgetConfig): Boolean {
         if (isClosing) return false
         Log.d("qweee", "onBackPressed new config $newConfig, old config ${widgetConfigEntity?.config}, equals: ${newConfig == widgetConfigEntity?.config}")
-        if (configWasChanged(newConfig, enabled.get())) {
+        if (configWasChanged(newConfig)) {
             showSaveDialog()
             return true
         }
@@ -97,8 +110,11 @@ class WidgetConfigContainerViewModel(
         closeScreen.call()
     }
 
-    private fun configWasChanged(newConfig: WidgetConfig, enabled: Boolean): Boolean {
-        return (widgetConfigEntity?.config != newConfig || widgetConfigEntity?.enabled != enabled)
+    private fun configWasChanged(newConfig: WidgetConfig): Boolean {
+        return (widgetConfigEntity?.config != newConfig ||
+                widgetConfigEntity?.enabled != enabled.get() ||
+                widgetConfigEntity?.updateInterval != updateIntervals.getInterval(updateInterval.get())
+                )
     }
 
     private fun showSaveDialog() {
@@ -106,10 +122,27 @@ class WidgetConfigContainerViewModel(
     }
 
     private fun saveConfigAndCloseScreen(newConfig: WidgetConfig) {
-        widgetConfigRepository.update(widgetId, newConfig, enabled.get())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+        updateWidgetUseCase.invoke(WidgetConfigEntity(widgetId, newConfig, enabled.get(), updateIntervals.getInterval(updateInterval.get())))
         closeScreen()
     }
 
+}
+
+class UpdateIntervals @Inject constructor() {
+
+    private val intervalValues = listOf<Long>(
+            0,
+            TimeUnit.MINUTES.toMillis(15),
+            TimeUnit.MINUTES.toMillis(30),
+            TimeUnit.HOURS.toMillis(1),
+            TimeUnit.HOURS.toMillis(3),
+            TimeUnit.HOURS.toMillis(12),
+            TimeUnit.HOURS.toMillis(24)
+    )
+
+    fun getInterval(index: Int?) =
+            intervalValues[index ?: 0]
+
+    fun indexOfInterval(value: Long) =
+            intervalValues.indexOf(value)
 }
