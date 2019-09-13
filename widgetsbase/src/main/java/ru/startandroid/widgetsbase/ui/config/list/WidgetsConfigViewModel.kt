@@ -4,10 +4,14 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
+import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
+import ru.startandroid.widgetsbase.domain.usecase.EnableWidgetUseCase
 import ru.startandroid.widgetsbase.ui.config.list.adapter.Config
 
 class WidgetsConfigViewModel(
         private val widgetConfigRepository: WidgetConfigRepository,
+        private val disableWidgetUseCase: DisableWidgetUseCase,
+        private val enableWidgetUseCase: EnableWidgetUseCase,
         private val navigator: Navigator
 ) : ViewModel() {
 
@@ -29,7 +33,11 @@ class WidgetsConfigViewModel(
     }
 
     fun onItemEnabled(id: Int, enabled: Boolean) {
-        widgetConfigRepository.setEnabled(id, enabled).subscribe()
+        if (enabled) {
+            enableWidgetUseCase.invoke(id)
+        } else {
+            disableWidgetUseCase.invoke(id)
+        }
     }
 
 

@@ -33,6 +33,10 @@ android {
         abortOnError false
     }
 
+    dataBinding {
+        enabled = true
+    }
+
 
 }
 
@@ -55,6 +59,7 @@ dependencies {
     kapt dagger.daggerCompiler
 
     implementation firebase.analytics
+    implementation workmanager.runtimektx
 
 }
 repositories {

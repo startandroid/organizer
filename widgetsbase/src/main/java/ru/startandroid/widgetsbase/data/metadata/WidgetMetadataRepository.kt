@@ -14,7 +14,6 @@ class WidgetMetadataRepositoryImpl @Inject constructor() : WidgetMetadataReposit
         }
     }
 
-
     override fun getWidgetTitleResId(id: Int) = widgetMetadata[id]?.titleResId()
 
     override fun getWidgetDescriptionResId(id: Int) = widgetMetadata[id]?.descriptionResId()
@@ -31,5 +30,8 @@ class WidgetMetadataRepositoryImpl @Inject constructor() : WidgetMetadataReposit
 
     override fun getWidgetConfigClass(id: Int) = widgetMetadata[id]?.widgetConfigCls()
 
+    override fun autoRefresh(id: Int): Boolean? = widgetMetadata[id]?.widgetRefreshParameters()?.autoRefresh
+
+    override fun needsInternet(id: Int): Boolean? = widgetMetadata[id]?.widgetRefreshParameters()?.needsInternet
 
 }

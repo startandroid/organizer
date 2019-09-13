@@ -35,7 +35,7 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
 
     abstract fun getLayoutId(): Int
 
-    fun onViewInflated(widgetView: View) {
+    private fun onViewInflated(widgetView: View) {
         tempView = widgetView
     }
 

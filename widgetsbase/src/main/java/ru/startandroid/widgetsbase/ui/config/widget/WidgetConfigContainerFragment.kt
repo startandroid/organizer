@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.startandroid.dialoghelper.DialogConfig
@@ -105,9 +106,20 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         saveButton.setOnClickListener {
             if (checkIfNewConfigIsValid()) model.onSaveButtonPressed(getNewConfig())
         }
+
+        ArrayAdapter.createFromResource(
+                activity,
+                R.array.update_interval,
+                android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            updateIntervalSpinner.adapter = adapter
+        }
+
     }
 
 

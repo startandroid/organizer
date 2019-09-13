@@ -15,5 +15,9 @@ data class WidgetConfigEntityDb(
         val config: String,
 
         @ColumnInfo(name = DB_TABLE_CONFIG.COLUMNS.ENABLED)
-        val enabled: Boolean
+        val enabled: Boolean,
+
+        @ColumnInfo(name = DB_TABLE_CONFIG.COLUMNS.UPDATE_INTERVAL)
+        val updateInterval: Long
+
 )

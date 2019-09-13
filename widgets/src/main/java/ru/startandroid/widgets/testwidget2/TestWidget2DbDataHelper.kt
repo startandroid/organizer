@@ -1,10 +1,9 @@
 package ru.startandroid.widgets.testwidget2
 
 import android.util.Log
-import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
-import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
+import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import java.io.BufferedInputStream
 import java.net.HttpURLConnection
@@ -33,15 +32,19 @@ class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
                 strFileContents += String(contents, 0, bytesRead)
                 bytesRead = instream.read(contents)
             }
-            Log.d("qweee", "refreshData widget 2 $strFileContents")
+            //Log.d("qweee", "refreshData widget 2 $strFileContents")
             return ru.startandroid.widgets.testwidget2.TestWidget2Data(text1 = "test1", text2 = strFileContents)
         } finally {
             urlConnection.disconnect()
         }
     }
 
-    override fun initConfig(): WidgetConfig? {
-        return ru.startandroid.widgets.testwidget2.TestWidget2Config(true, false)
+    override fun getInitConfig(): WidgetConfigEntity? {
+        return WidgetConfigEntity(
+                id = ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_2,
+                config = TestWidget2Config(true, false),
+                updateInterval = 0,
+                enabled = true)
     }
 
 }

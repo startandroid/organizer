@@ -71,6 +71,7 @@ dependencies {
     androidTestImplementation espresso.core
 
     implementation appcompat.appcompat
+    implementation activity.activity
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
     implementation androidx_view.cardview

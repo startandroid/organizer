@@ -4,19 +4,19 @@ package ru.startandroid.widgetsbase.ui.widgets.adapter
 import ru.startandroid.device.Navigator
 import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.device.analytics.WidgetRefreshEvent
-import ru.startandroid.widgetsbase.data.db.refresh.WidgetsRefresher
-import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
+import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
+import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
 import javax.inject.Inject
 
 class WidgetAdapterCallback @Inject constructor(
-        private val widgetsRefresher: WidgetsRefresher,
+        private val widgetWorkManager: WidgetWorkManager,
         private val navigator: Navigator,
         private val analytics: Analytics,
-        private val widgetConfigRepository: WidgetConfigRepository
+        private val disableWidgetUseCase: DisableWidgetUseCase
 ) {
 
     fun onWidgetRefreshClick(id: Int) {
-        widgetsRefresher.refresh(id)
+        widgetWorkManager.refresh(id)
         analytics.logEvent(WidgetRefreshEvent(id))
     }
 
@@ -25,6 +25,6 @@ class WidgetAdapterCallback @Inject constructor(
     }
 
     fun onWidgetCloseClick(id: Int) {
-        widgetConfigRepository.setEnabled(id, false).subscribe()
+        disableWidgetUseCase.invoke(id)
     }
 }

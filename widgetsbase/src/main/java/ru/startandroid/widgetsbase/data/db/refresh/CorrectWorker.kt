@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.data.db.refresh
 
 import android.content.Context
+import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
@@ -18,7 +19,7 @@ class CorrectWorker(context: Context, val workerParams: WorkerParameters,
 
         val id = workerParams.inputData.getInt(WIDGET_ID, 0)
         if (id == 0) return Result.failure()
-
+        Log.d("qweee", "CorrectWorker $id")
         var dataEntity = widgetDataRepository.getWidgetByIdSync(id)
         val configEntity = widgetConfigRepository.getByIdSync(id)
 

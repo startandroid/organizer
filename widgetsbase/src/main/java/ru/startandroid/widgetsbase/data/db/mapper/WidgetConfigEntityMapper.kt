@@ -20,13 +20,13 @@ class WidgetConfigEntityMapper @Inject constructor(
         val config = configFromJson(widgetConfigEntityDb.id, widgetConfigEntityDb.config)
                 ?: return null
 
-        return WidgetConfigEntity(widgetConfigEntityDb.id, config, widgetConfigEntityDb.enabled)
+        return WidgetConfigEntity(widgetConfigEntityDb.id, config, widgetConfigEntityDb.enabled, widgetConfigEntityDb.updateInterval)
     }
 
     fun toDb(widgetConfigEntity: WidgetConfigEntity): WidgetConfigEntityDb {
         val config = configToJson(widgetConfigEntity.config)
 
-        return WidgetConfigEntityDb(widgetConfigEntity.id, config, widgetConfigEntity.enabled)
+        return WidgetConfigEntityDb(widgetConfigEntity.id, config, widgetConfigEntity.enabled, widgetConfigEntity.updateInterval)
     }
 
     fun configFromJson(id: Int, json: String): WidgetConfig? {

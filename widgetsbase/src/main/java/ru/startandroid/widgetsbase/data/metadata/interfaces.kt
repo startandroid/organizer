@@ -14,7 +14,8 @@ interface WidgetMetadataRepository :
         WidgetContentMetadataRepository,
         WidgetDbDataHelperRepository,
         WidgetDbInitMetadataRepository,
-        WidgetConfigScreenMetadataRepository
+        WidgetConfigScreenMetadataRepository,
+        WidgetRefreshParametersMetadataRepository
 
 interface WidgetRegistratorMetadataRepository {
     fun registerData(widgetMetadataSet: Set<WidgetMetadata>)
@@ -41,4 +42,9 @@ interface WidgetConfigScreenMetadataRepository {
     fun getConfigFragment(id: Int): BaseWidgetConfigFragment<*>?
     fun getWidgetTitleResId(id: Int): Int?
     fun getWidgetDescriptionResId(id: Int): Int?
+}
+
+interface WidgetRefreshParametersMetadataRepository {
+    fun autoRefresh(id: Int): Boolean?
+    fun needsInternet(id: Int): Boolean?
 }

@@ -15,7 +15,7 @@ interface WidgetConfigRepository {
 
     fun getById(id: Int): Single<WidgetConfigEntity>
 
-    fun update(id: Int, config: WidgetConfig, enabled: Boolean): Single<Int>
+    fun update(widgetConfigEntity: WidgetConfigEntity): Single<Int>
 
     fun setEnabled(id: Int, enabled: Boolean): Single<Int>
 
