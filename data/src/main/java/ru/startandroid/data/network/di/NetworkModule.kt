@@ -15,4 +15,10 @@ class NetworkModule {
         return WeatherAPI.create()
     }
 
+    @Provides
+    internal fun providePlaces(): WeatherAPI {
+
+        return WeatherAPI.create()
+    }
+
 }
