@@ -11,8 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.startandroid.data.BuildConfig
-import ru.startandroid.domain.models.placesmodel.citiesdetailsmodels.CityDetails
-import ru.startandroid.domain.models.placesmodel.citiesrequestmodels.CitiesRequestResult
+import ru.startandroid.domain.models.placesmodels.citiesdetailsmodels.CityDetails
+import ru.startandroid.domain.models.placesmodels.citiesrequestmodels.CitiesRequestResult
 
 
 interface PlacesAPI {
@@ -33,7 +33,7 @@ interface PlacesAPI {
             val headerAuthorizationInterceptor = Interceptor { chain ->
                 var request: Request = chain.request()
                 val url = request.url.newBuilder()
-                        .addQueryParameter("key", "AIzaSyDJrJtQwO2w3OCSzXSLiNP_XUgJtujnov")
+                        .addQueryParameter("key", "AIzaSyDJrJtQwO2w3OCSzXSLiNP_XUgJtujnov4")
                         .build()
                 request = request.newBuilder().url(url).build()
                 chain.proceed(request)

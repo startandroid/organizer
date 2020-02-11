@@ -1,6 +1,7 @@
 package ru.startandroid.widgets.weatherwidget
 
 
+import ru.startandroid.data.network.PlacesAPI
 import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
@@ -18,12 +19,16 @@ class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
 
     override fun refreshData(config: WidgetConfigEntity?): WidgetData? {
         val api: WeatherAPI = WeatherAPI.create()
+        val  apiPl = PlacesAPI.create()
+        val resp = apiPl.getPlaceDetails("22", "ru")
+
 
         val response = api.getCityWeather("Moscow", "3").execute()
+
         val weatherData = response.body()
 
         return weatherData?.forecast?.forecastday?.let {
-            ru.startandroid.widgets.weatherwidget.WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().time))}",
+            WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().time))}",
                     tempMain = weatherData.current?.tempC?.toInt().toString()
                     , temp1 = it[0].day?.avgtempC?.toInt().toString()
                     , temp2 = it[1].day?.avgtempC?.toInt().toString()

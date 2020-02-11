@@ -1,4 +1,4 @@
-package ru.startandroid.domain.models.placesmodel.citiesrequestmodels
+package ru.startandroid.domain.models.placesmodels.citiesrequestmodels
 
 
 

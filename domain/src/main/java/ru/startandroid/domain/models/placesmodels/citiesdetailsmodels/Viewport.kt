@@ -1,4 +1,4 @@
-package ru.startandroid.domain.models.placesmodel.citiesdetailsmodels
+package ru.startandroid.domain.models.placesmodels.citiesdetailsmodels
 
 
 data class Viewport (
