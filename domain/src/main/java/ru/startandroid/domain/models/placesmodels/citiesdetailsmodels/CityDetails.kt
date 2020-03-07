@@ -3,7 +3,7 @@ package ru.startandroid.domain.models.placesmodels.citiesdetailsmodels
 
 data class CityDetails (
 
-	val html_attributions : List<String>,
+	val htmlAttributions : List<String>,
 	val result : Result,
 	val status : String
 )
