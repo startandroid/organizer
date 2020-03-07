@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.weatherwidget
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import kotlinx.android.synthetic.main.fragment_weather_widget_config.*
@@ -16,6 +17,15 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
+        chooseCityBtn.setOnClickListener {
+            CitySearchFragment().apply {
+                setTargetFragment(this, REQ_CODE_CITY_FRAGMENT)
+                childFragmentManager
+                        .beginTransaction()
+                        .add(ru.startandroid.widgetsbase.R.id.container, this)
+                        .commit()
+            }
+        }
     }
 
     override fun getNewConfig(): WidgetConfig {
@@ -26,4 +36,7 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         return true
     }
 
+
 }
+
+const val REQ_CODE_CITY_FRAGMENT = 101

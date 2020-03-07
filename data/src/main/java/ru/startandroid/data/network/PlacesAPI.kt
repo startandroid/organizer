@@ -33,7 +33,7 @@ interface PlacesAPI {
             val headerAuthorizationInterceptor = Interceptor { chain ->
                 var request: Request = chain.request()
                 val url = request.url.newBuilder()
-                        .addQueryParameter("key", "AIzaSyDJrJtQwO2w3OCSzXSLiNP_XUgJtujnov4")
+                        .addQueryParameter("key", BuildConfig.GOOGLE_PLACES_API_KEY)
                         .build()
                 request = request.newBuilder().url(url).build()
                 chain.proceed(request)
@@ -57,3 +57,4 @@ interface PlacesAPI {
     }
 
 }
+

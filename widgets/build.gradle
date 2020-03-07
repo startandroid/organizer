@@ -52,6 +52,7 @@ dependencies {
     implementation dagger.dagger
     implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt dagger.daggerCompiler
 
     implementation room.roomRuntime
@@ -64,6 +65,7 @@ dependencies {
     implementation retrofit.retrofit
     implementation retrofit.gson
     implementation material.material
+    implementation edittextplaces.edittextplaces
 
     implementation workmanager.runtimektx
     implementation project(':widgetsbase')

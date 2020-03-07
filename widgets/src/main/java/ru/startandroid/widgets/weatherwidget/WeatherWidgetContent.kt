@@ -11,7 +11,6 @@ class WeatherWidgetContent @Inject constructor() : BaseWidgetContent<ru.startand
 
     override fun getLayoutId(): Int = R.layout.widget_weather
 
-
     override fun onDataSet(widgetData: ru.startandroid.widgets.weatherwidget.WeatherWidgetData) {
         tvTime.text = widgetData.time
         tvTempMain.text = widgetData.tempMain + "\u2103"

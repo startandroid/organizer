@@ -12,7 +12,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.2'
+        classpath 'com.android.tools.build:gradle:3.6.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
         classpath 'com.google.gms:google-services:4.3.0'
         classpath 'io.fabric.tools:gradle:1.29.0'
@@ -27,6 +27,7 @@ allprojects {
         maven {
             url 'https://maven.fabric.io/public'
         }
+        maven { url "https://jitpack.io" }
         google()
         jcenter()
     }
@@ -35,7 +36,6 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
-
 
 ext {
 
@@ -46,7 +46,6 @@ ext {
             minSdkVersion    : 21,
             targetSdkVersion : 28,
             compileSdkVersion: 28,
-
     ]
 
     versions = [
@@ -74,13 +73,13 @@ ext {
             workmanager       : '2.2.0',
             material          : "1.0.0",
             dialoghelper      : "0.1.5",
-            leakcanary        : '2.0-beta-3'
+            leakcanary        : '2.0-beta-3',
+            edittextplaces    : '0.0.6'
     ]
 
     okhttp3 = [
             logging: "com.squareup.okhttp3:logging-interceptor:${versions.logginginterceptor}"
     ]
-
 
     appcompat = [
             appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
@@ -97,7 +96,6 @@ ext {
     lifecycle = [
             extensions: "androidx.lifecycle:lifecycle-extensions:${versions.lifecycle}",
             reactivestreams: "androidx.lifecycle:lifecycle-reactivestreams:${versions.lifecycle}"
-
     ]
 
     androidx_view = [
@@ -165,7 +163,6 @@ ext {
             gson: "com.google.code.gson:gson:${versions.gson}"
     ]
 
-
     workmanager = [
             runtimektx: "androidx.work:work-runtime-ktx:${versions.workmanager}"
     ]
@@ -180,6 +177,10 @@ ext {
 
     leakcanary = [
             leakcanary: "com.squareup.leakcanary:leakcanary-android:${versions.leakcanary}"
+    ]
+
+    edittextplaces = [
+            edittextplaces: "com.github.mukeshsolanki:Google-Places-AutoComplete-EditText:${versions.edittextplaces}"
     ]
 
 }
