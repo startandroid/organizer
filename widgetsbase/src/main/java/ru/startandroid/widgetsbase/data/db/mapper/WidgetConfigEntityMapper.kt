@@ -3,14 +3,14 @@ package ru.startandroid.widgetsbase.data.db.mapper
 import com.google.gson.Gson
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.model.WidgetConfigEntityDb
-import ru.startandroid.widgetsbase.data.metadata.WidgetMappingMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import javax.inject.Inject
 
 @ScopeApplication
 class WidgetConfigEntityMapper @Inject constructor(
-        val widgetMetadataRepository: WidgetMappingMetadataRepository,
+        val widgetMetadataRepository: WidgetMetadataRepository,
         private val gson: Gson
 ) {
 
@@ -30,7 +30,7 @@ class WidgetConfigEntityMapper @Inject constructor(
     }
 
     fun configFromJson(id: Int, json: String): WidgetConfig? {
-        return widgetMetadataRepository.getWidgetConfigClass(id)
+        return widgetMetadataRepository.getWidgetMetadata(id)?.config?.widgetConfigCls
                 ?.let { gson.fromJson(json, it.java) }
     }
 

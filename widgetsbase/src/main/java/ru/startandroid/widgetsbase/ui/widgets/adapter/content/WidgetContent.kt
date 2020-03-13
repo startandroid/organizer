@@ -25,13 +25,8 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
         this.widgetContainerDataCallback = callback
     }
 
-    fun setContainerData(id: Int = 0,
-                         title: String = "",
-                         refreshButtonIsVisible: Boolean = false,
-                         configButtonIsVisible: Boolean = false,
-                         closeButtonIsVisible: Boolean = false) {
-        widgetContainerDataCallback?.setWidgetContainerData(WidgetContainerData(id, title, refreshButtonIsVisible, configButtonIsVisible, closeButtonIsVisible))
-    }
+    fun updateContainerData(func: (oldData: WidgetContainerData) ->  WidgetContainerData) =
+        widgetContainerDataCallback?.updateWidgetContainerData(func)
 
     abstract fun getLayoutId(): Int
 

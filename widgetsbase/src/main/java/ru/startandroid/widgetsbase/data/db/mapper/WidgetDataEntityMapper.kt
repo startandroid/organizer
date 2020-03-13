@@ -3,14 +3,17 @@ package ru.startandroid.widgetsbase.data.db.mapper
 import com.google.gson.Gson
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.model.WidgetDataEntityDb
-import ru.startandroid.widgetsbase.data.metadata.WidgetMappingMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import javax.inject.Inject
 
+
+// TODO do it in right way: mapper classes, dao class names ...
+// https://proandroiddev.com/the-real-repository-pattern-in-android-efba8662b754
 @ScopeApplication
 class WidgetDataEntityMapper @Inject constructor(
-        val widgetMetadataRepository: WidgetMappingMetadataRepository,
+        val widgetMetadataRepository: WidgetMetadataRepository,
         private val gson: Gson
 ) {
 
@@ -31,7 +34,7 @@ class WidgetDataEntityMapper @Inject constructor(
     fun dataToJson(data: WidgetData) = gson.toJson(data)
 
     fun dataFromJson(id: Int, json: String): WidgetData? {
-        return widgetMetadataRepository.getWidgetDataClass(id)
+        return widgetMetadataRepository.getWidgetMetadata(id)?.content?.widgetDataCls
                 ?.let { gson.fromJson(json, it.java) }
     }
 

@@ -15,7 +15,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widget_config_container.*
 import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.widgetsbase.R
-import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.databinding.FragmentWidgetConfigContainerBinding
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
@@ -44,7 +44,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     lateinit var dialogHelper: DialogHelper
 
     @Inject
-    lateinit var widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository
+    lateinit var widgetMetadataRepository: WidgetMetadataRepository
 
     private val model by viewModel(WidgetConfigContainerViewModel::class.java) { widgetConfigContainerViewModelFactory }
 
@@ -72,7 +72,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     private fun createWidgetConfigFragment(widgetConfigEntity: WidgetConfigEntity?) {
         widgetConfigEntity?.let {
-            val widgetConfigFragment = (widgetMetadataRepositoryImpl.getConfigFragment(widgetId) as BaseWidgetConfigFragment<*>)
+            val widgetConfigFragment = (widgetMetadataRepository.getWidgetMetadata(widgetId)?.config?.widgetConfigFragment as BaseWidgetConfigFragment<*>)
                     .withConfig(it.config)
             childFragmentManager
                     .beginTransaction()

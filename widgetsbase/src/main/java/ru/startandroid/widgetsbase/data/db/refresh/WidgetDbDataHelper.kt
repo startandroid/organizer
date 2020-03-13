@@ -5,6 +5,8 @@ import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 
 
+
+// TODO write comments and explanations everywhere
 interface WidgetDbDataHelper {
 
     fun getInitConfig(): WidgetConfigEntity?

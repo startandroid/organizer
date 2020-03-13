@@ -1,6 +1,8 @@
-package ru.startandroid.widgets.testwidget2
+package ru.startandroid.widgets.testwidget2.update
 
 import android.util.Log
+import ru.startandroid.widgets.testwidget2.config.TestWidget2Config
+import ru.startandroid.widgets.testwidget2.content.TestWidget2Data
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetDbDataHelper
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetData
@@ -12,7 +14,7 @@ import javax.inject.Inject
 
 class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
     override fun correctDataAccordingToConfig(data: WidgetDataEntity?, config: WidgetConfigEntity?): WidgetData {
-        return ru.startandroid.widgets.testwidget2.TestWidget2Data("test1", text2 = "test2")
+        return TestWidget2Data("test1", text2 = "test2")
     }
 
     override fun refreshData(config: WidgetConfigEntity?): WidgetData? {
@@ -33,7 +35,7 @@ class TestWidget2DbDataHelper @Inject constructor() : WidgetDbDataHelper {
                 bytesRead = instream.read(contents)
             }
             //Log.d("qweee", "refreshData widget 2 $strFileContents")
-            return ru.startandroid.widgets.testwidget2.TestWidget2Data(text1 = "test1", text2 = strFileContents)
+            return TestWidget2Data(text1 = "test1", text2 = strFileContents)
         } finally {
             urlConnection.disconnect()
         }

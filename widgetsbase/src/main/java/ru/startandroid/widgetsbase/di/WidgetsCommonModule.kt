@@ -60,8 +60,8 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetWorkManager(workManagerProvider: dagger.Lazy<WorkManager>, widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository): WidgetWorkManager
-            = WidgetWorkManagerImpl(workManagerProvider, widgetRefreshParametersMetadataRepository)
+    fun provideWidgetWorkManager(workManagerProvider: dagger.Lazy<WorkManager>, widgetMetadataRepository: WidgetMetadataRepository): WidgetWorkManager
+            = WidgetWorkManagerImpl(workManagerProvider, widgetMetadataRepository)
 
 }
 
@@ -72,25 +72,7 @@ abstract class WidgetMetadataProviderModule {
     abstract fun provideWidgetMetadataRepository(widgetMetadataRepository: WidgetMetadataRepositoryImpl): WidgetMetadataRepository
 
     @Binds
-    abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetMappingMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetContentMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetContentMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRefresherMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbDataHelperRepository
-
-    @Binds
-    abstract fun provideWidgetDbInitMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbInitMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetConfigScreenMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetConfigScreenMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRefreshParametersMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetRefreshParametersMetadataRepository
+    abstract fun provideWidgetRegistratorMetadataRepository(widgetMetadataRepository: WidgetMetadataRepositoryImpl): WidgetRegistratorMetadataRepository
 
 }
 

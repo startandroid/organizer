@@ -2,20 +2,20 @@ package ru.startandroid.widgets
 
 import dagger.Module
 import dagger.Provides
-import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
 
 @Module
 class WidgetsModule {
 
     @Provides
     fun provideWidgetsData(
-            testWidget1RegisterData: ru.startandroid.widgets.testwidget1.TestWidget1WidgetMetadata,
-            testWidget2RegisterData: ru.startandroid.widgets.testwidget2.TestWidget2WidgetMetadata,
-            weatherWidgetRegisterData: ru.startandroid.widgets.weatherwidget.WeatherWidgetWidgetMetadata
-    ): MutableSet<WidgetMetadata> {
-        return mutableSetOf(testWidget1RegisterData,
-                testWidget2RegisterData,
-                weatherWidgetRegisterData)
+            testWidget1MetadataProvider: ru.startandroid.widgets.testwidget1.TestWidget1MetadataProvider,
+            testWidget2MetadataProvider: ru.startandroid.widgets.testwidget2.TestWidget2MetadataProvider,
+            weatherWidget1MetadataProvider: ru.startandroid.widgets.weatherwidget.WeatherWidget1MetadataProvider
+    ): MutableSet<WidgetMetadataProvider> {
+        return mutableSetOf(testWidget1MetadataProvider,
+                testWidget2MetadataProvider,
+                weatherWidget1MetadataProvider)
     }
 
 }

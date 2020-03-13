@@ -5,13 +5,13 @@ import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import ru.startandroid.widgetsbase.data.metadata.WidgetDbInitMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import java.util.concurrent.Executor
 import javax.inject.Inject
 
 class WidgetDbInitializer @Inject constructor(
-        val widgetMetadataRepository: WidgetDbInitMetadataRepository,
+        val widgetMetadataRepository: WidgetMetadataRepository,
         val widgetWorkManager: WidgetWorkManager,
         val dbExecutor: Executor) {
 

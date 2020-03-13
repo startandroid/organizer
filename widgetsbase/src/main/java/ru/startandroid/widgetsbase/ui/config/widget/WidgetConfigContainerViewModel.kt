@@ -11,8 +11,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import ru.startandroid.device.SingleLiveEvent
-import ru.startandroid.widgetsbase.data.metadata.WidgetConfigScreenMetadataRepository
-import ru.startandroid.widgetsbase.data.metadata.WidgetRefreshParametersMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
@@ -25,8 +24,7 @@ class WidgetConfigContainerViewModel(
         private val widgetConfigRepository: WidgetConfigRepository,
         private val updateIntervals: UpdateIntervals,
         private val updateWidgetUseCase: UpdateWidgetUseCase,
-        widgetMetadataRepositoryImpl: WidgetConfigScreenMetadataRepository,
-        widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository
+        widgetMetadataRepository: WidgetMetadataRepository
 
 ) : ViewModel() {
 
@@ -56,9 +54,9 @@ class WidgetConfigContainerViewModel(
     private var isClosing = false
 
     init {
-        title.set(widgetMetadataRepositoryImpl.getWidgetTitleResId(widgetId))
-        description.set(widgetMetadataRepositoryImpl.getWidgetDescriptionResId(widgetId))
-        updateIntervalVisible.set(widgetRefreshParametersMetadataRepository.autoRefresh(widgetId)
+        title.set(widgetMetadataRepository.getWidgetMetadata(widgetId)?.details?.titleResId)
+        description.set(widgetMetadataRepository.getWidgetMetadata(widgetId)?.details?.descriptionResId)
+        updateIntervalVisible.set(widgetMetadataRepository.getWidgetMetadata(widgetId)?.update?.autoRefresh
                 ?: false)
     }
 

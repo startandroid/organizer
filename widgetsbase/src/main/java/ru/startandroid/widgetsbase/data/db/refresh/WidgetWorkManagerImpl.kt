@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.work.*
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
-import ru.startandroid.widgetsbase.data.metadata.WidgetRefreshParametersMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 @ScopeApplication
 class WidgetWorkManagerImpl @Inject constructor(
         private val workManagerProvider: dagger.Lazy<WorkManager>,
-        private val widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository
+        private val widgetMetadataRepository: WidgetMetadataRepository
 ): WidgetWorkManager {
 
     private val workManager: WorkManager by lazy { workManagerProvider.get() }
@@ -98,9 +98,9 @@ class WidgetWorkManagerImpl @Inject constructor(
         Log.d("qweee", "createPeriodicRefreshWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
 
-        widgetRefreshParametersMetadataRepository
+
         val constraints = Constraints.Builder().apply {
-            if (widgetRefreshParametersMetadataRepository.needsInternet(id) == true)
+            if (widgetMetadataRepository.getWidgetMetadata(id)?.update?.needsInternet == true)
                 setRequiredNetworkType(NetworkType.CONNECTED)
         }.build()
         return PeriodicWorkRequestBuilder<RefreshWorker>(updateIntervalInMillis, TimeUnit.MILLISECONDS)
