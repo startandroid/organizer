@@ -12,8 +12,7 @@ import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
-import ru.startandroid.widgetsbase.data.db.mapper.WidgetConfigEntityMapper
-import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityMapper
+import ru.startandroid.widgetsbase.data.db.mapper.*
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkManagerImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetConfigRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
@@ -37,15 +36,28 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper)
+    fun provideWidgetDataRepository(
+            widgetDatabase: WidgetDatabase,
+            widgetDataEntityUiToDbMapper: WidgetDataEntityUiToDbMapper,
+            widgetDataEntityDbToUiMapper: WidgetDataEntityDbToUiMapper
+    ): WidgetDataRepository =
+            WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityUiToDbMapper, widgetDataEntityDbToUiMapper)
 
     @ScopeApplication
     @Provides
-    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper, dbScheduler: Scheduler, analytics: Analytics): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper, dbScheduler, analytics)
+    fun provideWidgetConfigRepository(
+            widgetDatabase: WidgetDatabase,
+            widgetConfigEntityUiToDbMapper: WidgetConfigEntityUiToDbMapper,
+            widgetConfigEntityDbToUiMapper: WidgetConfigEntityDbToUiMapper,
+            dbScheduler: Scheduler,
+            analytics: Analytics
+    ): WidgetConfigRepository =
+            WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityUiToDbMapper, widgetConfigEntityDbToUiMapper, dbScheduler, analytics)
 
     @ScopeApplication
     @Provides
-    fun provideWidgetRefreshStatusRepository(widgetDatabase: WidgetDatabase): WidgetRefreshStatusRepository = WidgetRefreshStatusRepositoryImpl(widgetDatabase)
+    fun provideWidgetRefreshStatusRepository(widgetDatabase: WidgetDatabase): WidgetRefreshStatusRepository =
+            WidgetRefreshStatusRepositoryImpl(widgetDatabase)
 
     @ScopeApplication
     @Provides
