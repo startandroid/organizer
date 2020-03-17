@@ -33,7 +33,7 @@ class WidgetContainerHolder(override val containerView: View,
             )
             updateHeaderUI(widgetContainerData)
 
-            widgetContent = it.content.widgetContent.get()
+            widgetContent = it.content.widgetContent.invoke()
         }
 
         widgetContent?.run {

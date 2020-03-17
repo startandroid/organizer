@@ -23,7 +23,7 @@ class WidgetWorkerFactory @Inject constructor(
 
     override fun createWorker(appContext: Context, workerClassName: String, workerParameters: WorkerParameters): ListenableWorker? {
         val id = workerParameters.inputData.getInt(PARAM_KEY.WIDGET_ID, 0)
-        val refresher = widgetMetadataRepository.getWidgetMetadata(id)?.update?.widgetRefresher?.get()
+        val refresher = widgetMetadataRepository.getWidgetMetadata(id)?.update?.widgetRefresher?.invoke()
         return when (workerClassName) {
             InitWorker::class.java.name -> InitWorker(appContext, workerParameters, refresher, widgetConfigRepository, widgetRefreshStatusRepository)
             RefreshWorker::class.java.name -> RefreshWorker(appContext, workerParameters, refresher, widgetDataRepository, widgetConfigRepository, widgetRefreshStatusRepository)

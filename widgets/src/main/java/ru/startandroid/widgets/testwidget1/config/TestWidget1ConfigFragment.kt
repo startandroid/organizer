@@ -7,7 +7,6 @@ import ru.startandroid.widgets.R
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 
-// TODO use fragfactory in metadata. Otherwise a lot of fragments are created.
 class TestWidget1ConfigFragment : BaseWidgetConfigFragment<TestWidget1Config>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_test_widget1_config

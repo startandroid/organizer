@@ -9,12 +9,8 @@ import ru.startandroid.widgets.testwidget1.content.TestWidget1Data
 import ru.startandroid.widgets.testwidget1.update.TestWidget1DbDataHelper
 import ru.startandroid.widgetsbase.data.metadata.*
 import javax.inject.Inject
-import javax.inject.Provider
 
-class TestWidget1MetadataProvider @Inject constructor (
-        private val widgetContentProvider: Provider<TestWidget1Content>,
-        private val widgetRefresherProvider: Provider<TestWidget1DbDataHelper>
-): WidgetMetadataProvider {
+class TestWidget1MetadataProvider @Inject constructor (): WidgetMetadataProvider {
 
     override fun getWidgetId(): Int = TEST_WIDGET_1
 
@@ -28,7 +24,7 @@ class TestWidget1MetadataProvider @Inject constructor (
 
             content {
                 widgetDataCls = TestWidget1Data::class
-                widgetContent = widgetContentProvider
+                widgetContent = { TestWidget1Content() }
             }
 
             header {
@@ -39,13 +35,13 @@ class TestWidget1MetadataProvider @Inject constructor (
 
             config {
                 widgetConfigCls = TestWidget1Config::class
-                widgetConfigFragment = TestWidget1ConfigFragment()
+                widgetConfigFragment = { TestWidget1ConfigFragment() }
             }
 
             update {
                 autoRefresh = false
                 needsInternet = false
-                widgetRefresher = widgetRefresherProvider
+                widgetRefresher = { TestWidget1DbDataHelper() }
             }
         }
     }

@@ -11,13 +11,8 @@ import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
 import ru.startandroid.widgetsbase.data.metadata.metadata
 import javax.inject.Inject
-import javax.inject.Provider
 
-
-class WeatherWidget1MetadataProvider @Inject constructor(
-        private val widgetContentProvider: Provider<WeatherWidgetContent>,
-        private val widgetRefresherProvider: Provider<WeatherWidgetDbDataHelper>
-) : WidgetMetadataProvider {
+class WeatherWidget1MetadataProvider @Inject constructor() : WidgetMetadataProvider {
 
     override fun getWidgetId(): Int = WEATHER_WIDGET
 
@@ -31,7 +26,7 @@ class WeatherWidget1MetadataProvider @Inject constructor(
 
             content {
                 widgetDataCls = WeatherWidgetData::class
-                widgetContent = widgetContentProvider
+                widgetContent = { WeatherWidgetContent() }
             }
 
             header {
@@ -42,13 +37,13 @@ class WeatherWidget1MetadataProvider @Inject constructor(
 
             config {
                 widgetConfigCls = WeatherWidgetConfig::class
-                widgetConfigFragment = WeatherWidgetConfigFragment()
+                widgetConfigFragment = { WeatherWidgetConfigFragment() }
             }
 
             update {
                 autoRefresh = false
                 needsInternet = false
-                widgetRefresher = widgetRefresherProvider
+                widgetRefresher = { WeatherWidgetDbDataHelper() }
             }
         }
     }

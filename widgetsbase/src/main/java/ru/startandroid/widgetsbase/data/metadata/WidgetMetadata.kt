@@ -5,7 +5,6 @@ import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 import ru.startandroid.widgetsbase.ui.widgets.adapter.content.WidgetContent
-import javax.inject.Provider
 import kotlin.reflect.KClass
 
 fun metadata(init: WidgetMetadataDslBuilder.() -> Unit): WidgetMetadata {
@@ -67,7 +66,7 @@ class WidgetMetadataDetails: Element() {
 
 class WidgetMetadataContent: Element() {
     lateinit var widgetDataCls: KClass<out WidgetData>
-    lateinit var widgetContent: Provider<out WidgetContent>
+    lateinit var widgetContent: () -> WidgetContent
 }
 
 class WidgetMetadataHeader: Element() {
@@ -78,13 +77,13 @@ class WidgetMetadataHeader: Element() {
 
 class WidgetMetadataConfig: Element() {
     lateinit var widgetConfigCls: KClass<out WidgetConfig>
-    lateinit var widgetConfigFragment: BaseWidgetConfigFragment<*>
+    lateinit var widgetConfigFragment: () -> BaseWidgetConfigFragment<*>
 }
 
 class WidgetMetadataUpdate: Element() {
     var autoRefresh: Boolean = false
     var needsInternet: Boolean = false
-    lateinit var widgetRefresher: Provider<out WidgetDbDataHelper>
+    lateinit var widgetRefresher: () -> WidgetDbDataHelper
 }
 
 @DslMarker
