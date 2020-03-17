@@ -10,7 +10,6 @@ import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 
 class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig>() {
 
-
     override fun getLayoutId(): Int = R.layout.fragment_weather_widget_config
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -18,8 +17,8 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
     }
 
-    override fun getNewConfig(): WidgetConfig {
-        return getOriginalConfig()
+    override fun fillNewConfig(oldConfig: WeatherWidgetConfig): WidgetConfig {
+        return oldConfig
     }
 
     override fun checkIfNewConfigIsValid(): Boolean {

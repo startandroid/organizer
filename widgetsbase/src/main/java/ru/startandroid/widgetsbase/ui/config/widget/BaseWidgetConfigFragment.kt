@@ -29,7 +29,9 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
         return argConfig as T
     }
 
-    abstract fun getNewConfig(): WidgetConfig
+    fun getNewConfig(): WidgetConfig = fillNewConfig(getOriginalConfig())
+
+    abstract fun fillNewConfig(oldConfig: T): WidgetConfig
     abstract fun checkIfNewConfigIsValid(): Boolean
     abstract fun getLayoutId(): Int
 

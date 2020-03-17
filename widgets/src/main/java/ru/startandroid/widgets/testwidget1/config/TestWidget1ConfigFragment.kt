@@ -18,8 +18,8 @@ class TestWidget1ConfigFragment : BaseWidgetConfigFragment<TestWidget1Config>() 
         flag.isChecked = getOriginalConfig().flag
     }
 
-    override fun getNewConfig(): WidgetConfig {
-        return getOriginalConfig().copy(flag = flag.isChecked, text = edittext.text.toString())
+    override fun fillNewConfig(oldConfig: TestWidget1Config): WidgetConfig {
+        return oldConfig.copy(flag = flag.isChecked, text = edittext.text.toString())
     }
 
     override fun checkIfNewConfigIsValid(): Boolean {
