@@ -4,11 +4,17 @@ import android.util.Log
 import androidx.work.*
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
+import ru.startandroid.widgetsbase.data.db.refresh.worker.InitWorker
+import ru.startandroid.widgetsbase.data.db.refresh.worker.RefreshWorker
+import ru.startandroid.widgetsbase.data.db.refresh.worker.ScheduleRefreshWorker
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+/**
+ * Creates and schedules workers for init and update widgets data
+ */
 @ScopeApplication
 class WidgetWorkManagerImpl @Inject constructor(
         private val workManagerProvider: dagger.Lazy<WorkManager>,
@@ -22,9 +28,7 @@ class WidgetWorkManagerImpl @Inject constructor(
         for (id in ids) {
             workManager
                     .beginWith(createInitWorker(id))
-                    .then(createCorrectWorker(id))
-                    .then(createRefreshWorker(id))
-                    .then(createScheduleRefreshWorker(id))
+                    .then(listOf(createRefreshWorker(id), createScheduleRefreshWorker(id)))
                     .enqueue()
         }
     }
@@ -34,20 +38,10 @@ class WidgetWorkManagerImpl @Inject constructor(
         workManager.enqueue(createRefreshWorker(id))
     }
 
-    override fun refreshThenSchedule(id: Int) {
+    override fun refreshAndScheduleRefresh(id: Int) {
         Log.d("qweee", "refreshThenSchedule $id")
         workManager
-                .beginWith(createRefreshWorker(id))
-                .then(createScheduleRefreshWorker(id))
-                .enqueue()
-    }
-
-    override fun correctThenRefreshThenSchedule(id: Int) {
-        Log.d("qweee", "correctThenRefreshThenSchedule $id")
-        workManager
-                .beginWith(createCorrectWorker(id))
-                .then(createRefreshWorker(id))
-                .then(createScheduleRefreshWorker(id))
+                .beginWith(listOf(createRefreshWorker(id), createScheduleRefreshWorker(id)))
                 .enqueue()
     }
 
@@ -66,14 +60,6 @@ class WidgetWorkManagerImpl @Inject constructor(
         Log.d("qweee", "createInitWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
         return OneTimeWorkRequestBuilder<InitWorker>()
-                .setInputData(data)
-                .build()
-    }
-
-    private fun createCorrectWorker(id: Int): OneTimeWorkRequest {
-        Log.d("qweee", "createCorrectWorker $id")
-        val data = Data.Builder().putInt(WIDGET_ID, id).build()
-        return OneTimeWorkRequestBuilder<CorrectWorker>()
                 .setInputData(data)
                 .build()
     }
@@ -100,7 +86,7 @@ class WidgetWorkManagerImpl @Inject constructor(
 
 
         val constraints = Constraints.Builder().apply {
-            if (widgetMetadataRepository.getWidgetMetadata(id)?.update?.needsInternet == true)
+            if (widgetMetadataRepository.getWidgetMetadata(id).update.needsInternet)
                 setRequiredNetworkType(NetworkType.CONNECTED)
         }.build()
         return PeriodicWorkRequestBuilder<RefreshWorker>(updateIntervalInMillis, TimeUnit.MILLISECONDS)

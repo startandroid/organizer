@@ -6,21 +6,24 @@ import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.EnableWidgetUseCase
-import ru.startandroid.widgetsbase.ui.config.list.adapter.Config
+import ru.startandroid.widgetsbase.domain.usecase.GetWidgetsConfigsUseCase
+import ru.startandroid.widgetsbase.ui.config.list.adapter.ConfigListItem
 
 class WidgetsConfigViewModel(
         private val widgetConfigRepository: WidgetConfigRepository,
         private val disableWidgetUseCase: DisableWidgetUseCase,
         private val enableWidgetUseCase: EnableWidgetUseCase,
+        private val getWidgetsConfigsUseCase: GetWidgetsConfigsUseCase,
         private val navigator: Navigator
 ) : ViewModel() {
 
     private val widgetsConfigLiveData by lazy {
+        // TODO use case
         LiveDataReactiveStreams.fromPublisher(
-                widgetConfigRepository.getAll()
+                getWidgetsConfigsUseCase.invoke()
                         .map {
                             it.map {
-                                Config(it.id, "title ${it.id}", it.enabled)
+                                ConfigListItem(it.id, "title ${it.id}", it.mainConfig.enabled)
                             }
                         }
         )
@@ -34,9 +37,9 @@ class WidgetsConfigViewModel(
 
     fun onItemEnabled(id: Int, enabled: Boolean) {
         if (enabled) {
-            enableWidgetUseCase.invoke(id)
+            enableWidgetUseCase.invoke(id).subscribe()
         } else {
-            disableWidgetUseCase.invoke(id)
+            disableWidgetUseCase.invoke(id).subscribe()
         }
     }
 
