@@ -17,7 +17,7 @@ import javax.inject.Inject
 /**
  * Displays list of widgets names with enable/disable toggles. Click to any widget goes to config screen of this widget
  */
-class WidgetsConfigFragment : DaggerFragment() {
+class ConfigListFragment : DaggerFragment() {
 
     @Inject
     lateinit var widgetsViewModelFactory: WidgetsViewModelFactory
@@ -25,7 +25,7 @@ class WidgetsConfigFragment : DaggerFragment() {
     @Inject
     lateinit var adapter: ConfigListAdapter
 
-    private val model by viewModel(WidgetsConfigViewModel::class.java) { widgetsViewModelFactory }
+    private val model by viewModel(ConfigListViewModel::class.java) { widgetsViewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

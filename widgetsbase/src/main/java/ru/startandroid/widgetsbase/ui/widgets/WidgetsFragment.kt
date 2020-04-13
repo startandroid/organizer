@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.ui.widgets
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,10 @@ import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
 
+/**
+ * Displays list of widgets content in recyclerview
+ *
+ */
 class WidgetsFragment : DaggerFragment() {
 
     companion object {
@@ -42,6 +47,7 @@ class WidgetsFragment : DaggerFragment() {
         recyclerView.adapter = widgetAdapter
 
         model.widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
+            Log.d("qweee", "widgets, submit list ${it}")
             widgetAdapter.submitList(it)
         })
 

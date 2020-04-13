@@ -15,9 +15,25 @@ interface WidgetContent {
     fun setWidgetContainerCallback(dataCallback: WidgetContainerDataCallback)
 }
 
+/**
+ * Base class to create widget item view in recyclerview.
+ */
 abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContainer {
+
     private var widgetContainerDataCallback: WidgetContainerDataCallback? = null
     private var tempView: View? = null
+
+
+    /**
+     * This layout id will be used to create a View
+     */
+    abstract fun getLayoutId(): Int
+
+    /**
+     * Update content of the view according to new widget data
+     */
+    abstract fun onDataSet(widgetData: WidgetDataType)
+
     override val containerView: View?
         get() = tempView
 
@@ -28,13 +44,9 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
     fun updateContainerData(func: (oldData: WidgetContainerData) ->  WidgetContainerData) =
         widgetContainerDataCallback?.updateWidgetContainerData(func)
 
-    abstract fun getLayoutId(): Int
-
     private fun onViewInflated(widgetView: View) {
         tempView = widgetView
     }
-
-    abstract fun onDataSet(widgetData: WidgetDataType)
 
     override fun setData(widgetDataEntity: WidgetDataEntity) {
         onDataSet(widgetDataEntity.data as WidgetDataType)

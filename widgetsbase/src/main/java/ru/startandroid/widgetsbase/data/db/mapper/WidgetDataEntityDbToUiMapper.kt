@@ -14,19 +14,17 @@ import javax.inject.Inject
 class WidgetDataEntityDbToUiMapper @Inject constructor(
         private val widgetMetadataRepository: WidgetMetadataRepository,
         private val gson: Gson
-): NullableMapper<WidgetDataEntityDb, WidgetDataEntity> {
+): Mapper<WidgetDataEntityDb, WidgetDataEntity> {
 
-    override fun map(input: WidgetDataEntityDb?): WidgetDataEntity? {
-        if (input == null) return null
-
-        val data = dataFromJson(input.id, input.data) ?: return null
+    override fun map(input: WidgetDataEntityDb): WidgetDataEntity {
+        val data = dataFromJson(input.id, input.data)
 
         return WidgetDataEntity(input.id, data)
     }
 
-    private fun dataFromJson(id: Int, json: String): WidgetData? {
-        return widgetMetadataRepository.getWidgetMetadata(id)?.content?.widgetDataCls
-                ?.let { gson.fromJson(json, it.java) }
+    private fun dataFromJson(id: Int, json: String): WidgetData {
+        return widgetMetadataRepository.getWidgetMetadata(id).content.widgetDataCls
+                .let { gson.fromJson(json, it.java) }
     }
 
 

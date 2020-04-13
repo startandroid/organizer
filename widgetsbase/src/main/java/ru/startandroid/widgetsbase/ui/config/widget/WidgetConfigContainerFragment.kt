@@ -25,6 +25,12 @@ import javax.inject.Inject
 
 const val ARG_WIDGET_ID = "widget_id"
 
+
+/**
+ * Displays general config and details for every widget: title, description, enabled/disabled, refresh period
+ *
+ * Also displays configuration screen of widget as a child fragment
+ */
 class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     companion object {
@@ -74,9 +80,9 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
         widgetConfigEntity?.let {
             val widgetConfigFragment = (widgetMetadataRepository
                                             .getWidgetMetadata(widgetId)
-                                            ?.config
-                                            ?.widgetConfigFragment
-                                            ?.invoke() as BaseWidgetConfigFragment<*>)
+                                            .config
+                                            .widgetConfigFragment
+                                            .invoke() as BaseWidgetConfigFragment<*>)
                     .withConfig(it.config)
             childFragmentManager
                     .beginTransaction()

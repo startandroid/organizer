@@ -6,27 +6,18 @@ import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.EnableWidgetUseCase
-import ru.startandroid.widgetsbase.domain.usecase.GetWidgetsConfigsUseCase
+import ru.startandroid.widgetsbase.domain.usecase.GetConfigListUseCase
 import ru.startandroid.widgetsbase.ui.config.list.adapter.ConfigListItem
 
-class WidgetsConfigViewModel(
-        private val widgetConfigRepository: WidgetConfigRepository,
+class ConfigListViewModel(
         private val disableWidgetUseCase: DisableWidgetUseCase,
         private val enableWidgetUseCase: EnableWidgetUseCase,
-        private val getWidgetsConfigsUseCase: GetWidgetsConfigsUseCase,
+        private val getConfigListUseCase: GetConfigListUseCase,
         private val navigator: Navigator
 ) : ViewModel() {
 
     private val widgetsConfigLiveData by lazy {
-        // TODO use case
-        LiveDataReactiveStreams.fromPublisher(
-                getWidgetsConfigsUseCase.invoke()
-                        .map {
-                            it.map {
-                                ConfigListItem(it.id, "title ${it.id}", it.mainConfig.enabled)
-                            }
-                        }
-        )
+        LiveDataReactiveStreams.fromPublisher(getConfigListUseCase.invoke())
     }
 
     fun getConfigs() = widgetsConfigLiveData

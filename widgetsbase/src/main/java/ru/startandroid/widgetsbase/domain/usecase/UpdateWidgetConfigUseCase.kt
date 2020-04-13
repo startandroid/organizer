@@ -1,8 +1,9 @@
 package ru.startandroid.widgetsbase.domain.usecase
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
-import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
+import io.reactivex.Completable
+import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
+import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
@@ -12,24 +13,35 @@ import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import javax.inject.Inject
 
 // TOTO rename to update widget config?
-class UpdateWidgetUseCase @Inject constructor(
+class UpdateWidgetConfigUseCase @Inject constructor(
         private val widgetDataRepository: WidgetDataRepository,
         private val widgetConfigRepository: WidgetConfigRepository,
         private val widgetMetadataRepository: WidgetMetadataRepository,
+        private val widgetDatabase: WidgetDatabase,
         private val widgetWorkManager: WidgetWorkManager
 ) {
 
-    fun invoke(widgetConfigEntity: WidgetConfigEntity) {
+    fun invoke(widgetConfigEntity: WidgetConfigEntity): Completable {
 
-        // get data from db
-        // correct it with config
-        // put new data to db
-        // put new config to db
+        return Flowable.fromCallable {
+            widgetDatabase.runInTransaction {
+                val currentData = widgetDataRepository.getWidgetByIdSync(widgetConfigEntity.id)
+                
+                widgetMetadataRepository
+                        .getWidgetMetadata(widgetConfigEntity.id)
+                        .refresh
+                        .widgetCorrect?.let {
+                            val correctedData = it.correctDataAccordingToConfig(currentData.data, widgetConfigEntity.config)
+                            widgetDataRepository.updateOrInsertSync(WidgetDataEntity(widgetConfigEntity.id, correctedData))
+                        }
+                widgetConfigRepository.updateSync(widgetConfigEntity)
+            }
+        }
+                .subscribeOn(Schedulers.io())
+                .doOnNext {
+            widgetWorkManager.refreshAndScheduleRefresh(widgetConfigEntity.id)
+        }.ignoreElements()
 
-        var dataEntity = widgetDataRepository.getWidgetByIdSync(widgetConfigEntity.id)
-        val refreshedData = widgetMetadataRepository.getWidgetMetadata(widgetConfigEntity.id).update.widgetRefresher().correctDataAccordingToConfig(dataEntity.data, widgetConfigEntity.config)
-        widgetDataRepository.updateOrInsertSync(WidgetDataEntity(widgetConfigEntity.id, refreshedData))
-        widgetConfigRepository.update(widgetConfigEntity)
 
         //widgetConfigRepository.update(widgetConfigEntity)
                 //.observeOn(AndroidSchedulers.mainThread())

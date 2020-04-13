@@ -14,8 +14,8 @@ class WidgetMetadataRepositoryImpl @Inject constructor() : WidgetMetadataReposit
         }
     }
 
-    override fun getWidgetMetadata(id: Int): WidgetMetadata? {
-        return widgetMetadata[id]
+    override fun getWidgetMetadata(id: Int): WidgetMetadata {
+        return widgetMetadata[id]!!
     }
 
     override fun getWidgetIds() = widgetMetadata.keys.toIntArray()

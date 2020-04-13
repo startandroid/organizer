@@ -11,9 +11,9 @@ import io.reactivex.schedulers.Schedulers
 import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
-import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
+import ru.startandroid.widgetsbase.data.db.init.WidgetDbInitializer
 import ru.startandroid.widgetsbase.data.db.mapper.*
-import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkManagerImpl
+import ru.startandroid.widgetsbase.data.db.workmanager.WidgetWorkManagerImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetConfigRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetRefreshStatusRepositoryImpl
@@ -39,9 +39,10 @@ class WidgetsCommonModule {
     fun provideWidgetDataRepository(
             widgetDatabase: WidgetDatabase,
             widgetDataEntityUiToDbMapper: WidgetDataEntityUiToDbMapper,
-            widgetDataEntityDbToUiMapper: WidgetDataEntityDbToUiMapper
+            widgetDataEntityDbToUiMapper: WidgetDataEntityDbToUiMapper,
+            dbScheduler: Scheduler
     ): WidgetDataRepository =
-            WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityUiToDbMapper, widgetDataEntityDbToUiMapper)
+            WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityUiToDbMapper, widgetDataEntityDbToUiMapper, dbScheduler)
 
     @ScopeApplication
     @Provides

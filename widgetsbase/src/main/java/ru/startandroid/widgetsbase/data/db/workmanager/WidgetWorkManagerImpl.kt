@@ -1,10 +1,10 @@
-package ru.startandroid.widgetsbase.data.db.refresh
+package ru.startandroid.widgetsbase.data.db.workmanager
 
 import android.util.Log
 import androidx.work.*
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
-import ru.startandroid.widgetsbase.data.db.refresh.worker.InitWorker
+import ru.startandroid.widgetsbase.data.db.init.worker.InitWorker
 import ru.startandroid.widgetsbase.data.db.refresh.worker.RefreshWorker
 import ru.startandroid.widgetsbase.data.db.refresh.worker.ScheduleRefreshWorker
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
@@ -86,7 +86,7 @@ class WidgetWorkManagerImpl @Inject constructor(
 
 
         val constraints = Constraints.Builder().apply {
-            if (widgetMetadataRepository.getWidgetMetadata(id).update.needsInternet)
+            if (widgetMetadataRepository.getWidgetMetadata(id).refresh.needsInternet)
                 setRequiredNetworkType(NetworkType.CONNECTED)
         }.build()
         return PeriodicWorkRequestBuilder<RefreshWorker>(updateIntervalInMillis, TimeUnit.MILLISECONDS)

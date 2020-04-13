@@ -1,20 +1,15 @@
 package ru.startandroid.widgetsbase.domain.usecase
 
-import io.reactivex.Flowable
-import ru.startandroid.domain.mapping.CollectionMapperImpl
+import io.reactivex.Single
+import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
-import ru.startandroid.widgetsbase.ui.config.list.adapter.ConfigListItem
-import ru.startandroid.widgetsbase.ui.config.list.adapter.WidgetConfigEntityUiToConfigListItemMapper
 import javax.inject.Inject
 
-class GetConfigListUseCase @Inject constructor(
-        private val widgetConfigRepository: WidgetConfigRepository,
-        private val widgetConfigEntityUiToConfigListItemMapper: WidgetConfigEntityUiToConfigListItemMapper
+class GetWidgetConfigUseCase @Inject constructor(
+        private val widgetConfigRepository: WidgetConfigRepository
 ) {
 
-    fun invoke(): Flowable<List<ConfigListItem>> =
-        widgetConfigRepository.getAll().map {
-            CollectionMapperImpl(widgetConfigEntityUiToConfigListItemMapper).map(it)
-        }
+    fun invoke(widgetId: Int): Single<WidgetConfigEntity> =
+            widgetConfigRepository.getById(widgetId)
 
 }

@@ -17,8 +17,7 @@ class WidgetConfigEntityUiToDbMapper @Inject constructor(
     override fun map(input: WidgetConfigEntity): WidgetConfigEntityDb {
         val config = configToJson(input.config)
 
-        return WidgetConfigEntityDb(input.id, config, input.enabled, input.updateInterval)
-
+        return WidgetConfigEntityDb(input.id, config, input.mainConfig.enabled, input.mainConfig.updateInterval)
     }
 
     private fun configToJson(config: WidgetConfig): String {

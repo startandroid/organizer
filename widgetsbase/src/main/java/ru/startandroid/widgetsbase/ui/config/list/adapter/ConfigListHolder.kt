@@ -7,9 +7,9 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.config_item.*
 import ru.startandroid.device.SingleLiveEvent
 
-class ConfigHolder(override val containerView: View,
-                   onClickClb: SingleLiveEvent<Int>,
-                   onEnableClb: SingleLiveEvent<Pair<Int, Boolean>>
+class ConfigListHolder(override val containerView: View,
+                       onClickClb: SingleLiveEvent<Int>,
+                       onEnableClb: SingleLiveEvent<Pair<Int, Boolean>>
 ) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
     init {
@@ -24,10 +24,10 @@ class ConfigHolder(override val containerView: View,
 
     private var widgetId = 0
 
-    fun bind(config: Config) {
-        widgetId = config.id
-        tvTitle.text = "${config.id} ${config.title}"
-        tgEnabled.setCheckedQuiet(config.enabled)
+    fun bind(configListItem: ConfigListItem) {
+        widgetId = configListItem.id
+        tvTitle.text = "${configListItem.id} ${configListItem.title}"
+        tgEnabled.setCheckedQuiet(configListItem.enabled)
     }
 
 }

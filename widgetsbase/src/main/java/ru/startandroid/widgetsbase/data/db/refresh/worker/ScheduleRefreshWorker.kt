@@ -1,4 +1,4 @@
-package ru.startandroid.widgetsbase.data.db.refresh
+package ru.startandroid.widgetsbase.data.db.refresh.worker
 
 import android.content.Context
 import android.util.Log
@@ -20,9 +20,9 @@ class ScheduleRefreshWorker(context: Context,
         if (id == 0) return Result.failure()
         Log.d("qweee", "ScheduleRefreshWorker $id")
         val config = widgetConfigRepository.getByIdSync(id)
-        config?.let {
-            if (it.updateInterval > 0 && it.enabled) {
-                widgetWorkManager.startPeriodicRefresh(id, it.updateInterval)
+        config.let {
+            if (it.mainConfig.updateInterval.durationInMillis > 0 && it.mainConfig.enabled) {
+                widgetWorkManager.startPeriodicRefresh(id, it.mainConfig.updateInterval.durationInMillis)
             } else {
                 widgetWorkManager.stopPeriodicRefresh(id)
             }
