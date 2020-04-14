@@ -10,9 +10,7 @@ import javax.inject.Inject
 
 class TestWidget2Content @Inject constructor() : BaseWidgetContent<TestWidget2Data>() {
 
-
     override fun getLayoutId(): Int = R.layout.widget_test2
-
 
     override fun onDataSet(widgetData: TestWidget2Data) {
         text1.text = widgetData.text1

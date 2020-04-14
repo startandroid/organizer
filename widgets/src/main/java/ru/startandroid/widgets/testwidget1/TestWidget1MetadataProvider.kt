@@ -30,7 +30,7 @@ class TestWidget1MetadataProvider @Inject constructor() : WidgetMetadataProvider
             content {
                 widgetDataCls = TestWidget1Data::class
                 initWidgetData = TestWidget1Data("Test")
-                widgetContent = TestWidget1Content()
+                widgetContent = { TestWidget1Content() }
             }
 
             header {

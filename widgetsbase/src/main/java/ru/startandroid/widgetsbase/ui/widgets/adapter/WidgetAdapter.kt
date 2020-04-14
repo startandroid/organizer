@@ -26,6 +26,10 @@ class WidgetAdapter @Inject constructor(
 
     override fun getItemViewType(position: Int): Int = getItem(position).id
 
+    override fun getItemId(position: Int): Long =
+            getItem(position).id.toLong()
+
+
     companion object {
         val diffCallback = object : DiffUtil.ItemCallback<WidgetDataEntity>() {
             override fun areItemsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean =

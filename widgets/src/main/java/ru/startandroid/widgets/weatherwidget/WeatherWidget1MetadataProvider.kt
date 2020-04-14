@@ -30,7 +30,7 @@ class WeatherWidget1MetadataProvider @Inject constructor() : WidgetMetadataProvi
 
             content {
                 widgetDataCls = WeatherWidgetData::class
-                widgetContent = WeatherWidgetContent()
+                widgetContent = { WeatherWidgetContent() }
                 initWidgetData = WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
             }
 

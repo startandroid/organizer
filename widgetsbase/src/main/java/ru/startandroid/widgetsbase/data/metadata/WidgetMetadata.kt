@@ -124,7 +124,7 @@ class WidgetMetadataDetails: Element() {
 class WidgetMetadataContent: Element() {
     lateinit var widgetDataCls: KClass<out WidgetData>
     lateinit var initWidgetData: WidgetData
-    lateinit var widgetContent: WidgetContent
+    lateinit var widgetContent: () -> WidgetContent
 }
 
 class WidgetMetadataHeader: Element() {

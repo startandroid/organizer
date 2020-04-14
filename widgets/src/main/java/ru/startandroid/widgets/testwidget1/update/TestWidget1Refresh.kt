@@ -12,7 +12,7 @@ class TestWidget1Refresh @Inject constructor() : WidgetRefresh {
 
     override fun refreshData(config: WidgetConfigEntity): WidgetData? {
         Log.d("qweee", "widget1, refresh $config")
-        TimeUnit.SECONDS.sleep(3)
+        TimeUnit.SECONDS.sleep(1)
         return TestWidget1Data("Time is ${System.currentTimeMillis()}")
     }
 
