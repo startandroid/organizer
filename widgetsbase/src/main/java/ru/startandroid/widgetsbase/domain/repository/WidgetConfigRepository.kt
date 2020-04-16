@@ -11,11 +11,11 @@ interface WidgetConfigRepository {
 
     fun updateOrInsertSync(widgetConfigEntity: WidgetConfigEntity): Long
 
-    fun getByIdSync(id: Int): WidgetConfigEntity?
+    fun getByIdSync(id: Int): WidgetConfigEntity
 
     fun getById(id: Int): Single<WidgetConfigEntity>
 
-    fun update(widgetConfigEntity: WidgetConfigEntity): Single<Int>
+    fun updateSync(widgetConfigEntity: WidgetConfigEntity): Int
 
     fun setEnabled(id: Int, enabled: Boolean): Single<Int>
 

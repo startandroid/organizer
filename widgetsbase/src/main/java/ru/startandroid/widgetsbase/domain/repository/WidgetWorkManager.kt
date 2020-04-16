@@ -6,9 +6,7 @@ interface WidgetWorkManager {
 
     fun refresh(id: Int)
 
-    fun refreshThenSchedule(id: Int)
-
-    fun correctThenRefreshThenSchedule(id: Int)
+    fun refreshAndScheduleRefresh(id: Int)
 
     fun startPeriodicRefresh(id: Int, updateIntervalInMillis: Long)
 

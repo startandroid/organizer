@@ -6,7 +6,7 @@ import dagger.Provides
 import dagger.android.ContributesAndroidInjector
 import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
 import ru.startandroid.widgetsbase.ui.config.WidgetsConfigActivity
-import ru.startandroid.widgetsbase.ui.config.list.WidgetsConfigFragment
+import ru.startandroid.widgetsbase.ui.config.list.ConfigListFragment
 import ru.startandroid.widgetsbase.ui.config.widget.ARG_WIDGET_ID
 
 @Module()
@@ -18,7 +18,7 @@ class WidgetsConfigActivityModule {
 @Module()
 abstract class WidgetsConfigActivityInjectorModule {
     @ContributesAndroidInjector(modules = [])
-    abstract fun contributeWidgetsConfigFragmentInjector(): WidgetsConfigFragment
+    abstract fun contributeWidgetsConfigFragmentInjector(): ConfigListFragment
 
     @ContributesAndroidInjector(modules = [WidgetConfigContainerFragmentModule::class])
     abstract fun contributeWidgetConfigContainerFragmentInjector(): WidgetConfigContainerFragment

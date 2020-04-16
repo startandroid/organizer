@@ -1,5 +1,6 @@
 package ru.startandroid.widgetsbase.domain.usecase
 
+import io.reactivex.Completable
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import javax.inject.Inject
@@ -11,10 +12,8 @@ class EnableWidgetUseCase @Inject constructor(
 )
 {
 
-    fun invoke(widgetId: Int) {
+    fun invoke(widgetId: Int): Completable =
         widgetConfigRepository.setEnabled(widgetId, true)
-                .doOnSuccess { widgetWorkManager.refreshThenSchedule(widgetId) }
-                .subscribe()
-    }
-
+                .doOnSuccess { widgetWorkManager.refreshAndScheduleRefresh(widgetId) }
+                .ignoreElement()
 }
