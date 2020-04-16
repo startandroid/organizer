@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.widget_container.*
+import ru.startandroid.widgetsbase.data.DB_MAPPING
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapterCallback
@@ -46,8 +47,15 @@ class WidgetContainerHolder(override val containerView: View,
         configButton.setOnClickListener { widgetAdapterCallback?.onWidgetSettingsClick(widgetContainerData.id) }
     }
 
+    fun setRefreshStatus(status: Int) {
+        if (!this.widgetContainerData.refreshButtonIsVisible) return
+        refreshButton.visibility = if (status == DB_MAPPING.REFRESH_STATUS.DONE) View.VISIBLE else View.INVISIBLE
+        refreshProgressBar.visibility = if (status == DB_MAPPING.REFRESH_STATUS.REFRESHING) View.VISIBLE else View.INVISIBLE
+    }
+
     fun bind(widgetDataEntity: WidgetDataEntity) {
         widgetContent?.setData(widgetDataEntity)
+        setRefreshStatus(widgetDataEntity.refreshStatus)
     }
 
     private fun updateHeaderUI(widgetContainerData: WidgetContainerData) {

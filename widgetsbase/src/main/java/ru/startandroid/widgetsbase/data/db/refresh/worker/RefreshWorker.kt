@@ -6,7 +6,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRefresh
-import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetRefreshStatusRepository
@@ -34,7 +33,7 @@ class RefreshWorker(context: Context,
         try {
             val data = widgetMetadataRefresh.widgetRefresh?.refreshData(config)
             data?.let {
-                widgetDataRepository.updateOrInsertSync(WidgetDataEntity(id, it))
+                widgetDataRepository.updateOrInsertSync(id, it)
             }
         } finally {
             val closeRefresh = widgetRefreshStatusRepository.closeRefreshSync(id)

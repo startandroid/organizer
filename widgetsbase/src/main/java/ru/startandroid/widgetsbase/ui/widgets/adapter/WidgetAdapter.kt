@@ -15,12 +15,23 @@ class WidgetAdapter @Inject constructor(
         private val widgetAdapterCallback: WidgetAdapterCallback
 ) : ListAdapter<WidgetDataEntity, WidgetContainerHolder>(diffCallback) {
 
+    init {
+        setHasStableIds(true)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WidgetContainerHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.widget_container, parent, false)
         return WidgetContainerHolder(view, viewType, widgetMetadataRepository, widgetAdapterCallback)
     }
 
     override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int) {
+        containerHolder.bind(getItem(position))
+    }
+
+    override fun onBindViewHolder(containerHolder: WidgetContainerHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isNotEmpty()) {
+            containerHolder.setRefreshStatus(payloads[0] as Int)
+        }
         containerHolder.bind(getItem(position))
     }
 
@@ -35,11 +46,11 @@ class WidgetAdapter @Inject constructor(
             override fun areItemsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean =
                     oldItem.id == newItem.id
 
+            override fun areContentsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean =
+                    oldItem.data.equals(newItem.data) && oldItem.refreshStatus == newItem.refreshStatus
 
-            override fun areContentsTheSame(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Boolean {
-                return oldItem.data.equals(newItem.data)
-            }
-
+            override fun getChangePayload(oldItem: WidgetDataEntity, newItem: WidgetDataEntity): Any? =
+                    if (newItem.refreshStatus != oldItem.refreshStatus) newItem.refreshStatus else null
         }
     }
 

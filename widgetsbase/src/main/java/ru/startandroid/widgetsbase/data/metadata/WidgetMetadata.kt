@@ -20,7 +20,7 @@ fun metadata(init: WidgetMetadataDslBuilder.() -> Unit): WidgetMetadata {
 
 // TODOL move init classes from metadata? They are used only once!
 
-class WidgetMetadataDslBuilder: Element() {
+class WidgetMetadataDslBuilder : Element() {
 
     private lateinit var details: WidgetMetadataDetails
     private lateinit var content: WidgetMetadataContent
@@ -116,31 +116,31 @@ data class WidgetMetadata(
         val refresh: WidgetMetadataRefresh
 )
 
-class WidgetMetadataDetails: Element() {
+class WidgetMetadataDetails : Element() {
     var titleResId: Int = 0
     var descriptionResId: Int = 0
 }
 
-class WidgetMetadataContent: Element() {
+class WidgetMetadataContent : Element() {
     lateinit var widgetDataCls: KClass<out WidgetData>
     lateinit var initWidgetData: WidgetData
     lateinit var widgetContent: () -> WidgetContent
 }
 
-class WidgetMetadataHeader: Element() {
+class WidgetMetadataHeader : Element() {
     var refreshButtonIsVisible: Boolean = false
     var configButtonIsVisible: Boolean = false
     var closeButtonIsVisible: Boolean = false
 }
 
-class WidgetMetadataConfig: Element() {
+class WidgetMetadataConfig : Element() {
     lateinit var widgetConfigCls: KClass<out WidgetConfig>
     lateinit var initWidgetConfig: WidgetConfig
     lateinit var initWidgetMainConfig: WidgetMainConfig
     lateinit var widgetConfigFragment: () -> BaseWidgetConfigFragment<*>
 }
 
-class WidgetMetadataRefresh: Element() {
+class WidgetMetadataRefresh : Element() {
     var needsInternet: Boolean = false
     var widgetCorrect: WidgetCorrect? = null
     var widgetRefresh: WidgetRefresh? = null

@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.data.db.refresh
 
-import ru.startandroid.widgetsbase.domain.model.*
+import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
+import ru.startandroid.widgetsbase.domain.model.WidgetData
 
 interface WidgetRefresh {
 

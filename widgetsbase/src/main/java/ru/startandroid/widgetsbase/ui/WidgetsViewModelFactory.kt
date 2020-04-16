@@ -3,8 +3,6 @@ package ru.startandroid.widgetsbase.ui
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.startandroid.device.Navigator
-import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
-import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.EnableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.GetConfigListUseCase

@@ -6,6 +6,8 @@ import ru.startandroid.domain.mapping.CollectionMapperImpl
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityDbToUiMapper
 import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityUiToDbMapper
+import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataExtendedEntityDbToUiMapper
+import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 
@@ -14,6 +16,7 @@ class WidgetDataRepositoryImpl(
         private val widgetDatabase: WidgetDatabase,
         private val widgetDataEntityUiToDbMapper: WidgetDataEntityUiToDbMapper,
         private val widgetDataEntityDbToUiMapper: WidgetDataEntityDbToUiMapper,
+        private val widgetDataExtendedEntityDbToUiMapper: WidgetDataExtendedEntityDbToUiMapper,
         private val dbScheduler: Scheduler
 ) : WidgetDataRepository {
 
@@ -21,7 +24,7 @@ class WidgetDataRepositoryImpl(
         return widgetDatabase.widgetDataDao().getAllEnabled()
                 .subscribeOn(dbScheduler)
                 .map {
-                    CollectionMapperImpl(widgetDataEntityDbToUiMapper).map(it)
+                    CollectionMapperImpl(widgetDataExtendedEntityDbToUiMapper).map(it)
                 }
     }
 
@@ -29,9 +32,9 @@ class WidgetDataRepositoryImpl(
         return widgetDataEntityDbToUiMapper.map(widgetDatabase.widgetDataDao().getByIdSync(id))
     }
 
-    override fun updateOrInsertSync(widgetDataEntity: WidgetDataEntity): Long {
+    override fun updateOrInsertSync(id: Int, widgetData: WidgetData): Long {
         return widgetDatabase.widgetDataDao()
-                .updateOrInsertSync(widgetDataEntityUiToDbMapper.map(widgetDataEntity))
+                .updateOrInsertSync(widgetDataEntityUiToDbMapper.map(WidgetDataEntity(id, widgetData)))
     }
 
 }
