@@ -112,7 +112,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
         }
 
         ArrayAdapter.createFromResource(
-                activity,
+                requireActivity(),
                 R.array.update_interval,
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
