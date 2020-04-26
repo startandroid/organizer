@@ -11,17 +11,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class WeatherWidgetDbDataHelper @Inject constructor() : WidgetDbDataHelper {
+class WeatherWidgetDbDataHelper @Inject constructor(private val api: WeatherAPI) : WidgetDbDataHelper {
 
     override fun correctDataAccordingToConfig(data: WidgetDataEntity?, config: WidgetConfigEntity?): WidgetData {
         return WeatherWidgetData("11:23", "25", "21", "19", "17", "day1", "day2", "day3")
     }
 
     override fun refreshData(config: WidgetConfigEntity?): WidgetData? {
-        val api: WeatherAPI = WeatherAPI.create()
-        val  apiPl = PlacesAPI.create()
-        val resp = apiPl.getPlaceDetails("22", "ru")
-
 
         val response = api.getCityWeather("Moscow", "3").execute()
 
