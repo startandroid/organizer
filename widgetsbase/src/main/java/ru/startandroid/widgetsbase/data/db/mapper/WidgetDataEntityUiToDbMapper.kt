@@ -11,7 +11,7 @@ import javax.inject.Inject
 @ScopeApplication
 class WidgetDataEntityUiToDbMapper @Inject constructor(
         private val gson: Gson
-): Mapper<WidgetDataEntity, WidgetDataEntityDb> {
+) : Mapper<WidgetDataEntity, WidgetDataEntityDb> {
 
     override fun map(input: WidgetDataEntity): WidgetDataEntityDb {
         val data = dataToJson(input.data)

@@ -1,7 +1,7 @@
 package ru.startandroid.widgetsbase.domain.repository
 
-import androidx.lifecycle.LiveData
 import io.reactivex.Flowable
+import ru.startandroid.widgetsbase.domain.model.WidgetData
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 
 interface WidgetDataRepository {
@@ -10,5 +10,6 @@ interface WidgetDataRepository {
 
     fun getWidgetByIdSync(id: Int): WidgetDataEntity
 
-    fun updateOrInsertSync(widgetDataEntity: WidgetDataEntity): Long
+    fun updateOrInsertSync(id: Int, widgetData: WidgetData): Long
+
 }

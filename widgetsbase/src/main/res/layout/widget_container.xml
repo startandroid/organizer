@@ -59,6 +59,16 @@
             app:layout_constraintTop_toTopOf="@+id/closeButton"
             app:srcCompat="@drawable/ic_round_refresh_24px" />
 
+        <ProgressBar
+            android:id="@+id/refreshProgressBar"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/configButton"
+            app:layout_constraintTop_toTopOf="@+id/closeButton"/>
+
         <FrameLayout
             android:id="@+id/content"
             android:layout_width="0dp"

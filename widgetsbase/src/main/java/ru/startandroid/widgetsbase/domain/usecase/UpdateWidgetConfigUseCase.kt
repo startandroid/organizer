@@ -6,13 +6,11 @@ import io.reactivex.schedulers.Schedulers
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
-import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetWorkManager
 import javax.inject.Inject
 
-// TOTO rename to update widget config?
 class UpdateWidgetConfigUseCase @Inject constructor(
         private val widgetDataRepository: WidgetDataRepository,
         private val widgetConfigRepository: WidgetConfigRepository,
@@ -26,27 +24,21 @@ class UpdateWidgetConfigUseCase @Inject constructor(
         return Flowable.fromCallable {
             widgetDatabase.runInTransaction {
                 val currentData = widgetDataRepository.getWidgetByIdSync(widgetConfigEntity.id)
-                
+
                 widgetMetadataRepository
                         .getWidgetMetadata(widgetConfigEntity.id)
                         .refresh
                         .widgetCorrect?.let {
                             val correctedData = it.correctDataAccordingToConfig(currentData.data, widgetConfigEntity.config)
-                            widgetDataRepository.updateOrInsertSync(WidgetDataEntity(widgetConfigEntity.id, correctedData))
+                            widgetDataRepository.updateOrInsertSync(widgetConfigEntity.id, correctedData)
                         }
                 widgetConfigRepository.updateSync(widgetConfigEntity)
             }
         }
                 .subscribeOn(Schedulers.io())
                 .doOnNext {
-            widgetWorkManager.refreshAndScheduleRefresh(widgetConfigEntity.id)
-        }.ignoreElements()
-
-
-        //widgetConfigRepository.update(widgetConfigEntity)
-                //.observeOn(AndroidSchedulers.mainThread())
-                //.doOnSuccess { widgetWorkManager.correctThenRefreshThenSchedule(widgetConfigEntity.id) }
-                //.subscribe()
+                    widgetWorkManager.refreshAndScheduleRefresh(widgetConfigEntity.id)
+                }.ignoreElements()
     }
 
 }

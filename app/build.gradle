@@ -74,7 +74,7 @@ dependencies {
     implementation activity.activity
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
-    implementation androidx_view.cardview
+
 
     implementation kotlinn.stdlibjdk8
 

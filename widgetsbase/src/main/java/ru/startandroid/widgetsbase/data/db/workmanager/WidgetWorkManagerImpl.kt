@@ -19,7 +19,7 @@ import javax.inject.Inject
 class WidgetWorkManagerImpl @Inject constructor(
         private val workManagerProvider: dagger.Lazy<WorkManager>,
         private val widgetMetadataRepository: WidgetMetadataRepository
-): WidgetWorkManager {
+) : WidgetWorkManager {
 
     private val workManager: WorkManager by lazy { workManagerProvider.get() }
 

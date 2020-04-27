@@ -37,7 +37,7 @@ class InitWorker(
         widgetDatabase.runInTransaction {
             widgetRefreshStatusRepository.initSync(id)
             widgetConfigRepository.updateOrInsertSync(WidgetConfigEntity(id, config, mainConfig))
-            widgetDataRepository.updateOrInsertSync(WidgetDataEntity(id, data))
+            widgetDataRepository.updateOrInsertSync(id, data)
         }
         return Result.success()
     }

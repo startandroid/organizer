@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
-import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.domain.usecase.GetEnabledWidgetsUseCase
 
 class WidgetsViewModel(

@@ -74,4 +74,6 @@ dependencies {
 
     implementation lifecycle.reactivestreams
 
+    implementation androidx_view.cardview
+
 }
