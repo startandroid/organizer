@@ -24,7 +24,6 @@ class WidgetWorkManagerImpl @Inject constructor(
     private val workManager: WorkManager by lazy { workManagerProvider.get() }
 
     override fun init(ids: IntArray) {
-        Log.d("qweee", "WidgetWorkManagerImpl init $ids")
         for (id in ids) {
             workManager
                     .beginWith(createInitWorker(id))
@@ -34,30 +33,25 @@ class WidgetWorkManagerImpl @Inject constructor(
     }
 
     override fun refresh(id: Int) {
-        Log.d("qweee", "refresh $id")
         workManager.enqueue(createRefreshWorker(id))
     }
 
     override fun refreshAndScheduleRefresh(id: Int) {
-        Log.d("qweee", "refreshThenSchedule $id")
         workManager
                 .beginWith(listOf(createRefreshWorker(id), createScheduleRefreshWorker(id)))
                 .enqueue()
     }
 
     override fun startPeriodicRefresh(id: Int, updateIntervalInMillis: Long) {
-        Log.d("qweee", "WidgetWorkManagerImpl $id start $updateIntervalInMillis")
         workManager.enqueueUniquePeriodicWork("periodic_refresh_$id", ExistingPeriodicWorkPolicy.REPLACE, createPeriodicRefreshWorker(id, updateIntervalInMillis))
     }
 
     override fun stopPeriodicRefresh(id: Int) {
-        Log.d("qweee", "WidgetWorkManagerImpl $id stop")
         workManager.cancelUniqueWork("periodic_refresh_$id")
     }
 
 
     private fun createInitWorker(id: Int): OneTimeWorkRequest {
-        Log.d("qweee", "createInitWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
         return OneTimeWorkRequestBuilder<InitWorker>()
                 .setInputData(data)
@@ -65,7 +59,6 @@ class WidgetWorkManagerImpl @Inject constructor(
     }
 
     private fun createRefreshWorker(id: Int): OneTimeWorkRequest {
-        Log.d("qweee", "createRefreshWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
         return OneTimeWorkRequestBuilder<RefreshWorker>()
                 .setInputData(data)
@@ -73,7 +66,6 @@ class WidgetWorkManagerImpl @Inject constructor(
     }
 
     private fun createScheduleRefreshWorker(id: Int): OneTimeWorkRequest {
-        Log.d("qweee", "createScheduleRefreshWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
         return OneTimeWorkRequestBuilder<ScheduleRefreshWorker>()
                 .setInputData(data)
@@ -81,7 +73,6 @@ class WidgetWorkManagerImpl @Inject constructor(
     }
 
     private fun createPeriodicRefreshWorker(id: Int, updateIntervalInMillis: Long): PeriodicWorkRequest {
-        Log.d("qweee", "createPeriodicRefreshWorker $id")
         val data = Data.Builder().putInt(WIDGET_ID, id).build()
 
 

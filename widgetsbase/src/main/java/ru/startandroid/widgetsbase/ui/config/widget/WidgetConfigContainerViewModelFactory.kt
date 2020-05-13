@@ -19,7 +19,6 @@ class WidgetConfigContainerViewModelFactory @Inject constructor(
 ) : ViewModelProvider.NewInstanceFactory() {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        Log.d("qweee", "factory ${widgetId}")
         return when (modelClass) {
             WidgetConfigContainerViewModel::class.java -> WidgetConfigContainerViewModel(widgetId, getWidgetConfigUseCase, updateIntervals, updateWidgetConfigUseCase, widgetMetadataRepository) as T
             else -> super.create(modelClass)

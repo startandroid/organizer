@@ -27,7 +27,6 @@ class InitWorker(
 
     override fun doWork(): Result {
         val id = workerParams.inputData.getInt(PARAM_KEY.WIDGET_ID, 0)
-        Log.d("qweee", "InitWorker $id")
         if (id == 0) return Result.failure()
 
         val config = widgetMetadataConfig.initWidgetConfig
@@ -42,14 +41,5 @@ class InitWorker(
         return Result.success()
     }
 }
-
-
-// do all init work in one worker for all ids
-
-// CorrectWorker - should be deleted
-// Correcter - should be created instead
-
-// widgetDbDataHelper is used:
-// in UpdateConfigUseCase
 
 

@@ -22,13 +22,11 @@ class WidgetDbInitializer @Inject constructor(
     lateinit var widgetDatabase: WidgetDatabase
 
     fun createDatabase(context: Context): WidgetDatabase {
-        Log.d("qweee", "WidgetDbInitializer createDatabase")
         widgetDatabase = Room.databaseBuilder(context, WidgetDatabase::class.java, "widget_database.db")
                 .setQueryExecutor(dbExecutor)
                 .addCallback(object : RoomDatabase.Callback() {
                     override fun onCreate(db: SupportSQLiteDatabase) {
                         super.onCreate(db)
-                        Log.d("qweee", "WidgetDbInitializer createInitRecords")
                         widgetWorkManager.init(widgetMetadataRepository.getWidgetIds())
                     }
                 })

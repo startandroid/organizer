@@ -15,7 +15,6 @@ import javax.inject.Inject
 class TestWidget1Correct @Inject constructor() : WidgetCorrect {
 
     override fun correctDataAccordingToConfig(data: WidgetData, config: WidgetConfig): WidgetData {
-        Log.d("qweee", "widget1, correct $data $config")
         return TestWidget1Data("test")
     }
 

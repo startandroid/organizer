@@ -25,11 +25,13 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
     private var argConfig: WidgetConfig? = null
 
     /**
-     * Fill and return actual config data based on old config data and view components on the screen
+     * Fill and return actual config data based on
+     * old config data (you can get it from getOriginalConfig())
+     * and view components on the screen
      *
      * Called when need to save actual config to database
      */
-    abstract fun fillNewConfig(oldConfig: T): WidgetConfig
+    abstract fun fillNewConfig(): WidgetConfig
 
     /**
      *  Check if data on the screen is valid and can be used as config.
@@ -60,7 +62,7 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
         return argConfig as T
     }
 
-    fun getNewConfig(): WidgetConfig = fillNewConfig(getOriginalConfig())
+    fun getNewConfig(): WidgetConfig = fillNewConfig()
 
     fun withConfig(config: WidgetConfig): BaseWidgetConfigFragment<T> {
         if (arguments == null) {

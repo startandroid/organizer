@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_title">Exchange rates</string>
+    <string name="widget_description">Widget displays exchange rates for selected currencies</string>
+    <string name="widget_no_data">No data. Add some in configuration screen.</string>
+</resources>

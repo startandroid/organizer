@@ -2,12 +2,12 @@ package ru.startandroid.widgets.testwidget1
 
 import ru.startandroid.organizer.home.widget.TestWidget1Content
 import ru.startandroid.widgets.R
-import ru.startandroid.widgets.WIDGETS_IDS.TEST_WIDGET_1
 import ru.startandroid.widgets.testwidget1.config.TestWidget1Config
 import ru.startandroid.widgets.testwidget1.config.TestWidget1ConfigFragment
 import ru.startandroid.widgets.testwidget1.content.TestWidget1Data
 import ru.startandroid.widgets.testwidget1.update.TestWidget1Correct
 import ru.startandroid.widgets.testwidget1.update.TestWidget1Refresh
+import ru.startandroid.widgetsbase.WIDGETS_IDS.TEST_WIDGET_1
 import ru.startandroid.widgetsbase.data.db.model.UpdateInterval
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider

@@ -1,14 +1,15 @@
 package ru.startandroid.widgetsbase.data.db.refresh
 
-import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
+import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 
 interface WidgetRefresh {
 
+    // TODOL try to use Generics here
     /**
-     * You get config and should return new refreshed data according to new config.
+     * You get current data and config and should return new refreshed data according to new config.
      * Called in the background thread.
      */
-    fun refreshData(config: WidgetConfigEntity): WidgetData?
+    fun refreshData(currentWidgetData: WidgetData, widgetConfig: WidgetConfig): WidgetData?
 
 }

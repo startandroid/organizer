@@ -2,13 +2,13 @@ package ru.startandroid.widgets.weatherwidget
 
 import ru.startandroid.organizer.home.widget.WeatherWidgetContent
 import ru.startandroid.widgets.R
-import ru.startandroid.widgets.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgets.weatherwidget.config.City
 import ru.startandroid.widgets.weatherwidget.config.WeatherWidgetConfig
 import ru.startandroid.widgets.weatherwidget.config.WeatherWidgetConfigFragment
 import ru.startandroid.widgets.weatherwidget.content.WeatherWidgetData
 import ru.startandroid.widgets.weatherwidget.update.WeatherWidgetCorrect
 import ru.startandroid.widgets.weatherwidget.update.WeatherWidgetRefresh
+import ru.startandroid.widgetsbase.WIDGETS_IDS.WEATHER_WIDGET
 import ru.startandroid.widgetsbase.data.db.model.UpdateInterval
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
