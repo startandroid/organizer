@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/organizer.iml" filepath="$PROJECT_DIR$/organizer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/organizer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/organizer.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/organizer.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/organizer.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/device/organizer.device.iml" filepath="$PROJECT_DIR$/.idea/modules/device/organizer.device.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/organizer.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/organizer.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/widgets/organizer.widgets.iml" filepath="$PROJECT_DIR$/.idea/modules/widgets/organizer.widgets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/widgetsbase/organizer.widgetsbase.iml" filepath="$PROJECT_DIR$/.idea/modules/widgetsbase/organizer.widgetsbase.iml" />
+    </modules>
+  </component>
+</project>

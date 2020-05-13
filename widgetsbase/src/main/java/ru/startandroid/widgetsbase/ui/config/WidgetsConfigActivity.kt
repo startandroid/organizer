@@ -7,10 +7,17 @@ import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.device.analytics.WidgetConfigEvent
 import ru.startandroid.device.analytics.WidgetsConfigEvent
 import ru.startandroid.widgetsbase.R
-import ru.startandroid.widgetsbase.ui.config.list.WidgetsConfigFragment
+import ru.startandroid.widgetsbase.ui.config.list.ConfigListFragment
 import ru.startandroid.widgetsbase.ui.config.widget.WidgetConfigContainerFragment
 import javax.inject.Inject
 
+/**
+ * Displays:
+ *
+ * 1) list of widgets names
+ *
+ * 2) configuration screen for clicked widget
+ */
 class WidgetsConfigActivity : DaggerAppCompatActivity() {
 
     @Inject
@@ -44,7 +51,7 @@ class WidgetsConfigActivity : DaggerAppCompatActivity() {
     private fun showWidgetsConfig() {
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, WidgetsConfigFragment())
+                .replace(R.id.container, ConfigListFragment())
                 .commit()
         analytics.logEvent(WidgetsConfigEvent())
     }

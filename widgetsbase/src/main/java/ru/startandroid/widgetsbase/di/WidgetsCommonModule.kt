@@ -11,14 +11,15 @@ import io.reactivex.schedulers.Schedulers
 import ru.startandroid.device.analytics.Analytics
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.db.WidgetDatabase
-import ru.startandroid.widgetsbase.data.db.WidgetDbInitializer
-import ru.startandroid.widgetsbase.data.db.mapper.WidgetConfigEntityMapper
-import ru.startandroid.widgetsbase.data.db.mapper.WidgetDataEntityMapper
-import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkManagerImpl
+import ru.startandroid.widgetsbase.data.db.init.WidgetDbInitializer
+import ru.startandroid.widgetsbase.data.db.mapper.*
 import ru.startandroid.widgetsbase.data.db.repository.WidgetConfigRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetDataRepositoryImpl
 import ru.startandroid.widgetsbase.data.db.repository.WidgetRefreshStatusRepositoryImpl
-import ru.startandroid.widgetsbase.data.metadata.*
+import ru.startandroid.widgetsbase.data.db.workmanager.WidgetWorkManagerImpl
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepositoryImpl
+import ru.startandroid.widgetsbase.data.metadata.WidgetRegistratorMetadataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetDataRepository
 import ru.startandroid.widgetsbase.domain.repository.WidgetRefreshStatusRepository
@@ -37,15 +38,30 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetDataRepository(widgetDatabase: WidgetDatabase, widgetDataEntityMapper: WidgetDataEntityMapper): WidgetDataRepository = WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityMapper)
+    fun provideWidgetDataRepository(
+            widgetDatabase: WidgetDatabase,
+            widgetDataEntityUiToDbMapper: WidgetDataEntityUiToDbMapper,
+            widgetDataEntityDbToUiMapper: WidgetDataEntityDbToUiMapper,
+            widgetDataExtendedEntityDbToUiMapper: WidgetDataExtendedEntityDbToUiMapper,
+            dbScheduler: Scheduler
+    ): WidgetDataRepository =
+            WidgetDataRepositoryImpl(widgetDatabase, widgetDataEntityUiToDbMapper, widgetDataEntityDbToUiMapper, widgetDataExtendedEntityDbToUiMapper, dbScheduler)
 
     @ScopeApplication
     @Provides
-    fun provideWidgetConfigRepository(widgetDatabase: WidgetDatabase, widgetConfigEntityMapper: WidgetConfigEntityMapper, dbScheduler: Scheduler, analytics: Analytics): WidgetConfigRepository = WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityMapper, dbScheduler, analytics)
+    fun provideWidgetConfigRepository(
+            widgetDatabase: WidgetDatabase,
+            widgetConfigEntityUiToDbMapper: WidgetConfigEntityUiToDbMapper,
+            widgetConfigEntityDbToUiMapper: WidgetConfigEntityDbToUiMapper,
+            dbScheduler: Scheduler,
+            analytics: Analytics
+    ): WidgetConfigRepository =
+            WidgetConfigRepositoryImpl(widgetDatabase, widgetConfigEntityUiToDbMapper, widgetConfigEntityDbToUiMapper, dbScheduler, analytics)
 
     @ScopeApplication
     @Provides
-    fun provideWidgetRefreshStatusRepository(widgetDatabase: WidgetDatabase): WidgetRefreshStatusRepository = WidgetRefreshStatusRepositoryImpl(widgetDatabase)
+    fun provideWidgetRefreshStatusRepository(widgetDatabase: WidgetDatabase): WidgetRefreshStatusRepository =
+            WidgetRefreshStatusRepositoryImpl(widgetDatabase)
 
     @ScopeApplication
     @Provides
@@ -60,8 +76,7 @@ class WidgetsCommonModule {
 
     @ScopeApplication
     @Provides
-    fun provideWidgetWorkManager(workManagerProvider: dagger.Lazy<WorkManager>, widgetRefreshParametersMetadataRepository: WidgetRefreshParametersMetadataRepository): WidgetWorkManager
-            = WidgetWorkManagerImpl(workManagerProvider, widgetRefreshParametersMetadataRepository)
+    fun provideWidgetWorkManager(workManagerProvider: dagger.Lazy<WorkManager>, widgetMetadataRepository: WidgetMetadataRepository): WidgetWorkManager = WidgetWorkManagerImpl(workManagerProvider, widgetMetadataRepository)
 
 }
 
@@ -72,25 +87,7 @@ abstract class WidgetMetadataProviderModule {
     abstract fun provideWidgetMetadataRepository(widgetMetadataRepository: WidgetMetadataRepositoryImpl): WidgetMetadataRepository
 
     @Binds
-    abstract fun provideWidgetMappingMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetMappingMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetContentMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetContentMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRefresherMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbDataHelperRepository
-
-    @Binds
-    abstract fun provideWidgetDbInitMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetDbInitMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetConfigScreenMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetConfigScreenMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRegistratorData(widgetMetadataRepository: WidgetMetadataRepository): WidgetRegistratorMetadataRepository
-
-    @Binds
-    abstract fun provideWidgetRefreshParametersMetadataRepository(widgetMetadataRepository: WidgetMetadataRepository): WidgetRefreshParametersMetadataRepository
+    abstract fun provideWidgetRegistratorMetadataRepository(widgetMetadataRepository: WidgetMetadataRepositoryImpl): WidgetRegistratorMetadataRepository
 
 }
 

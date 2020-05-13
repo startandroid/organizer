@@ -25,6 +25,6 @@ class WidgetAdapterCallback @Inject constructor(
     }
 
     fun onWidgetCloseClick(id: Int) {
-        disableWidgetUseCase.invoke(id)
+        disableWidgetUseCase.invoke(id).subscribe()
     }
 }
