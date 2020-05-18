@@ -1,6 +1,5 @@
 package ru.startandroid.organizer.exchange.presentation.widget.update
 
-import android.util.Log
 import ru.startandroid.organizer.exchange.presentation.widget.config.ExchangeWidgetConfig
 import ru.startandroid.organizer.exchange.presentation.widget.content.ExchangeRateWdgt
 import ru.startandroid.organizer.exchange.presentation.widget.content.ExchangeWidgetData
@@ -9,7 +8,7 @@ import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import javax.inject.Inject
 
-class ExchangeWidgetCorrect @Inject constructor(): WidgetCorrect {
+class ExchangeWidgetCorrect @Inject constructor() : WidgetCorrect {
 
     override fun correctDataAccordingToConfig(currentWidgetData: WidgetData, widgetConfig: WidgetConfig): WidgetData {
         val config = (widgetConfig as ExchangeWidgetConfig)

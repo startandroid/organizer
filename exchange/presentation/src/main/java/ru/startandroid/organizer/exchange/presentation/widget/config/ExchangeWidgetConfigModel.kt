@@ -1,14 +1,12 @@
 package ru.startandroid.organizer.exchange.presentation.widget.config
 
-import android.util.Log
-import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.SingleLiveEvent
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 
-class ExchangeWidgetConfigModel: ViewModel()  {
+class ExchangeWidgetConfigModel : ViewModel() {
 
     private lateinit var initData: ExchangeWidgetConfig
     var showReverse = false

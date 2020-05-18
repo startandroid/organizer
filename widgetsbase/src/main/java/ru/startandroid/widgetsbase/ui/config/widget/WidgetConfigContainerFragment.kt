@@ -78,11 +78,11 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     private fun createWidgetConfigFragment(widgetConfigEntity: WidgetConfigEntity?) {
         widgetConfigEntity?.let {
-            val widgetConfigFragment = (widgetMetadataRepository
-                                            .getWidgetMetadata(widgetId)
-                                            .config
-                                            .widgetConfigFragment
-                                            .invoke() as BaseWidgetConfigFragment<*>)
+            val widgetConfigFragment = widgetMetadataRepository
+                    .getWidgetMetadata(widgetId)
+                    .config
+                    .widgetConfigFragment
+                    .invoke()
                     .withConfig(it.config)
             childFragmentManager
                     .beginTransaction()

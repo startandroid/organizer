@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.data.db.workmanager
 
-import android.util.Log
 import androidx.work.*
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID

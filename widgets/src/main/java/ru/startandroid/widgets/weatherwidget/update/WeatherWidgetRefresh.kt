@@ -5,9 +5,7 @@ import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.widgets.weatherwidget.content.WeatherWidgetData
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetRefresh
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
-import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetData
-import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -22,7 +20,7 @@ class WeatherWidgetRefresh @Inject constructor() : WidgetRefresh {
 
         return weatherData?.forecast?.forecastday?.let {
             WeatherWidgetData(time = "${(SimpleDateFormat("HH:mm").format(Calendar.getInstance().time))}",
-                    tempMain = weatherData?.current?.tempC?.toInt().toString()
+                    tempMain = weatherData.current?.tempC?.toInt().toString()
                     , temp1 = it[0].day?.avgtempC?.toInt().toString()
                     , temp2 = it[1].day?.avgtempC?.toInt().toString()
                     , temp3 = it[2].day?.avgtempC?.toInt().toString()

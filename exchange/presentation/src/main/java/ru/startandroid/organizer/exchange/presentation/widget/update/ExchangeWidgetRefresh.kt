@@ -1,6 +1,5 @@
 package ru.startandroid.organizer.exchange.presentation.widget.update
 
-import android.util.Log
 import ru.startandroid.organizer.exchange.domain.usecase.GetExchangeRateUseCaseSync
 import ru.startandroid.organizer.exchange.presentation.widget.config.ExchangeWidgetConfig
 import ru.startandroid.organizer.exchange.presentation.widget.content.ExchangeRateWdgt
@@ -8,15 +7,13 @@ import ru.startandroid.organizer.exchange.presentation.widget.content.ExchangeWi
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetRefresh
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetData
-import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class ExchangeWidgetRefresh @Inject constructor(
         private val getExchangeRateUseCaseSync: GetExchangeRateUseCaseSync
-): WidgetRefresh {
+) : WidgetRefresh {
 
     val sdf = SimpleDateFormat("yyyy-MM-dd")
 
@@ -40,7 +37,7 @@ class ExchangeWidgetRefresh @Inject constructor(
         }
 
         if (exception != null) {
-            return currentData.copy(errorMessage = "Last update failed. ${exception?.localizedMessage ?: ""}")
+            return currentData.copy(errorMessage = "Last update failed. ${exception.localizedMessage ?: ""}")
         } else {
             return ExchangeWidgetData(date, rates, "")
         }
@@ -55,7 +52,8 @@ class ExchangeWidgetRefresh @Inject constructor(
         try {
             rate = getExchangeRateUseCaseSync.invoke(date, currencyFrom, currencyTo) ?: ""
             if (showReverse) {
-                reverseRate = getExchangeRateUseCaseSync.invoke(date, currencyTo, currencyFrom) ?: ""
+                reverseRate = getExchangeRateUseCaseSync.invoke(date, currencyTo, currencyFrom)
+                        ?: ""
             }
         } catch (e: Exception) {
             exception = e

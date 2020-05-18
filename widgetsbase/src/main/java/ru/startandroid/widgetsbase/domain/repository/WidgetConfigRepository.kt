@@ -2,7 +2,6 @@ package ru.startandroid.widgetsbase.domain.repository
 
 import io.reactivex.Flowable
 import io.reactivex.Single
-import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 
 interface WidgetConfigRepository {

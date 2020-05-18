@@ -17,7 +17,7 @@ import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 
 // TODOL add UNDO snackbar for deletion
-class ExchangeWidgetConfigFragment: BaseWidgetConfigFragment<ExchangeWidgetConfig>() {
+class ExchangeWidgetConfigFragment : BaseWidgetConfigFragment<ExchangeWidgetConfig>() {
 
     private val model by viewModel(ExchangeWidgetConfigModel::class.java)
 

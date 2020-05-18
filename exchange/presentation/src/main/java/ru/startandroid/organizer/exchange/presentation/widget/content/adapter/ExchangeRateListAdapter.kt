@@ -8,7 +8,7 @@ import ru.startandroid.organizer.exchange.presentation.R
 import ru.startandroid.organizer.exchange.presentation.widget.content.ExchangeRateWdgt
 import javax.inject.Inject
 
-class ExchangeRateListAdapter @Inject constructor(): ListAdapter<ExchangeRateWdgt, ExchangeRateListHolder>(diffCallback) {
+class ExchangeRateListAdapter @Inject constructor() : ListAdapter<ExchangeRateWdgt, ExchangeRateListHolder>(diffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExchangeRateListHolder {
         return ExchangeRateListHolder(
@@ -22,7 +22,7 @@ class ExchangeRateListAdapter @Inject constructor(): ListAdapter<ExchangeRateWdg
     }
 
     companion object {
-        val diffCallback = object: DiffUtil.ItemCallback<ExchangeRateWdgt>() {
+        val diffCallback = object : DiffUtil.ItemCallback<ExchangeRateWdgt>() {
             override fun areItemsTheSame(oldItem: ExchangeRateWdgt, newItem: ExchangeRateWdgt): Boolean {
                 return oldItem.currencyFrom == newItem.currencyFrom && oldItem.currencyTo == newItem.currencyTo
             }
