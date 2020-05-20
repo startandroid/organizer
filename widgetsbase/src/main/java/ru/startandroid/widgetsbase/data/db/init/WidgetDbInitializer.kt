@@ -1,7 +1,6 @@
 package ru.startandroid.widgetsbase.data.db.init
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase

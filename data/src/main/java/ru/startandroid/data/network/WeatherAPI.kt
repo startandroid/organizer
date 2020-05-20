@@ -1,6 +1,5 @@
 package ru.startandroid.data.network
 
-import io.reactivex.Observable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -15,7 +14,6 @@ import ru.startandroid.data.BuildConfig
 import ru.startandroid.domain.models.WeatherData
 
 
-
 interface WeatherAPI {
 
     @GET("forecast.json")
@@ -27,15 +25,13 @@ interface WeatherAPI {
 
             val headerAuthorizationInterceptor = Interceptor { chain ->
                 var request: Request = chain.request()
-                val url = request.url.newBuilder().
-                        addQueryParameter("key", "405f4e5b916047bd9f4193926181511").build()
+                val url = request.url.newBuilder().addQueryParameter("key", "405f4e5b916047bd9f4193926181511").build()
                 request = request.newBuilder().url(url).build()
                 chain.proceed(request)
             }
 
             val loggingInterceptor = HttpLoggingInterceptor()
-            loggingInterceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.
-                    Level.BODY else HttpLoggingInterceptor.Level.NONE
+            loggingInterceptor.level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
 
             clientBuilder
                     .addInterceptor(headerAuthorizationInterceptor)

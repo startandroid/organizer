@@ -1,9 +1,7 @@
 package ru.startandroid.organizer.exchange.presentation.widget.content
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.ListAdapter
 import kotlinx.android.synthetic.main.widget_exchange_contents.*
 import ru.startandroid.organizer.exchange.presentation.R
 import ru.startandroid.organizer.exchange.presentation.widget.content.adapter.ExchangeRateListAdapter

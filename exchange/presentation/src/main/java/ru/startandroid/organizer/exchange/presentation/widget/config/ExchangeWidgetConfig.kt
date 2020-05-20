@@ -7,4 +7,4 @@ import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 data class ExchangeWidgetConfig(
         val rates: List<Pair<String, String>> = emptyList(),
         val showReverse: Boolean = false
-): WidgetConfig
+) : WidgetConfig

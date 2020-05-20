@@ -43,8 +43,8 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
         this.widgetContainerDataCallback = callback
     }
 
-    fun updateContainerData(func: (oldData: WidgetContainerData) ->  WidgetContainerData) =
-        widgetContainerDataCallback?.updateWidgetContainerData(func)
+    fun updateContainerData(func: (oldData: WidgetContainerData) -> WidgetContainerData) =
+            widgetContainerDataCallback?.updateWidgetContainerData(func)
 
     open fun onViewInflated(widgetView: View) {
 

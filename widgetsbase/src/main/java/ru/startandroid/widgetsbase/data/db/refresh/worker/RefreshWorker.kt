@@ -1,7 +1,6 @@
 package ru.startandroid.widgetsbase.data.db.refresh.worker
 
 import android.content.Context
-import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import ru.startandroid.widgetsbase.data.PARAM_KEY.WIDGET_ID
@@ -34,7 +33,7 @@ class RefreshWorker(context: Context,
             data?.let {
                 widgetDataRepository.updateOrInsertSync(id, it)
             }
-        } catch(e: Exception) {
+        } catch (e: Exception) {
         } finally {
             val closeRefresh = widgetRefreshStatusRepository.closeRefreshSync(id)
         }

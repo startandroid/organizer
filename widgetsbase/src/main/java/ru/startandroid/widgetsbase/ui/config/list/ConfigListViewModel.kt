@@ -3,11 +3,9 @@ package ru.startandroid.widgetsbase.ui.config.list
 import androidx.lifecycle.LiveDataReactiveStreams
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.Navigator
-import ru.startandroid.widgetsbase.domain.repository.WidgetConfigRepository
 import ru.startandroid.widgetsbase.domain.usecase.DisableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.EnableWidgetUseCase
 import ru.startandroid.widgetsbase.domain.usecase.GetConfigListUseCase
-import ru.startandroid.widgetsbase.ui.config.list.adapter.ConfigListItem
 
 class ConfigListViewModel(
         private val disableWidgetUseCase: DisableWidgetUseCase,

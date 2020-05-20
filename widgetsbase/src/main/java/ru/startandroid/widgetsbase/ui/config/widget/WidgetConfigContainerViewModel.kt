@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.ui.config.widget
 
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData

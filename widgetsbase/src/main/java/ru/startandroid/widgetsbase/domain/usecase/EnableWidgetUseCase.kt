@@ -9,11 +9,10 @@ import javax.inject.Inject
 class EnableWidgetUseCase @Inject constructor(
         private val widgetConfigRepository: WidgetConfigRepository,
         private val widgetWorkManager: WidgetWorkManager
-)
-{
+) {
 
     fun invoke(widgetId: Int): Completable =
-        widgetConfigRepository.setEnabled(widgetId, true)
-                .doOnSuccess { widgetWorkManager.refreshAndScheduleRefresh(widgetId) }
-                .ignoreElement()
+            widgetConfigRepository.setEnabled(widgetId, true)
+                    .doOnSuccess { widgetWorkManager.refreshAndScheduleRefresh(widgetId) }
+                    .ignoreElement()
 }

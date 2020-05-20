@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.domain.mapping.Mapper
 import ru.startandroid.widgetsbase.data.db.model.WidgetConfigEntityDb
-import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import javax.inject.Inject
@@ -12,7 +11,7 @@ import javax.inject.Inject
 @ScopeApplication
 class WidgetConfigEntityUiToDbMapper @Inject constructor(
         private val gson: Gson
-): Mapper<WidgetConfigEntity, WidgetConfigEntityDb> {
+) : Mapper<WidgetConfigEntity, WidgetConfigEntityDb> {
 
     override fun map(input: WidgetConfigEntity): WidgetConfigEntityDb {
         val config = configToJson(input.config)

@@ -20,7 +20,7 @@ class ExchangeWidgetMetadataProvider @Inject constructor(
         private val exchangeWidgetContentProvider: Provider<ExchangeWidgetContent>,
         private val exchangeWidgetCorrect: ExchangeWidgetCorrect,
         private val exchangeWidgetRefresh: ExchangeWidgetRefresh
-): WidgetMetadataProvider  {
+) : WidgetMetadataProvider {
     override fun getWidgetId(): Int = WIDGETS_IDS.EXCHANGE_WIDGET
 
     override fun provideMetadata(): WidgetMetadata {

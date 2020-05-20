@@ -17,4 +17,4 @@ interface WidgetConfig : Parcelable
 data class WidgetMainConfig(
         val enabled: Boolean = true,
         val updateInterval: UpdateInterval = UpdateInterval.MINUTES_15
-): Parcelable
+) : Parcelable
