@@ -19,6 +19,8 @@ class UpdateWidgetConfigUseCase @Inject constructor(
         private val widgetWorkManager: WidgetWorkManager
 ) {
 
+    // TODOL check if data has to be refreshed.
+    // Maybe config changes were minor, to hide or show smth on widget, without data changes
     fun invoke(widgetConfigEntity: WidgetConfigEntity): Completable {
 
         return Flowable.fromCallable {

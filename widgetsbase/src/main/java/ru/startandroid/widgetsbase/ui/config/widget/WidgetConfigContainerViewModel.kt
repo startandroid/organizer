@@ -76,7 +76,6 @@ class WidgetConfigContainerViewModel(
 
     fun onBackPressed(newConfig: WidgetConfig): Boolean {
         if (isClosing) return false
-        Log.d("qweee", "onBackPressed new config $newConfig, old config ${widgetConfigEntity?.config}, equals: ${newConfig == widgetConfigEntity?.config}")
         if (configWasChanged(newConfig)) {
             showSaveDialog()
             return true
@@ -86,7 +85,6 @@ class WidgetConfigContainerViewModel(
 
     fun onSaveButtonPressed(newConfig: WidgetConfig) {
         saveConfigAndCloseScreen(newConfig)
-
     }
 
     fun onSaveDialogPositive(newConfig: WidgetConfig) {
@@ -98,7 +96,6 @@ class WidgetConfigContainerViewModel(
     }
 
     private fun closeScreen() {
-        Log.d("qweee", "close screen")
         isClosing = true
         closeScreen.call()
     }

@@ -132,7 +132,6 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     }
 
-
     override fun dialogHandler(): DialogHandler? = dialogHelper
 
     fun onBackPressed(): Boolean = model.onBackPressed(getNewConfig())

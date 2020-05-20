@@ -17,7 +17,6 @@ class ConfigListHolder(override val containerView: View,
             onClickClb.value = widgetId
         }
         tgEnabled.setOnCheckedChangeListener { buttonView, isChecked ->
-            Log.d("qweee", "$widgetId $isChecked")
             onEnableClb.value = widgetId to isChecked
         }
     }

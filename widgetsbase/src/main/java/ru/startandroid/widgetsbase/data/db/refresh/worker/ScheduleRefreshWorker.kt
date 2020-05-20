@@ -18,7 +18,6 @@ class ScheduleRefreshWorker(context: Context,
     override fun doWork(): Result {
         val id = workerParams.inputData.getInt(WIDGET_ID, 0)
         if (id == 0) return Result.failure()
-        Log.d("qweee", "ScheduleRefreshWorker $id")
         val config = widgetConfigRepository.getByIdSync(id)
         config.let {
             if (it.mainConfig.updateInterval.durationInMillis > 0 && it.mainConfig.enabled) {

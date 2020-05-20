@@ -1,1 +1,2 @@
+include ':exchange:data', ':exchange:domain', ':exchange:presentation'
 include ':app', ':data', ':device', ':domain', ':widgetsbase', ':widgets'

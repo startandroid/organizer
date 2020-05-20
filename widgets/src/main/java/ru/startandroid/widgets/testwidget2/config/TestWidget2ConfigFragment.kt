@@ -17,8 +17,8 @@ class TestWidget2ConfigFragment : BaseWidgetConfigFragment<TestWidget2Config>() 
         flag2.isChecked = getOriginalConfig().flag2
     }
 
-    override fun fillNewConfig(oldConfig: TestWidget2Config): WidgetConfig {
-        return oldConfig.copy(flag1 = flag1.isChecked, flag2 = flag2.isChecked)
+    override fun fillNewConfig(): WidgetConfig {
+        return getOriginalConfig().copy(flag1 = flag1.isChecked, flag2 = flag2.isChecked)
     }
 
     override fun checkIfNewConfigIsValid(): Boolean {

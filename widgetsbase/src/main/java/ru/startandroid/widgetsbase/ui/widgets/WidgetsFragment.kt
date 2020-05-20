@@ -47,7 +47,6 @@ class WidgetsFragment : DaggerFragment() {
         recyclerView.adapter = widgetAdapter
 
         model.widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
-            Log.d("qweee", "widgets, submit list ${it}")
             widgetAdapter.submitList(it)
         })
 

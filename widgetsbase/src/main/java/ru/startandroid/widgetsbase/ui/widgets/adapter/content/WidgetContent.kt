@@ -1,5 +1,6 @@
 package ru.startandroid.widgetsbase.ui.widgets.adapter.content
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,7 +22,8 @@ interface WidgetContent {
 abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContainer {
 
     private var widgetContainerDataCallback: WidgetContainerDataCallback? = null
-    private var tempView: View? = null
+    private var _containerView: View? = null
+    lateinit var context: Context
 
 
     /**
@@ -35,7 +37,7 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
     abstract fun onDataSet(widgetData: WidgetDataType)
 
     override val containerView: View?
-        get() = tempView
+        get() = _containerView
 
     override fun setWidgetContainerCallback(callback: WidgetContainerDataCallback) {
         this.widgetContainerDataCallback = callback
@@ -44,8 +46,8 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
     fun updateContainerData(func: (oldData: WidgetContainerData) ->  WidgetContainerData) =
         widgetContainerDataCallback?.updateWidgetContainerData(func)
 
-    private fun onViewInflated(widgetView: View) {
-        tempView = widgetView
+    open fun onViewInflated(widgetView: View) {
+
     }
 
     override fun setData(widgetDataEntity: WidgetDataEntity) {
@@ -53,7 +55,9 @@ abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContaine
     }
 
     override fun getView(parent: ViewGroup): View {
-        val view = LayoutInflater.from(parent.context).inflate(getLayoutId(), parent, false)
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
+        _containerView = view
         onViewInflated(view)
         return view
     }

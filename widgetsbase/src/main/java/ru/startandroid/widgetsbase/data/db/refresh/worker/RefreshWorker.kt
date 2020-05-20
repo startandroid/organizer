@@ -21,23 +21,22 @@ class RefreshWorker(context: Context,
 
     override fun doWork(): Result {
         val id = workerParams.inputData.getInt(WIDGET_ID, 0)
-        Log.d("qweee", "RefreshWorker $id start")
         if (id == 0) return Result.failure()
 
-        val config = widgetConfigRepository.getByIdSync(id)
-        if (!config.mainConfig.enabled) return Result.success()
+        val configEntity = widgetConfigRepository.getByIdSync(id)
+        if (!configEntity.mainConfig.enabled) return Result.success()
 
         val acquireResult = widgetRefreshStatusRepository.acquireRefreshSync(id)
-        Log.d("qweee", "RefreshWorker $id acquireResult = $acquireResult")
         if (!acquireResult) return Result.success()
         try {
-            val data = widgetMetadataRefresh.widgetRefresh?.refreshData(config)
+            val currentData = widgetDataRepository.getWidgetByIdSync(id).data
+            val data = widgetMetadataRefresh.widgetRefresh?.refreshData(currentData, configEntity.config)
             data?.let {
                 widgetDataRepository.updateOrInsertSync(id, it)
             }
+        } catch(e: Exception) {
         } finally {
             val closeRefresh = widgetRefreshStatusRepository.closeRefreshSync(id)
-            Log.d("qweee", "RefreshWorker $id done, closeRefresh = $closeRefresh")
         }
         return Result.success()
     }
