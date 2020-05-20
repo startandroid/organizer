@@ -10,7 +10,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -20,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="@={model.showReverse}"
-            android:text="Show!reverse"
+            android:text="Show reverse"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="36dp"
-            android:text="Add!"
+            android:text="Add"
             app:layout_constraintStart_toEndOf="@+id/spinnerCurrencyTo"
             app:layout_constraintTop_toTopOf="@+id/spinnerCurrencyTo" />
 
@@ -57,7 +56,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/buttonAdd"
             app:layout_constraintVertical_bias="1.0" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

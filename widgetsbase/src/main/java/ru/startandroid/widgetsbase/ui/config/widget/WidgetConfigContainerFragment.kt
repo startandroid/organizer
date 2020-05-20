@@ -117,7 +117,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        saveButton.setOnClickListener {
+        buttonSave.setOnClickListener {
             if (checkIfNewConfigIsValid()) model.onSaveButtonPressed(getNewConfig())
         }
 
@@ -127,7 +127,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            updateIntervalSpinner.adapter = adapter
+            spinnerUpdateInterval.adapter = adapter
         }
 
     }

@@ -35,7 +35,7 @@ class RefreshWorker(context: Context,
             }
         } catch (e: Exception) {
         } finally {
-            val closeRefresh = widgetRefreshStatusRepository.closeRefreshSync(id)
+            widgetRefreshStatusRepository.closeRefreshSync(id)
         }
         return Result.success()
     }
