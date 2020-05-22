@@ -1,43 +1,42 @@
 package ru.startandroid.organizer.exchange.presentation.widget.config
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import ru.startandroid.device.SingleLiveEvent
+import ru.startandroid.device.setIfNotExists
+import ru.startandroid.device.updateValue
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 
-class ExchangeWidgetConfigModel : ViewModel() {
+class ExchangeWidgetConfigModel(
+        private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
-    private lateinit var initData: ExchangeWidgetConfig
-    var showReverse = false
-    private val ratesLiveData = MutableLiveData<List<Pair<String, String>>>()
+    val initData = savedStateHandle.get<ExchangeWidgetConfig>("config")!!
+    val showReverse = savedStateHandle.getLiveData<Boolean>("showReverse")
+    val rates = savedStateHandle.getLiveData<List<Pair<String, String>>>("rates")
     val showToast = SingleLiveEvent<String>()
 
-    fun init(initialData: ExchangeWidgetConfig) {
-        if (!::initData.isInitialized) {
-            initData = initialData
-            ratesLiveData.value = initData.rates
-            showReverse = initData.showReverse
-        }
+    init {
+        savedStateHandle.setIfNotExists("showReverse", initData.showReverse)
+        savedStateHandle.setIfNotExists("rates", initData.rates)
     }
 
     fun addRate(fromCurrency: String, toCurrency: String) {
-        //showReversed.set(!showReversed.get())
         if (fromCurrency == toCurrency) {
             showToast("The currencies are the same")
             return
         }
-        ratesLiveData.value = ratesLiveData.value
-                ?.toMutableList()
-                ?.apply {
-                    add(fromCurrency to toCurrency)
-                }
+
+        rates.updateValue(emptyList()) { currentValue ->
+            currentValue.toMutableList()
+                    .apply {
+                        add(fromCurrency to toCurrency)
+                    }
+        }
     }
 
-    fun getRates() = ratesLiveData as LiveData<List<Pair<String, String>>>
-
     fun checkIfNewConfigIsValid(): Boolean {
-        if (ratesLiveData.value?.size != ratesLiveData.value?.distinct()?.size) {
+        if (rates.value?.size != rates.value?.distinct()?.size) {
             showToast("There are duplicates")
             return false
         }
@@ -45,15 +44,17 @@ class ExchangeWidgetConfigModel : ViewModel() {
     }
 
     fun fillNewConfig(): WidgetConfig {
-        return initData.copy(rates = ratesLiveData.value ?: emptyList(), showReverse = showReverse)
+        return initData.copy(rates = rates.value ?: emptyList(), showReverse = showReverse.value
+                ?: false)
     }
 
     fun deleteRateAtPosition(position: Int) {
-        ratesLiveData.value = ratesLiveData.value
-                ?.toMutableList()
-                ?.apply {
-                    removeAt(position)
-                }
+        rates.updateValue(emptyList()) { currentValue ->
+            currentValue.toMutableList()
+                    .apply {
+                        removeAt(position)
+                    }
+        }
     }
 
     private fun showToast(message: String) {

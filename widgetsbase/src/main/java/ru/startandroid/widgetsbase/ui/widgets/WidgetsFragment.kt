@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widgets.*
-import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.widgetsbase.R
-import ru.startandroid.widgetsbase.domain.model.WidgetDataEntity
 import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
@@ -31,8 +30,7 @@ class WidgetsFragment : DaggerFragment() {
     @Inject
     lateinit var widgetsViewModelFactory: WidgetsViewModelFactory
 
-    private val model by viewModel(WidgetsViewModel::class.java) { widgetsViewModelFactory }
-
+    private val model: WidgetsViewModel by viewModels(factoryProducer = { widgetsViewModelFactory })
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,7 +43,7 @@ class WidgetsFragment : DaggerFragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = widgetAdapter
 
-        model.widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
+        model.widgets().observe(viewLifecycleOwner, Observer {
             widgetAdapter.submitList(it)
         })
 

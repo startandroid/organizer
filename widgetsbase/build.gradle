@@ -54,6 +54,8 @@ dependencies {
     implementation dagger.daggerAndroid
     implementation dagger.daggerAndroidSupport
     kapt dagger.daggerAndroidProcessor
+    implementation activity.activityktx
+    implementation fragment.fragmentktx
 
     implementation gson.gson
     implementation androidx_view.recyclerview

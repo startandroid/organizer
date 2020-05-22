@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlin.reflect.KProperty
 
 
+@Deprecated("Use standard extension from KTX")
 fun <T : ViewModel> viewModel(cls: Class<T>, factory: (() -> ViewModelProvider.Factory?)? = null) = ViewModelDelegate(cls, factory)
 
 class ViewModelDelegate<T : ViewModel>(val cls: Class<T>, val factory: (() -> ViewModelProvider.Factory?)? = null) {

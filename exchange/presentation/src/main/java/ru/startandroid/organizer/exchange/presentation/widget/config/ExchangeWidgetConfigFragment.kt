@@ -6,10 +6,10 @@ import android.widget.ArrayAdapter
 import android.widget.SpinnerAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.widget_exchange_config_fragment.*
-import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.organizer.exchange.presentation.R
 import ru.startandroid.organizer.exchange.presentation.databinding.WidgetExchangeConfigFragmentBinding
 import ru.startandroid.organizer.exchange.presentation.widget.config.adapter.ExchangeConfigRateListAdapter
@@ -19,7 +19,7 @@ import ru.startandroid.widgetsbase.ui.config.widget.BaseWidgetConfigFragment
 // TODOL add UNDO snackbar for deletion
 class ExchangeWidgetConfigFragment : BaseWidgetConfigFragment<ExchangeWidgetConfig>() {
 
-    private val model by viewModel(ExchangeWidgetConfigModel::class.java)
+    private val model: ExchangeWidgetConfigModel by viewModels()
 
     private val currencyList = listOf("USD", "EUR", "RUB", "BYN")
     private val ratesAdapter = ExchangeConfigRateListAdapter {
@@ -44,9 +44,7 @@ class ExchangeWidgetConfigFragment : BaseWidgetConfigFragment<ExchangeWidgetConf
     }
 
     private fun initModel() {
-        model.init(getOriginalConfig())
-
-        model.getRates().observe(viewLifecycleOwner, Observer {
+        model.rates.observe(viewLifecycleOwner, Observer {
             ratesAdapter.submitList(it)
         })
 
@@ -57,6 +55,7 @@ class ExchangeWidgetConfigFragment : BaseWidgetConfigFragment<ExchangeWidgetConf
 
     private fun initView(view: View) {
         val binding = DataBindingUtil.bind<WidgetExchangeConfigFragmentBinding>(view)
+        binding?.lifecycleOwner = viewLifecycleOwner
         binding?.model = model
 
         spinnerCurrencyTo.adapter = createCurrencySpinnerAdapter()

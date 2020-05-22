@@ -19,6 +19,10 @@ class Navigator @Inject constructor(
         openDeepLink("app://organizer/widgets/config/$id")
     }
 
+    fun openTestActivity() {
+        openDeepLink("app://organizer/test")
+    }
+
     private fun openDeepLink(uri: String) {
         var myAction = Uri.parse(uri)
         var intent = Intent(Intent.ACTION_VIEW, myAction)

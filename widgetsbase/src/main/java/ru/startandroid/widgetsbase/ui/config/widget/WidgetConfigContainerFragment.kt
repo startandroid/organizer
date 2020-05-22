@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.startandroid.dialoghelper.DialogConfig
 import com.startandroid.dialoghelper.DialogHandler
@@ -13,7 +14,7 @@ import com.startandroid.dialoghelper.DialogHelper
 import com.startandroid.dialoghelper.HasDialogHandler
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widget_config_container.*
-import ru.startandroid.device.delegation.viewModel
+import ru.startandroid.device.Navigator
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.databinding.FragmentWidgetConfigContainerBinding
@@ -36,11 +37,11 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     companion object {
         @JvmStatic
         fun newInstance(widgetId: Int) =
-                WidgetConfigContainerFragment().apply {
-                    arguments = Bundle().apply {
-                        putInt(ARG_WIDGET_ID, widgetId)
-                    }
+            WidgetConfigContainerFragment().apply {
+                arguments = Bundle().apply {
+                    putInt(ARG_WIDGET_ID, widgetId)
                 }
+            }
     }
 
     @Inject
@@ -52,7 +53,10 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     @Inject
     lateinit var widgetMetadataRepository: WidgetMetadataRepository
 
-    private val model by viewModel(WidgetConfigContainerViewModel::class.java) { widgetConfigContainerViewModelFactory }
+    @Inject
+    lateinit var navigator: Navigator
+
+    private val model: WidgetConfigContainerViewModel by viewModels(factoryProducer = { widgetConfigContainerViewModelFactory })
 
     private var widgetId: Int = 0
 
@@ -110,7 +114,9 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentWidgetConfigContainerBinding>(inflater, R.layout.fragment_widget_config_container, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.widgetConfig = model
+
         return binding.root
     }
 
@@ -128,6 +134,10 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerUpdateInterval.adapter = adapter
+        }
+
+        buttonTest.setOnClickListener {
+            navigator.openTestActivity()
         }
 
     }
