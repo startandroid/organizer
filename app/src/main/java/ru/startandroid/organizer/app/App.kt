@@ -11,6 +11,7 @@ import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
+import ru.startandroid.organizer.exchange.presentation.di.DaggerWidgetComponent
 import ru.startandroid.widgetsbase.data.db.workmanager.WidgetWorkerFactory
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
 import ru.startandroid.widgetsbase.data.metadata.WidgetRegistratorMetadataRepository
@@ -26,6 +27,7 @@ class App : Application(), HasAndroidInjector {
 
     @Inject
     lateinit var widgetRegistratorMetadataRepository: WidgetRegistratorMetadataRepository
+
     @Inject
     lateinit var widgetMetadataProviders: MutableSet<WidgetMetadataProvider>
 
@@ -46,6 +48,7 @@ class App : Application(), HasAndroidInjector {
     private fun initApplicationComponentAndInject() {
         applicationComponent = DaggerApplicationComponent
                 .builder()
+                .widgetComponent(DaggerWidgetComponent.create())
                 .appModule(AppModule(this))
                 .build()
         applicationComponent.injectApp(this)

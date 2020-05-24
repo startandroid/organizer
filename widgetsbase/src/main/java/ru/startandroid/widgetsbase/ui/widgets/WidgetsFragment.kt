@@ -1,7 +1,6 @@
 package ru.startandroid.widgetsbase.ui.widgets
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,6 @@ class WidgetsFragment : DaggerFragment() {
         recyclerView.adapter = widgetAdapter
 
         model.widgets().observe(viewLifecycleOwner, Observer<List<WidgetDataEntity>> {
-            Log.d("qweee", "widgets, submit list ${it}")
             widgetAdapter.submitList(it)
         })
 

@@ -13,8 +13,8 @@ class GetConfigListUseCase @Inject constructor(
 ) {
 
     fun invoke(): Flowable<List<ConfigListItem>> =
-        widgetConfigRepository.getAll().map {
-            CollectionMapperImpl(widgetConfigEntityUiToConfigListItemMapper).map(it)
-        }
+            widgetConfigRepository.getAll().map {
+                CollectionMapperImpl(widgetConfigEntityUiToConfigListItemMapper).map(it)
+            }
 
 }

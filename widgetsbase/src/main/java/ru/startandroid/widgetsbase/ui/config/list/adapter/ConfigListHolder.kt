@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.ui.config.list.adapter
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
@@ -17,7 +16,6 @@ class ConfigListHolder(override val containerView: View,
             onClickClb.value = widgetId
         }
         tgEnabled.setOnCheckedChangeListener { buttonView, isChecked ->
-            Log.d("qweee", "$widgetId $isChecked")
             onEnableClb.value = widgetId to isChecked
         }
     }

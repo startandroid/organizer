@@ -17,8 +17,8 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
     }
 
-    override fun fillNewConfig(oldConfig: WeatherWidgetConfig): WidgetConfig {
-        return oldConfig
+    override fun fillNewConfig(): WidgetConfig {
+        return getOriginalConfig()
     }
 
     override fun checkIfNewConfigIsValid(): Boolean {

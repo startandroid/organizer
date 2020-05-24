@@ -16,7 +16,7 @@ interface WidgetMetadataProvider {
     fun provideMetadata(): WidgetMetadata
 }
 
-interface WidgetMetadataRepository: WidgetRegistratorMetadataRepository {
+interface WidgetMetadataRepository : WidgetRegistratorMetadataRepository {
     fun getWidgetMetadata(id: Int): WidgetMetadata
     fun getWidgetIds(): IntArray
 }

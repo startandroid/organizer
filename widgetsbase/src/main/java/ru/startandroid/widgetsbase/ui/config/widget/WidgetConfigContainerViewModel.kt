@@ -1,6 +1,5 @@
 package ru.startandroid.widgetsbase.ui.config.widget
 
-import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -76,7 +75,6 @@ class WidgetConfigContainerViewModel(
 
     fun onBackPressed(newConfig: WidgetConfig): Boolean {
         if (isClosing) return false
-        Log.d("qweee", "onBackPressed new config $newConfig, old config ${widgetConfigEntity?.config}, equals: ${newConfig == widgetConfigEntity?.config}")
         if (configWasChanged(newConfig)) {
             showSaveDialog()
             return true
@@ -86,7 +84,6 @@ class WidgetConfigContainerViewModel(
 
     fun onSaveButtonPressed(newConfig: WidgetConfig) {
         saveConfigAndCloseScreen(newConfig)
-
     }
 
     fun onSaveDialogPositive(newConfig: WidgetConfig) {
@@ -98,7 +95,6 @@ class WidgetConfigContainerViewModel(
     }
 
     private fun closeScreen() {
-        Log.d("qweee", "close screen")
         isClosing = true
         closeScreen.call()
     }

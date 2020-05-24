@@ -78,11 +78,11 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
 
     private fun createWidgetConfigFragment(widgetConfigEntity: WidgetConfigEntity?) {
         widgetConfigEntity?.let {
-            val widgetConfigFragment = (widgetMetadataRepository
-                                            .getWidgetMetadata(widgetId)
-                                            .config
-                                            .widgetConfigFragment
-                                            .invoke() as BaseWidgetConfigFragment<*>)
+            val widgetConfigFragment = widgetMetadataRepository
+                    .getWidgetMetadata(widgetId)
+                    .config
+                    .widgetConfigFragment
+                    .invoke()
                     .withConfig(it.config)
             childFragmentManager
                     .beginTransaction()
@@ -117,7 +117,7 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        saveButton.setOnClickListener {
+        buttonSave.setOnClickListener {
             if (checkIfNewConfigIsValid()) model.onSaveButtonPressed(getNewConfig())
         }
 
@@ -127,11 +127,10 @@ class WidgetConfigContainerFragment : DaggerFragment(), HasDialogHandler {
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            updateIntervalSpinner.adapter = adapter
+            spinnerUpdateInterval.adapter = adapter
         }
 
     }
-
 
     override fun dialogHandler(): DialogHandler? = dialogHelper
 

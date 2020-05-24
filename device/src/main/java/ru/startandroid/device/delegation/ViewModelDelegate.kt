@@ -14,7 +14,7 @@ class ViewModelDelegate<T : ViewModel>(val cls: Class<T>, val factory: (() -> Vi
     operator fun getValue(thisRef: Any?, property: KProperty<*>): T {
         if (thisRef !is Fragment) throw Exception("ViewModelDelegate should be used only in fragments")
         return factory?.invoke()?.let {
-                ViewModelProviders.of(thisRef, it).get(cls)
-            } ?: ViewModelProviders.of(thisRef).get(cls)
+            ViewModelProvider(thisRef, it).get(cls)
+            } ?: ViewModelProvider(thisRef).get(cls)
     }
 }
