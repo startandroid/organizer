@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_widgets_config.*
-import ru.startandroid.device.delegation.viewModel
 import ru.startandroid.widgetsbase.R
 import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
 import ru.startandroid.widgetsbase.ui.config.list.adapter.ConfigListAdapter
@@ -25,7 +25,7 @@ class ConfigListFragment : DaggerFragment() {
     @Inject
     lateinit var adapter: ConfigListAdapter
 
-    private val model by viewModel(ConfigListViewModel::class.java) { widgetsViewModelFactory }
+    private val model: ConfigListViewModel by viewModels(factoryProducer = { widgetsViewModelFactory })
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

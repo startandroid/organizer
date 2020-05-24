@@ -1,13 +1,14 @@
 package ru.startandroid.widgetsbase.ui.config.widget
 
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.LiveDataReactiveStreams
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import ru.startandroid.device.SingleLiveEvent
+import ru.startandroid.device.setIfNotExists
 import ru.startandroid.widgetsbase.data.db.model.UpdateIntervals
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataRepository
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
@@ -21,7 +22,8 @@ class WidgetConfigContainerViewModel(
         private val getWidgetConfigUseCase: GetWidgetConfigUseCase,
         private val updateIntervals: UpdateIntervals,
         private val updateWidgetConfigUseCase: UpdateWidgetConfigUseCase,
-        widgetMetadataRepository: WidgetMetadataRepository
+        private val widgetMetadataRepository: WidgetMetadataRepository,
+        private val savedStateHandle: SavedStateHandle
 
 ) : ViewModel() {
 
@@ -29,48 +31,45 @@ class WidgetConfigContainerViewModel(
         const val CODE_DIALOG_SAVE_CONFIG = 1
     }
 
-
-    private var widgetConfigEntity: WidgetConfigEntity? = null
-        set(value) {
-            field = value
-            value?.let {
-                enabled.set(it.mainConfig.enabled)
-                updateInterval.set(updateIntervals.indexOfInterval(it.mainConfig.updateInterval))
-            }
-        }
-
     val title = ObservableField<Int>()
     val description = ObservableField<Int>()
-    val enabled = ObservableBoolean()
-    val updateInterval = ObservableField<Int>()
+    val enabled = savedStateHandle.getLiveData<Boolean>("enabled")
+    val updateInterval = savedStateHandle.getLiveData<Int>("updateInterval")
 
     val showDialog = SingleLiveEvent<Int>()
     val closeScreen = SingleLiveEvent<Unit>()
 
+    private val widgetConfig = MutableLiveData<WidgetConfigEntity?>()
+
+    private val compositeDisposable = CompositeDisposable()
+
     private var isClosing = false
 
     init {
+        readWidgetMetadata()
+        readWidgetConfigFromDb()
+    }
+
+    fun getWidgetConfigEntity(): LiveData<out WidgetConfigEntity?> {
+        return widgetConfig
+    }
+
+    private fun readWidgetMetadata() {
         widgetMetadataRepository.getWidgetMetadata(widgetId).let {
             title.set(it.details.titleResId)
             description.set(it.details.descriptionResId)
         }
     }
 
-    fun getWidgetConfigEntity(): LiveData<out WidgetConfigEntity?> {
-        val widgetConfigEntityFlowable = if (widgetConfigEntity == null) {
-            readWidgetConfigFromDb()
-        } else {
-            Single.just(widgetConfigEntity)
-        }
-        return LiveDataReactiveStreams.fromPublisher(widgetConfigEntityFlowable.toFlowable())
-    }
-
-    private fun readWidgetConfigFromDb(): Single<WidgetConfigEntity> {
-        return getWidgetConfigUseCase.invoke(widgetId)
+    private fun readWidgetConfigFromDb() {
+        compositeDisposable.add(getWidgetConfigUseCase.invoke(widgetId)
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess {
-                    widgetConfigEntity = it
-                }
+                .subscribe({
+                    savedStateHandle.setIfNotExists("enabled", it.mainConfig.enabled)
+                    savedStateHandle.setIfNotExists("updateInterval", updateIntervals.indexOfInterval(it.mainConfig.updateInterval))
+                    widgetConfig.value = it
+                }, { })
+        )
     }
 
     fun onBackPressed(newConfig: WidgetConfig): Boolean {
@@ -100,9 +99,9 @@ class WidgetConfigContainerViewModel(
     }
 
     private fun configWasChanged(newConfig: WidgetConfig): Boolean {
-        return (widgetConfigEntity?.config != newConfig ||
-                widgetConfigEntity?.mainConfig?.enabled != enabled.get() ||
-                widgetConfigEntity?.mainConfig?.updateInterval != updateIntervals.getInterval(updateInterval.get())
+        return (widgetConfig.value?.config != newConfig ||
+                widgetConfig.value?.mainConfig?.enabled != enabled.value ||
+                widgetConfig.value?.mainConfig?.updateInterval != updateIntervals.getInterval(updateInterval.value)
                 )
     }
 
@@ -111,9 +110,16 @@ class WidgetConfigContainerViewModel(
     }
 
     private fun saveConfigAndCloseScreen(newConfig: WidgetConfig) {
-        updateWidgetConfigUseCase.invoke(WidgetConfigEntity(widgetId, newConfig, WidgetMainConfig(enabled.get(), updateIntervals.getInterval(updateInterval.get())))).subscribe()
+        updateWidgetConfigUseCase.invoke(
+                WidgetConfigEntity(widgetId, newConfig,
+                        WidgetMainConfig(enabled.value ?: false, updateIntervals.getInterval(updateInterval.value))
+                )
+        ).subscribe()
         closeScreen()
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        compositeDisposable.clear()
+    }
 }

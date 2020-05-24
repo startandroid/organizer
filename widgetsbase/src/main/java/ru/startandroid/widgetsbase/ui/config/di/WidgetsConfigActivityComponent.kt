@@ -1,6 +1,7 @@
 package ru.startandroid.widgetsbase.ui.config.di
 
 import android.app.Activity
+import androidx.fragment.app.Fragment
 import dagger.Module
 import dagger.Provides
 import dagger.android.ContributesAndroidInjector
@@ -48,7 +49,7 @@ class WidgetConfigContainerFragmentModule {
 
     6) Now we can use widgetId for any objects that injected into WidgetConfigContainerFragment
         Dagger can put widgetId into objects constructor.
-        Exmaple: WidgetConfigContainerViewModelFactory
+        Example: WidgetConfigContainerViewModelFactory
 
     */
 
@@ -56,6 +57,11 @@ class WidgetConfigContainerFragmentModule {
     @Provides
     fun provideWidgetId(fragment: WidgetConfigContainerFragment): Int {
         return fragment.arguments?.getInt(ARG_WIDGET_ID) ?: 0
+    }
+
+    @Provides
+    fun provideFragment(fragment: WidgetConfigContainerFragment): Fragment {
+        return fragment
     }
 
 }

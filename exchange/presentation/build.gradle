@@ -54,6 +54,8 @@ dependencies {
     implementation androidx_view.constraintlayout
     implementation material.material
     implementation androidx_core.corektx
+    implementation activity.activityktx
+    implementation fragment.fragmentktx
 
     implementation dagger.dagger
     kapt dagger.daggerCompiler

@@ -76,7 +76,8 @@ dependencies {
     androidTestImplementation espresso.core
 
     implementation appcompat.appcompat
-    implementation activity.activity
+    implementation activity.activityktx
+    implementation fragment.fragmentktx
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
 
@@ -108,6 +109,8 @@ dependencies {
     implementation firebase.analytics
 
     debugImplementation leakcanary.leakcanary
+
+    implementation lifecycle.reactivestreams
 }
 
 configurations.all {
