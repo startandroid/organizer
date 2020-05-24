@@ -18,13 +18,14 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         super.onViewCreated(view, savedInstanceState)
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
         chooseCityBtn.setOnClickListener {
-            CitySearchFragment().apply {
-                setTargetFragment(this@WeatherWidgetConfigFragment, REQ_CODE_CITY_FRAGMENT)
-                fragmentManager
+            var citySearchFr = CitySearchFragment()
+                //setTargetFragment(this@WeatherWidgetConfigFragment, REQ_CODE_CITY_FRAGMENT)
+                childFragmentManager
                         ?.beginTransaction()
-                        ?.add(ru.startandroid.widgetsbase.R.id.container, this)
+                        ?.replace(ru.startandroid.widgetsbase.R.id.container, citySearchFr)
+                        ?.addToBackStack(null)
                         ?.commit()
-            }
+
         }
     }
 

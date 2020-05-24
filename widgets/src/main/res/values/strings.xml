@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Widgets</string>
     <string name="city_search_hint">Please, type in city name to start searching</string>
+    <string name="choose_city">choose city</string>
 </resources>
