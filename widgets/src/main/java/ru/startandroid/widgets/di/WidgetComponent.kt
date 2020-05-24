@@ -1,6 +1,7 @@
 package ru.startandroid.organizer.exchange.presentation.di
 
 import dagger.Component
+import ru.startandroid.data.network.di.NetworkModule
 import ru.startandroid.widgets.WidgetsModule
 import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
 
@@ -16,7 +17,7 @@ import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
  * widgets -> widget2
  */
 
-@Component(modules = [WidgetsModule::class])
+@Component(modules = [WidgetsModule::class, NetworkModule::class])
 interface WidgetComponent {
     fun provideWidgetMetadataProviders(): MutableSet<WidgetMetadataProvider>
 }

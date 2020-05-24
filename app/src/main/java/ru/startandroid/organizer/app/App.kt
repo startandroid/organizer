@@ -48,7 +48,6 @@ class App : Application(), HasAndroidInjector {
     private fun initApplicationComponentAndInject() {
         applicationComponent = DaggerApplicationComponent
                 .builder()
-                .widgetComponent(DaggerWidgetComponent.create())
                 .appModule(AppModule(this))
                 .build()
         applicationComponent.injectApp(this)
