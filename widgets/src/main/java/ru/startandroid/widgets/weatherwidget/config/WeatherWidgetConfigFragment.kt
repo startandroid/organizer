@@ -20,10 +20,10 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         chooseCityBtn.setOnClickListener {
             var citySearchFr = CitySearchFragment()
                 //setTargetFragment(this@WeatherWidgetConfigFragment, REQ_CODE_CITY_FRAGMENT)
-                childFragmentManager
+                requireActivity().supportFragmentManager
                         ?.beginTransaction()
                         ?.replace(ru.startandroid.widgetsbase.R.id.container, citySearchFr)
-                        ?.addToBackStack(null)
+                        .addToBackStack(null)
                         ?.commit()
 
         }
