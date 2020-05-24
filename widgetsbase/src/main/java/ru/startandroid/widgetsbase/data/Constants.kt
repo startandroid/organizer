@@ -44,4 +44,5 @@ object DB_MAPPING {
 
 object PARAM_KEY {
     const val WIDGET_ID = "widgetid"
+    const val WIDGET_IDS = "widgetids"
 }

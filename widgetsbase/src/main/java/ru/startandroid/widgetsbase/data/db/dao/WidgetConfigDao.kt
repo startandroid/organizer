@@ -17,13 +17,13 @@ interface WidgetConfigDao {
     fun getById(id: Int): Single<WidgetConfigEntityDb>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE ID = :id")
-    fun getByIdSync(id: Int): WidgetConfigEntityDb?
+    fun getByIdSync(id: Int): WidgetConfigEntityDb
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun updateOrInsertSync(widgetConfigEntityDb: WidgetConfigEntityDb): Long
 
     @Update
-    fun update(widgetConfigEntityDb: WidgetConfigEntityDb): Single<Int>
+    fun updateSync(widgetConfigEntityDb: WidgetConfigEntityDb): Int
 
     @Query("""
         UPDATE $TABLE_NAME 

@@ -2,7 +2,6 @@ package ru.startandroid.widgetsbase.domain.repository
 
 import io.reactivex.Flowable
 import io.reactivex.Single
-import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 
 interface WidgetConfigRepository {
@@ -11,11 +10,11 @@ interface WidgetConfigRepository {
 
     fun updateOrInsertSync(widgetConfigEntity: WidgetConfigEntity): Long
 
-    fun getByIdSync(id: Int): WidgetConfigEntity?
+    fun getByIdSync(id: Int): WidgetConfigEntity
 
     fun getById(id: Int): Single<WidgetConfigEntity>
 
-    fun update(widgetConfigEntity: WidgetConfigEntity): Single<Int>
+    fun updateSync(widgetConfigEntity: WidgetConfigEntity): Int
 
     fun setEnabled(id: Int, enabled: Boolean): Single<Int>
 

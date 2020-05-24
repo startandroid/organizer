@@ -26,6 +26,7 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+        freeCompilerArgs = ["-Xallow-result-return-type"]
     }
 
     androidExtensions {
@@ -54,6 +55,10 @@ android {
     dataBinding {
         enabled = true
     }
+
+    packagingOptions {
+        exclude 'META-INF/*.kotlin_module'
+    }
 }
 
 dependencies {
@@ -74,7 +79,7 @@ dependencies {
     implementation activity.activity
     implementation androidx_view.constraintlayout
     implementation androidx_view.recyclerview
-    implementation androidx_view.cardview
+
 
     implementation kotlinn.stdlibjdk8
 
@@ -105,9 +110,13 @@ dependencies {
     debugImplementation leakcanary.leakcanary
 }
 
+configurations.all {
+    resolutionStrategy.force "org.antlr:antlr4-runtime:4.7.1"
+    resolutionStrategy.force "org.antlr:antlr4-tool:4.7.1"
+}
+
 repositories {
     mavenCentral()
 }
 
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'kotlin-android-extensions'

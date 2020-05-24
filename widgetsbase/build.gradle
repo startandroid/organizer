@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion conf.minSdkVersion
         targetSdkVersion conf.targetSdkVersion
-        versionCode conf.versionCode
-        versionName conf.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -51,6 +49,7 @@ dependencies {
     implementation dagger.dagger
     implementation appcompat.appcompat
     implementation androidx_view.constraintlayout
+    implementation androidx_view.cardview
     kapt dagger.daggerCompiler
     implementation dagger.daggerAndroid
     implementation dagger.daggerAndroidSupport
@@ -73,5 +72,7 @@ dependencies {
     api dialoghelper.dialoghelper
 
     implementation lifecycle.reactivestreams
+
+    implementation androidx_view.cardview
 
 }

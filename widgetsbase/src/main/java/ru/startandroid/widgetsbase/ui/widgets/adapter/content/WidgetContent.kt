@@ -1,5 +1,6 @@
 package ru.startandroid.widgetsbase.ui.widgets.adapter.content
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,38 +16,48 @@ interface WidgetContent {
     fun setWidgetContainerCallback(dataCallback: WidgetContainerDataCallback)
 }
 
+/**
+ * Base class to create widget item view in recyclerview.
+ */
 abstract class BaseWidgetContent<WidgetDataType> : WidgetContent, LayoutContainer {
+
     private var widgetContainerDataCallback: WidgetContainerDataCallback? = null
-    private var tempView: View? = null
+    private var _containerView: View? = null
+    lateinit var context: Context
+
+
+    /**
+     * This layout id will be used to create a View
+     */
+    abstract fun getLayoutId(): Int
+
+    /**
+     * Update content of the view according to new widget data
+     */
+    abstract fun onDataSet(widgetData: WidgetDataType)
+
     override val containerView: View?
-        get() = tempView
+        get() = _containerView
 
     override fun setWidgetContainerCallback(callback: WidgetContainerDataCallback) {
         this.widgetContainerDataCallback = callback
     }
 
-    fun setContainerData(id: Int = 0,
-                         title: String = "",
-                         refreshButtonIsVisible: Boolean = false,
-                         configButtonIsVisible: Boolean = false,
-                         closeButtonIsVisible: Boolean = false) {
-        widgetContainerDataCallback?.setWidgetContainerData(WidgetContainerData(id, title, refreshButtonIsVisible, configButtonIsVisible, closeButtonIsVisible))
+    fun updateContainerData(func: (oldData: WidgetContainerData) -> WidgetContainerData) =
+            widgetContainerDataCallback?.updateWidgetContainerData(func)
+
+    open fun onViewInflated(widgetView: View) {
+
     }
-
-    abstract fun getLayoutId(): Int
-
-    private fun onViewInflated(widgetView: View) {
-        tempView = widgetView
-    }
-
-    abstract fun onDataSet(widgetData: WidgetDataType)
 
     override fun setData(widgetDataEntity: WidgetDataEntity) {
         onDataSet(widgetDataEntity.data as WidgetDataType)
     }
 
     override fun getView(parent: ViewGroup): View {
-        val view = LayoutInflater.from(parent.context).inflate(getLayoutId(), parent, false)
+        context = parent.context
+        val view = LayoutInflater.from(context).inflate(getLayoutId(), parent, false)
+        _containerView = view
         onViewInflated(view)
         return view
     }

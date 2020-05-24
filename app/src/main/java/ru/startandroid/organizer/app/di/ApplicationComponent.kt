@@ -8,26 +8,30 @@ import ru.startandroid.device.di.DeviceModule
 import ru.startandroid.domain.ScopeActivity
 import ru.startandroid.domain.ScopeApplication
 import ru.startandroid.organizer.app.App
+import ru.startandroid.organizer.exchange.presentation.di.WidgetComponent
 import ru.startandroid.organizer.fortest.TestActivity
 import ru.startandroid.organizer.fortest.TestActivityInjectorModule
 import ru.startandroid.organizer.fortest.TestActivityModule
 import ru.startandroid.organizer.home.HomeActivity
 import ru.startandroid.organizer.home.di.HomeActivityInjectorModule
 import ru.startandroid.organizer.home.di.HomeActivityModule
-import ru.startandroid.widgets.WidgetsModule
 import ru.startandroid.widgetsbase.di.WidgetsCommonModule
 import ru.startandroid.widgetsbase.ui.config.WidgetsConfigActivity
 import ru.startandroid.widgetsbase.ui.config.di.WidgetsConfigActivityInjectorModule
 import ru.startandroid.widgetsbase.ui.config.di.WidgetsConfigActivityModule
 
-@Component(modules = [
-    AndroidSupportInjectionModule::class,
-    AppModule::class,
-    SubcomponentModule::class,
-    WidgetsCommonModule::class,
-    WidgetsModule::class,
-    DeviceModule::class
-])
+@Component(
+        modules = [
+            AndroidSupportInjectionModule::class,
+            AppModule::class,
+            SubcomponentModule::class,
+            WidgetsCommonModule::class,
+            DeviceModule::class
+        ],
+        dependencies = [
+            WidgetComponent::class
+        ]
+)
 @ScopeApplication
 interface ApplicationComponent {
     fun injectApp(app: App)

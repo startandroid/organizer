@@ -10,9 +10,42 @@ import ru.startandroid.widgetsbase.domain.model.WidgetConfig
 
 private const val ARG_CONFIG = "config"
 
+/**
+ * Base fragment for any widget config screen.
+ *
+ * Return your layout id in getLayoutId method.
+ * Use fillNewConfig to update config data from screen
+ * Use checkIfNewConfigIsValid to check if data on the screen is valid
+ *
+ * Use usual lifecycle methods (except onCreateView) to manage view components
+ *
+ */
 abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
 
     private var argConfig: WidgetConfig? = null
+
+    /**
+     * Fill and return actual config data based on
+     * old config data (you can get it from getOriginalConfig())
+     * and view components on the screen
+     *
+     * Called when need to save actual config to database
+     */
+    abstract fun fillNewConfig(): WidgetConfig
+
+    /**
+     *  Check if data on the screen is valid and can be used as config.
+     *
+     *  The method is called before config data is about to be saved.
+     *
+     *  return true if everything is ok, false if data should be fixed
+     */
+    abstract fun checkIfNewConfigIsValid(): Boolean
+
+    /**
+     * This layout id will be used in onCreateView to create the screen
+     */
+    abstract fun getLayoutId(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +62,7 @@ abstract class BaseWidgetConfigFragment<T : WidgetConfig> : Fragment() {
         return argConfig as T
     }
 
-    abstract fun getNewConfig(): WidgetConfig
-    abstract fun checkIfNewConfigIsValid(): Boolean
-    abstract fun getLayoutId(): Int
+    fun getNewConfig(): WidgetConfig = fillNewConfig()
 
     fun withConfig(config: WidgetConfig): BaseWidgetConfigFragment<T> {
         if (arguments == null) {

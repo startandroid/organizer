@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="organizer/app" />
+      <module fileurl="file://$PROJECT_DIR$/device/device.iml" filepath="$PROJECT_DIR$/device/device.iml" group="organizer/device" />
+      <module fileurl="file://$PROJECT_DIR$/exchange/exchange.iml" filepath="$PROJECT_DIR$/exchange/exchange.iml" group="organizer/exchange" />
+      <module fileurl="file://$PROJECT_DIR$/exchange/data/exchange-data.iml" filepath="$PROJECT_DIR$/exchange/data/exchange-data.iml" group="organizer/exchange/data" />
+      <module fileurl="file://$PROJECT_DIR$/exchange/domain/exchange-domain.iml" filepath="$PROJECT_DIR$/exchange/domain/exchange-domain.iml" group="organizer/exchange/domain" />
+      <module fileurl="file://$PROJECT_DIR$/organizer.iml" filepath="$PROJECT_DIR$/organizer.iml" group="organizer" />
+      <module fileurl="file://$PROJECT_DIR$/data/organizer-data.iml" filepath="$PROJECT_DIR$/data/organizer-data.iml" group="organizer/data" />
+      <module fileurl="file://$PROJECT_DIR$/domain/organizer-domain.iml" filepath="$PROJECT_DIR$/domain/organizer-domain.iml" group="organizer/domain" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/organizer.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/organizer.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/data/organizer.data.iml" filepath="$PROJECT_DIR$/.idea/modules/data/organizer.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/device/organizer.device.iml" filepath="$PROJECT_DIR$/.idea/modules/device/organizer.device.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/domain/organizer.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/domain/organizer.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exchange/organizer.exchange.iml" filepath="$PROJECT_DIR$/.idea/modules/exchange/organizer.exchange.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exchange/data/organizer.exchange.data.iml" filepath="$PROJECT_DIR$/.idea/modules/exchange/data/organizer.exchange.data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exchange/domain/organizer.exchange.domain.iml" filepath="$PROJECT_DIR$/.idea/modules/exchange/domain/organizer.exchange.domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/exchange/presentation/organizer.exchange.presentation.iml" filepath="$PROJECT_DIR$/.idea/modules/exchange/presentation/organizer.exchange.presentation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/widgets/organizer.widgets.iml" filepath="$PROJECT_DIR$/.idea/modules/widgets/organizer.widgets.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/widgetsbase/organizer.widgetsbase.iml" filepath="$PROJECT_DIR$/.idea/modules/widgetsbase/organizer.widgetsbase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exchange/presentation/presentation.iml" filepath="$PROJECT_DIR$/exchange/presentation/presentation.iml" group="organizer/exchange/presentation" />
+      <module fileurl="file://$PROJECT_DIR$/widgets/widgets.iml" filepath="$PROJECT_DIR$/widgets/widgets.iml" group="organizer/widgets" />
+      <module fileurl="file://$PROJECT_DIR$/widgetsbase/widgetsbase.iml" filepath="$PROJECT_DIR$/widgetsbase/widgetsbase.iml" group="organizer/widgetsbase" />
+    </modules>
+  </component>
+</project>

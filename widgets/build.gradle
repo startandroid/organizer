@@ -10,8 +10,6 @@ android {
     defaultConfig {
         minSdkVersion conf.minSdkVersion
         targetSdkVersion conf.targetSdkVersion
-        versionCode conf.versionCode
-        versionName conf.versionName
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,5 +69,6 @@ dependencies {
     implementation project(':widgetsbase')
     implementation project(':data')
     implementation project(':domain')
+    api project(':exchange:presentation')
 
 }

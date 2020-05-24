@@ -15,6 +15,10 @@ import ru.startandroid.widgetsbase.ui.WidgetsViewModelFactory
 import ru.startandroid.widgetsbase.ui.widgets.adapter.WidgetAdapter
 import javax.inject.Inject
 
+/**
+ * Displays list of widgets content in recyclerview
+ *
+ */
 class WidgetsFragment : DaggerFragment() {
 
     companion object {

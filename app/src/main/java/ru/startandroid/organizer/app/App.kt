@@ -11,8 +11,9 @@ import io.fabric.sdk.android.Fabric
 import ru.startandroid.organizer.app.di.AppModule
 import ru.startandroid.organizer.app.di.ApplicationComponent
 import ru.startandroid.organizer.app.di.DaggerApplicationComponent
-import ru.startandroid.widgetsbase.data.db.refresh.WidgetWorkerFactory
-import ru.startandroid.widgetsbase.data.metadata.WidgetMetadata
+import ru.startandroid.organizer.exchange.presentation.di.DaggerWidgetComponent
+import ru.startandroid.widgetsbase.data.db.workmanager.WidgetWorkerFactory
+import ru.startandroid.widgetsbase.data.metadata.WidgetMetadataProvider
 import ru.startandroid.widgetsbase.data.metadata.WidgetRegistratorMetadataRepository
 import javax.inject.Inject
 
@@ -26,8 +27,9 @@ class App : Application(), HasAndroidInjector {
 
     @Inject
     lateinit var widgetRegistratorMetadataRepository: WidgetRegistratorMetadataRepository
+
     @Inject
-    lateinit var widgetData: MutableSet<WidgetMetadata>
+    lateinit var widgetMetadataProviders: MutableSet<WidgetMetadataProvider>
 
     @Inject
     lateinit var workerFactory: WidgetWorkerFactory
@@ -39,13 +41,14 @@ class App : Application(), HasAndroidInjector {
 
         initApplicationComponentAndInject()
         initFabric()
-        initWidgets()
+        initWidgetsMetadataFactories()
         initWorkManager()
     }
 
     private fun initApplicationComponentAndInject() {
         applicationComponent = DaggerApplicationComponent
                 .builder()
+                .widgetComponent(DaggerWidgetComponent.create())
                 .appModule(AppModule(this))
                 .build()
         applicationComponent.injectApp(this)
@@ -59,8 +62,8 @@ class App : Application(), HasAndroidInjector {
         Fabric.with(fabric)
     }
 
-    private fun initWidgets() {
-        widgetRegistratorMetadataRepository.registerData(widgetData)
+    private fun initWidgetsMetadataFactories() {
+        widgetRegistratorMetadataRepository.registerMetadata(widgetMetadataProviders)
     }
 
     private fun initWorkManager() {
