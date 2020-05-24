@@ -16,6 +16,7 @@ import ru.startandroid.organizer.fortest.TestActivityModule
 import ru.startandroid.organizer.home.HomeActivity
 import ru.startandroid.organizer.home.di.HomeActivityInjectorModule
 import ru.startandroid.organizer.home.di.HomeActivityModule
+import ru.startandroid.widgets.WidgetsModule
 import ru.startandroid.widgetsbase.di.WidgetsCommonModule
 import ru.startandroid.widgetsbase.ui.config.WidgetsConfigActivity
 import ru.startandroid.widgetsbase.ui.config.di.WidgetsConfigActivityInjectorModule
