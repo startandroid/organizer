@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.weatherwidget
 
+import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.organizer.home.widget.WeatherWidgetContent
 import ru.startandroid.widgets.R
 import ru.startandroid.widgets.weatherwidget.config.City
@@ -16,7 +17,7 @@ import ru.startandroid.widgetsbase.data.metadata.metadata
 import ru.startandroid.widgetsbase.domain.model.WidgetMainConfig
 import javax.inject.Inject
 
-class WeatherWidget1MetadataProvider @Inject constructor() : WidgetMetadataProvider {
+class WeatherWidget1MetadataProvider @Inject constructor(private val weatherAPI: WeatherAPI) : WidgetMetadataProvider {
 
     override fun getWidgetId(): Int = WEATHER_WIDGET
 
@@ -50,7 +51,7 @@ class WeatherWidget1MetadataProvider @Inject constructor() : WidgetMetadataProvi
             update {
                 needsInternet = false
                 widgetCorrect = WeatherWidgetCorrect()
-                widgetRefresh = WeatherWidgetRefresh()
+                widgetRefresh = WeatherWidgetRefresh(weatherAPI)
             }
         }
     }

@@ -5,15 +5,16 @@ import ru.startandroid.data.network.WeatherAPI
 import ru.startandroid.widgets.weatherwidget.content.WeatherWidgetData
 import ru.startandroid.widgetsbase.data.db.refresh.WidgetRefresh
 import ru.startandroid.widgetsbase.domain.model.WidgetConfig
+import ru.startandroid.widgetsbase.domain.model.WidgetConfigEntity
 import ru.startandroid.widgetsbase.domain.model.WidgetData
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class WeatherWidgetRefresh @Inject constructor() : WidgetRefresh {
+class WeatherWidgetRefresh @Inject constructor(private val api: WeatherAPI) : WidgetRefresh {
+
 
     override fun refreshData(currentWidgetData: WidgetData, widgetConfig: WidgetConfig): WidgetData? {
-        val api: WeatherAPI = WeatherAPI.create()
 
         val response = api.getCityWeather("Moscow", "3").execute()
         val weatherData = response.body()

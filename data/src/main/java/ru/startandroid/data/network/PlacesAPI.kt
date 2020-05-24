@@ -11,20 +11,30 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.startandroid.data.BuildConfig
-import ru.startandroid.domain.models.weathermodels.WeatherData
+import ru.startandroid.domain.models.placesmodels.citiesdetailsmodels.CityDetails
+import ru.startandroid.domain.models.placesmodels.citiesrequestmodels.CitiesRequestResult
 
-interface WeatherAPI {
 
-    @GET("forecast.json")
-    fun getCityWeather(@Query("q") q: String, @Query("days") days: String): Call<WeatherData>
+interface PlacesAPI {
+
+    @GET("autocomplete/json")
+    fun getPlaces(@Query("input") input: String, @Query("types") types: String = CITIES_TYPE): Call<CitiesRequestResult>
+
+    @GET("details/json")
+    fun getPlaceDetails(@Query("placeid") placeid: String, @Query("language") language: String): Call<CityDetails>
 
     companion object Factory {
-        fun create(): WeatherAPI {
+
+        val CITIES_TYPE = "(cities)"
+
+        fun create(): PlacesAPI {
             val clientBuilder = OkHttpClient.Builder()
 
             val headerAuthorizationInterceptor = Interceptor { chain ->
                 var request: Request = chain.request()
-                val url = request.url.newBuilder().addQueryParameter("key", "405f4e5b916047bd9f4193926181511").build()
+                val url = request.url.newBuilder()
+                        .addQueryParameter("key", "AIzaSyDJrJtQwO2w3OCSzXSLiNP_XUgJtujnov4")
+                        .build()
                 request = request.newBuilder().url(url).build()
                 chain.proceed(request)
             }
@@ -36,18 +46,14 @@ interface WeatherAPI {
                     .addInterceptor(headerAuthorizationInterceptor)
                     .addInterceptor(loggingInterceptor)
 
-            val retrofit = Retrofit.Builder().baseUrl("https://api.apixu.com/v1/")
+            val retrofit = Retrofit.Builder().baseUrl("https://maps.googleapis.com/maps/api/place/")
                     .client(clientBuilder.build())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 
-            return retrofit.create(WeatherAPI::class.java)
+            return retrofit.create(PlacesAPI::class.java)
         }
     }
+
 }
-
-
-
-
-

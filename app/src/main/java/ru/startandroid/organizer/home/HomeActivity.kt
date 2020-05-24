@@ -13,7 +13,6 @@ class HomeActivity : DaggerAppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.fragment_cont, WidgetsFragment.newInstance()).commit()
         }
-
     }
 }
     
