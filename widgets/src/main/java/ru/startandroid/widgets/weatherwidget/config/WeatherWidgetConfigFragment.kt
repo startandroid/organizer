@@ -1,5 +1,6 @@
 package ru.startandroid.widgets.weatherwidget.config
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -19,13 +20,13 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         cities.text = "cities count = ${getOriginalConfig().cities.size}"
         chooseCityBtn.setOnClickListener {
             var citySearchFr = CitySearchFragment()
-                //setTargetFragment(this@WeatherWidgetConfigFragment, REQ_CODE_CITY_FRAGMENT)
-                requireActivity().supportFragmentManager
+            citySearchFr.setTargetFragment(this@WeatherWidgetConfigFragment, REQ_CODE_CITY_FRAGMENT)
+
+               parentFragmentManager
                         ?.beginTransaction()
                         ?.replace(ru.startandroid.widgetsbase.R.id.container, citySearchFr)
                         .addToBackStack(null)
                         ?.commit()
-
         }
     }
 
@@ -37,7 +38,22 @@ class WeatherWidgetConfigFragment : BaseWidgetConfigFragment<WeatherWidgetConfig
         return true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode === Activity.RESULT_OK) {
+            if (requestCode === REQ_CODE_CITY_FRAGMENT) {
+                 data?.getStringExtra(REQ_CODE_CITY_FRAGMENT_RESULT)
+            }
+        }
+    }
+
+companion object  {
+    const val REQ_CODE_CITY_FRAGMENT = 101
+    const val REQ_CODE_CITY_FRAGMENT_RESULT = "Result"
+
 
 }
+}
 
-const val REQ_CODE_CITY_FRAGMENT = 101
+
+
